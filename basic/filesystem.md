@@ -8,8 +8,8 @@
   - [4.1. list](#41-list)
   - [4.2. how to make partition](#42-how-to-make-partition)
   - [4.3. 分区](#43-分区)
-- [Make boot USB](#make-boot-usb)
-- [5. Check and repair](#5-check-and-repair)
+- [5. Make boot USB](#5-make-boot-usb)
+- [6. Check and repair](#6-check-and-repair)
 
 ---
 # 1. Drives
@@ -210,7 +210,7 @@ UEFI,MBR,GPT,EFI:
 | `/swap`|no|交换空间(swap)|1倍到2倍的物理内存RAM大小|虚拟内存
 
 
-# Make boot USB
+# 5. Make boot USB
 
 ```bash
 # 看看U盘挂载在哪里，如下 设备 /dev/sdb1 挂载在 /media/sword/ESD-USB
@@ -226,19 +226,12 @@ $ mkfs.ntfs /dev/sdb1
 ```
 
 ```bash
-# burn 
-$ dd if=ubuntu-16.0.3-desktop-amd64.iso of=/dev/sdb
+# burn-in
+$ dd if=ubuntu-16.0.3-desktop-amd64.iso of=/dev/sdb1
 ```
 
-```bash
-$
-```
 
-```bash
-$
-```
-
-# 5. Check and repair
+# 6. Check and repair
 
 ```bash
 $ fsck -p /dev/sdb1
