@@ -1,12 +1,15 @@
 - [1. Drives](#1-drives)
 - [2. Character and Block devices](#2-character-and-block-devices)
-- [3. Mount & Unmount](#3-mount--unmount)
-- [4. Mounted Disks](#4-mounted-disks)
-- [5. Drive partitions](#5-drive-partitions)
-  - [5.1. list](#51-list)
-  - [5.2. how to make partition](#52-how-to-make-partition)
-  - [5.3. 分区](#53-分区)
-- [6. Check and repair](#6-check-and-repair)
+- [3. Mount](#3-mount)
+  - [3.1. Manually mount](#31-manually-mount)
+  - [3.2. unmount](#32-unmount)
+  - [3.3. list mounted devices](#33-list-mounted-devices)
+- [4. Drive partitions](#4-drive-partitions)
+  - [4.1. list](#41-list)
+  - [4.2. how to make partition](#42-how-to-make-partition)
+  - [4.3. 分区](#43-分区)
+- [Make boot USB](#make-boot-usb)
+- [5. Check and repair](#5-check-and-repair)
 
 ---
 # 1. Drives
@@ -55,7 +58,8 @@ These letters represent the two ways that devices transfer data in and out.
 $ lsblk
 ```
 lists some basic information about each block device listed in `/dev`.
-# 3. Mount & Unmount
+# 3. Mount
+
 
 Most modern operating systems automount storage devices when they’re attached.
 
@@ -67,7 +71,7 @@ Mount point:
 - internal hard drives are mounted at `/mnt`, and external USB devicesare mounted at `/media`. Though technically any directory can be used
 
 
-> Manually mount
+## 3.1. Manually mount
 
 ```bash
 $ mount /dev/sdb1 /mnt
@@ -76,14 +80,14 @@ The mount point for the device should be an empty directory.
 
 The filesystems that are mounted on a system are kept in a file at `/etc/fstab` (short for filesystem table), which is read by the system at every bootup.
 
-> unmount
+## 3.2. unmount
 
 ```bash
 $ umonut /dev/sdb1
 ```
 You cannot unmount a device that is busy, or you will just receive an error.
 
-# 4. Mounted Disks
+## 3.3. list mounted devices
 
 basic information on mounted devices: 
 - how much space is being used
@@ -94,8 +98,8 @@ basic information on mounted devices:
 # -h, --human-readable  print sizes in powers of 1024 (e.g., 1023M)
 $ df -h
 ```
-# 5. Drive partitions
-## 5.1. list
+# 4. Drive partitions
+## 4.1. list
 > fdisk
 
 ```bash
@@ -127,7 +131,7 @@ $ df -h
 ```
 Drive belongs to mounted devices.
 
-## 5.2. how to make partition
+## 4.2. how to make partition
 
 > new Disk
 
@@ -162,7 +166,7 @@ $ vim /etc/fstab
 3. 删除对应分区后按w（保存操作）
 4. 删除`/etc/fstab`文件中的配置文件
 
-## 5.3. 分区
+## 4.3. 分区
 > 相关知识：
 
 UEFI,MBR,GPT,EFI:
@@ -206,7 +210,35 @@ UEFI,MBR,GPT,EFI:
 | `/swap`|no|交换空间(swap)|1倍到2倍的物理内存RAM大小|虚拟内存
 
 
-# 6. Check and repair
+# Make boot USB
+
+```bash
+# 看看U盘挂载在哪里，如下 设备 /dev/sdb1 挂载在 /media/sword/ESD-USB
+$ lsblk
+sdb           8:16   0   3.7T  0 disk 
+└─sdb1        8:17   0    32G  0 part /media/sword/ESD-USB
+$ umount /media/sword/ESD-USB
+```
+
+```bash
+# 格式化为 ntfs 系统
+$ mkfs.ntfs /dev/sdb1
+```
+
+```bash
+# burn 
+$ dd if=ubuntu-16.0.3-desktop-amd64.iso of=/dev/sdb
+```
+
+```bash
+$
+```
+
+```bash
+$
+```
+
+# 5. Check and repair
 
 ```bash
 $ fsck -p /dev/sdb1
