@@ -227,7 +227,8 @@ $ mkfs.ntfs /dev/sdb1
 
 ```bash
 # burn-in
-$ dd if=ubuntu-16.0.3-desktop-amd64.iso of=/dev/sdb1
+# status=progress 显示进度
+$ dd if=ubuntu-16.0.3-desktop-amd64.iso of=/dev/sdb1 status=progress 
 ```
 
 
