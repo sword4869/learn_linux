@@ -69,29 +69,23 @@ $ export HISTSIZE
 $ export HISTSIZE=0
 ```
 
-> 这有什么用？
+> 修改`~/.bashrc`或`/etc/profile`。
+
+- `~/.bashrc`:
+  该文件包含专用于**某个用户**`~`的bash shell信息，当该用户登录时以及每次打开新的shell时,该文件被读取。
+- `/etc/profile`:
+  设定的变量可以作用于**任何用户**，而`~/.bashrc`等中设定的变量继承`/etc/profile`中的变量。
+
 
 ```bash
-echo "export PATH=/root/hashcat-6.2.5/hashcat.bin:$PATH" >> /etc/profile
-source /etc/profile
+echo "export PATH=$PATH:/usr/local/cuda-11.0/bin" >> ~/.bashrc
+echo "export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda-11.0/lib64" >> ~/.bashrc
+source ~/.bashrc
 ```
 
-在`/etc/profile`中添加环境变量后，是使用`source /etc/profile`编译后只能在当前终端生效。即重新开启一个终端后，该环境变量失效。
+> 保存之后，两种生效方式：
 
-因为设置的环境变量，并没有真正生效，只是使用source 命令让临时运行而已。重启系统：`reboot`，问题解决；
-
-修改~/.bashrc或/etc/profile。
-
-~/.bashrc:该文件包含专用于某个用户的bash shell的bash信息，当该用户登录时以及每次打开新的shell时,该文件被读取。
-另外，/etc/profile中设定的变量(全局)的可以作用于任何用户，而~/.bashrc等中设定的变量(局部)只能继承/etc/profile中的变量。
-
-在这里我们使用第一种方法，使用gedit修改.bashrc文件。
-
-sudo gedit ~/.bashrc
-在最后一行加入路径：
-
-export PATH="/usr/local/cuda-11.0/bin:$PATH"
-export LD_LIBRARY_PATH="/usr/local/cuda-11.0/lib64:$LD_LIBRARY_PATH"
-保存之后，为了使这个修改立即生效，还需要输入如下代码（如果不执行 source 命令，则需重启系统才能生效）：
-
-source ~/.bashrc
+1. 如果不执行 source 命令，则需重启系统才能生效。
+2. source 命令使这个修改立即生效。
+  
+PS: source的生效只是临时在当前终端生效。即重新开启一个终端后，该环境变量失效，新的终端还得再使用source命令。而重启后的生效是都生效。
