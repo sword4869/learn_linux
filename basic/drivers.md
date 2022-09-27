@@ -6,6 +6,7 @@
   - [2.1. 探索期](#21-探索期)
   - [2.2. CUDA版本限制](#22-cuda版本限制)
   - [2.3. Installation](#23-installation)
+- [cudnn](#cudnn)
 ---
 # 1. 显卡驱动
 ## 1.1. Test whether you have installed a nvidia driver
@@ -307,3 +308,7 @@ $ cd /usr/local/cuda-11.0/bin/
 $ sudo ./cuda-uninstaller
 $ sudo rm -rf /usr/local/cuda-11.0
 ```
+
+# cudnn
+
+[nvidia](https://developer.nvidia.com/rdp/cudnn-download)
