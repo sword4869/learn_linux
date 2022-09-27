@@ -1,11 +1,14 @@
-- [1. Test whether you have installed a nvidia driver](#1-test-whether-you-have-installed-a-nvidia-driver)
-- [2. Install which verison of driver](#2-install-which-verison-of-driver)
-- [3. 看看cuda](#3-看看cuda)
-- [4. Installation](#4-installation)
-- [5. cuda的nvcc问题](#5-cuda的nvcc问题)
+- [1. 显卡驱动](#1-显卡驱动)
+  - [1.1. Test whether you have installed a nvidia driver](#11-test-whether-you-have-installed-a-nvidia-driver)
+  - [1.2. Install which verison of driver](#12-install-which-verison-of-driver)
+  - [1.3. Installation](#13-installation)
+- [2. cuda](#2-cuda)
+  - [2.1. 探索期](#21-探索期)
+  - [2.2. CUDA版本限制](#22-cuda版本限制)
+  - [2.3. Installation](#23-installation)
 ---
-
-# 1. Test whether you have installed a nvidia driver
+# 1. 显卡驱动
+## 1.1. Test whether you have installed a nvidia driver
 
 If not, the result is as follows.
 
@@ -72,7 +75,7 @@ $ sudo lshw -C video
 configuration这一行中，  `driver=nouveau`说明nvidia驱动还没安装好，如果`driver=nvidia`说明驱动安装好了。
 
 
-# 2. Install which verison of driver
+## 1.2. Install which verison of driver
 Tell you some versions of nvidia driver. `recommended` is that version you shoull install, here is `nvidia-driver-515`.
 `GeForce RTX 2080 Ti Rev. A` is your hard-card type. 
 ```bash
@@ -92,80 +95,13 @@ driver   : nvidia-driver-450-server - distro non-free
 driver   : xserver-xorg-video-nouveau - distro free builtin
 ```
 
-# 3. 看看cuda
-```bash
-$ nvcc -V
-可以看到本机cuda版本9.0
-# nvcc: NVIDIA (R) Cuda compiler driver
-# Copyright (c) 2005-2017 NVIDIA Corporation
-# Built on Fri_Sep__1_21:08:03_CDT_2017
-# Cuda compilation tools, release 9.0, V9.0.176
-```
-
-# 4. Installation
+## 1.3. Installation
 
 ```bash
-# 更新软件列表
-sudo apt update
-
-# 安装C/C++编译器
-sudo apt install g++ gcc make
-
-# 卸载原驱动
-sudo apt purge nvidia*
-# 禁用nouveau，末尾添加如下两行命令保存
-sudo vim /etc/modprobe.d/blacklist.conf
-sudo echo "blacklist nouveau" >> /etc/modprobe.d/blacklist.conf
-sudo echo "blacklist vga16fb" >> /etc/modprobe.d/blacklist.conf
-sudo echo "blacklist rivafb" >> /etc/modprobe.d/blacklist.conf
-sudo echo "blacklist rivatv" >> /etc/modprobe.d/blacklist.conf
-sudo echo "blacklist nvidiafb" >> /etc/modprobe.d/blacklistconf
-sudo echo "options nouveau modeset=0" >> /etc/modprobe.d/blacklist.conf
-
-# 更新
-sudo update-initramfs -u
-# 重启电脑
-reboot   
-```
-
-下面没有成功
-```bash
-# # 检查，输入之后无输出，成功，继续
-# lsmod | grep nouveau   
-
-# # 进入黑漆漆的文本界面tty
-# sudo telinit 3
-
-# # 停止显示服务
-# sudo service gdm3 stop
-
-# # 安装
-# sudo chmod +x NVIDIA-Linux-x86_64-515.76.run
-# sudo ./NVIDIA-Linux-x86_64-515.76.run -no-x-check -no-nouveau-check -no-opengl-files
-
-# # 重启显示服务，完成
-# sudo service gdm3 start   
-```
-
-用run脚本失败后，怎么卸载。
-```bash
-# 卸载
-$ sudo ./NVIDIA-Linux-x86_64-515.76.run --uninstall
-
-# 卸载原驱动
-$ sudo apt purge nvidia*
-```
-
-继续：
-
-```bash
-# 认为ubuntu默认桌面GNOME的显示管理器 gdm3问题
-
-# 先调整一波grub
+# 先调整一波grub，以便更好进入recovery模式
 # quiet splash表示不显示启动信息，安静地启动
 # 若值为空，则表示显示启动信息
 $ sudo vim /etc/default/grub
-
 将
 GRUB_CMDLINE_LINUX_DEFAULT="quiet splash"
 改为
@@ -176,16 +112,95 @@ $ sudo chmod 777 /etc/default/grub
 $ sudo update-grub
 
 
+
+
+# 安装显卡驱动后黑屏，认为ubuntu默认桌面GNOME的显示管理器 gdm3问题
 # 卸载 gdm3
+# 更新软件列表
+$ sudo apt update
+# 安装C/C++编译器，后面编译驱动要用
+$ sudo apt install g++ gcc make
 $ sudo apt remove gdm3
 # 安装lightdm
 # 之前没有安，是因为看有人说lightdm只能管理一个显示器，而gdm3可以多显示器管理。此说法存疑
 $ sudo apt install lightdm
 $ reboot
-```
-ok
 
-# 5. cuda的nvcc问题
+
+
+
+# 卸载原驱动
+$ sudo apt purge nvidia*
+# 禁用nouveau，末尾添加如下两行命令保存
+$ sudo vim /etc/modprobe.d/blacklist.conf
+blacklist nouveau
+blacklist vga16fb
+blacklist rivafb
+blacklist rivatv
+blacklist nvidiafb
+options nouveau modeset=0
+
+# 更新
+$ sudo update-initramfs -u
+# 重启电脑
+$ reboot
+```
+
+手动安装的废案
+```bash
+# 更新软件列表
+$ sudo apt update
+
+# 安装C/C++编译器
+$ sudo apt install g++ gcc make
+
+# 卸载原驱动
+$ sudo apt purge nvidia*
+# 禁用nouveau，末尾添加如下两行命令保存
+$ sudo vim /etc/modprobe.d/blacklist.conf
+blacklist nouveau
+blacklist vga16fb
+blacklist rivafb
+blacklist rivatv
+blacklist nvidiafb
+options nouveau modeset=0
+
+# 更新
+$ sudo update-initramfs -u
+# 重启电脑
+$ reboot
+
+# 检查，输入之后无输出，成功，继续
+$ lsmod | grep nouveau   
+
+# 进入黑漆漆的文本界面tty
+$ sudo telinit 3
+
+# 停止显示服务
+$ sudo service gdm3 stop
+
+# 安装
+$ sudo chmod +x NVIDIA-Linux-x86_64-515.76.run
+$ sudo ./NVIDIA-Linux-x86_64-515.76.run -no-x-check -no-nouveau-check -no-opengl-files
+
+# 重启显示服务，完成
+$ sudo service gdm3 start   
+```
+
+用run脚本失败后，怎么卸载。
+```bash
+# 卸载
+$ sudo ./NVIDIA-Linux-x86_64-515.76.run --uninstall
+
+# 卸载原驱动
+$ sudo apt purge nvidia*
+```
+# 2. cuda
+
+## 2.1. 探索期
+
+此处命令皆可省略，只是为了明白需要我们手动安装一个CUDA版本，自带的不行。
+
 ```bash
 $ nvidia-smi
 Mon Sep 26 20:43:11 2022       
@@ -214,6 +229,7 @@ Mon Sep 26 20:43:11 2022
 |    1   N/A  N/A      1513      G   /usr/lib/xorg/Xorg                  4MiB |
 +-----------------------------------------------------------------------------+
 
+# 看看CUDA版本
 $ nvcc -V
 
 Command 'nvcc' not found, but can be installed with:
@@ -239,3 +255,55 @@ $ nvidia-smi
 还是 11.7
 ```
 怎么一个10.1，一个11.7
+
+## 2.2. CUDA版本限制
+
+> Driver 限制
+
+[CUDA Toolkit对于显卡驱动的版本要求](https://docs.nvidia.com/cuda/cuda-toolkit-release-notes/index.html)
+其中Table-3.
+![图 4](/image/3b4fc76fe84ea2178dc6692f17111fe88acfb8731c633ee09cd2f34446af00c7.png)  
+我们安装Driver是515.65，那么可以安装所有的CUDA版本。
+
+> Pytorch限制
+
+[pytorch](https://pytorch.org/)
+
+![图 5](/image/02740af4fffad6a4bd5394789558db08fb3758ff8bb17c5c2b73ca0a2c347db0.png)  
+
+只能下这几个版本。
+
+## 2.3. Installation
+
+[各版本CUDA下载](https://developer.nvidia.com/cuda-toolkit-archive)
+
+点进去后，会给wget下载命令。
+```bash
+# - c表示采用断点续传模式
+# 没用用 -c 时，下到99%，出现wget 段错误 (核心已转储)
+$ wget -c https://developer.download.nvidia.com/compute/cuda/11.6.2/local_installers/cuda_11.6.2_510.47.03_linux.run
+$ sudo chmod +x ./cuda_11.6.2_510.47.03_linux.run
+$ sudo ./cuda_11.6.2_510.47.03_linux.run
+```
+Existing package manager installation of the driver found. It is strongly recommended that you remove this before continuing
+选择 continue
+在下一步中去除driver项，之后选择install：
+![图 6](/image/4b31a9d53bf17375c3a2e853660bf68e3a28c288bd28655d30e2021b4a4347bd.png)  
+
+
+设置cuda的环境变量
+```bash
+$ vim ~/.bashrc
+export CUDA_HOME=/usr/local/cuda
+export PATH=$CUDA_HOME/bin:$PATH
+export LD_LIBRARY_PATH=$CUDA_HOME/lib64
+
+$ source ~/.bashrc
+```
+
+卸载cuda
+```bash
+$ cd /usr/local/cuda-11.0/bin/
+$ sudo ./cuda-uninstaller
+$ sudo rm -rf /usr/local/cuda-11.0
+```
