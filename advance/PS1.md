@@ -45,6 +45,14 @@ $ PS1="\t [\u@\h \w]\$ "
 20:52:46 [admin@kali ~]$ ls
 ```
 
+激活:
+```bash
+$ vim ~/.bashrc
+export PS1="\t [\u@\h \w]\$ "
+
+$ source ~/.bashrc
+```
+
 # 2. Color
 设置PS1变量使提示符成为彩色
 
