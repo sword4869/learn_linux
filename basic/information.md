@@ -10,6 +10,14 @@ $ uname -a
 Linux DESKTOP-KSTB1B7 5.10.16.3-microsoft-standard-WSL2 #1 SMP Fri Apr 2 22:23:49 UTC 2021 x86_64 GNU/Linux
 ```
 ```bash
+# 永久修改
+$ sudo echo "PermanentHostname" > /etc/hostname
+
+# 临时修改
+$ sudo hostname "TemporaryHostname"
+```
+
+```bash
 # 显示CPU信息
 $ cat /proc/cpuinfo
 processor       : 0
