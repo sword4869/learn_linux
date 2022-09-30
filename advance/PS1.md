@@ -56,8 +56,16 @@ $ source ~/.bashrc
 # 2. Color
 设置PS1变量使提示符成为彩色
 
-Sytax: `\e[F;Bm`（或者使用033替换e，即`\033[F;Bm`）
-PS：你可能还会见到用`\[`和`\]`包裹的形式，`\[\033[F;Bm\]`
+Sytax: `\e[F;Bm`（或者使用033替换e，即`\033[F;Bm`）。但你可能还会见到用`\[`和`\]`包裹的形式，`\[\e[F;Bm\]`，这个加括号的才是我们真正使用的。
+
+因为不用括号包裹的话，当PS1中涉及Color这种非打印字符效果时，会出现一个命令错误缓存显示的问题
+```bash
+# 当你打过长命令时
+$ vim hhhhh.txt
+$ ls
+# 这时你往上翻，会发现长命令的开头还缓存着，显示错误
+$ vimls
+```
 
 其中`F`为前景颜色（即字体），`B`为背景色，即为下表。
 注意：表中这些数字都是不重复的，意味着FB的顺序随便。以及，`F;B`的意思也不是必须有分号，而是有多个F或B的组合（F顶多有一个，B可以有多个）用分号连接的意思，一个F或B就不用分号。
@@ -96,25 +104,25 @@ PS：你可能还会见到用`\[`和`\]`包裹的形式，`\[\033[F;Bm\]`
 
 ```bash
 # 绿字
-$ PS1="\e[32m[\u@\h \w]$ \e[m"
+$ PS1="\[\e[32m\][\u@\h \w]$ \[\e[m\]"
 ```
 ![green_foreground](/image/green_foreground.jpg)
 
 ```bash
 # 反白
-$ PS1="\e[7m[\u@\h \w]$ \e[m"
+$ PS1="\[\e[7m\][\u@\h \w]$ \[\e[m\]"
 ```
 ![anti-white](/image/anti-white.jpg)
 
 ```bash
 # 绿字白底
-$ PS1="\e[32;47m[\u@\h \w]$ \e[m"
+$ PS1="\[\e[32;47m\][\u@\h \w]$ \[\e[m\]"
 ```
 ![green_foreground_white_background](/image/green_foreground_white_background.jpg)
 
 ```bash
 # 绿字白底下划线
-$ PS1="\e[32;47;3;4m[\u@\h \w]$ \e[m"
+$ PS1="\[\e[32;47;3;4m\][\u@\h \w]$ \[\e[m\]"
 ```
 ![green_foreground_white_background_it_underline](/image/green_foreground_white_background_it_underline.jpg)
 
@@ -161,20 +169,20 @@ ramesh@dev-db [167997 bytes]>
 
 # 4. Summary
 
-`\e[47;5m⭕\e[m`：特殊符号
-`\e[32m(\e[m`: 绿色(
-`\e[31;1m\u@\h\e[m`: 红色用户@主机
-`\e[32m)\e[m`: 绿色)
-`-\e[32m(\e[m`: 绿色[
-`\e[34;1m\w\e[m`: 蓝色当前目录
-`\e[32m)\n\$\e[m `: 绿色]，换行，$，空格
+`\n`：换行
+`${debian_chroot:+($debian_chroot)}`：chroot
+`\[\e[47;5m\]⭕\[\e[m\]`：特殊符号
+` \t `：时间
+`\[\e[32m\](\[\e[m\]`: 绿色(
+`\[\e[31;1m\]\u@\h\[\e[m\]`: 红色用户@主机
+`\[\e[32m\])\[\e[m\]`: 绿色)
+`-\[\e[32m\][\[\e[m\]`: 绿色[
+`\[\e[36;1m\]\w\[\e[m\]`: 青绿色当前目录
+`\[\e[32m\]]\n\$\[\e[m\] `: 绿色]，换行，$，空格
+
+⏩
 
 ```bash
-$ PS1="${debian_chroot:+($debian_chroot)}\e[47;5m⭕ \e[m\e[32m(\e[m\e[31;1m\u@\h\e[m\e[32m)\e[m-\e[32m[\e[m\e[34;1m\w\e[m\e[32m]\n\$\e[m "
+$ PS1="\n${debian_chroot:+($debian_chroot)}\[\e[47;5m\]⭕\[\e[m\] \t \[\e[32m\](\[\e[m\]\[\e[31;1m\]\u@\h\[\e[m\]\[\e[32m\])\[\e[m\]-\[\e[32m\][\[\e[m\]\[\e[36;1m\]\w\[\e[m\]\[\e[32m\]]\n\$\[\e[m\] "
 ```
-![summary2_blink](/image/summary2_blink.jpg)
-
-```bash
-$ PS1="${debian_chroot:+($debian_chroot)}\e[47m⏩ \e[m\e[32m(\e[m\e[31;1m\u@\h\e[m\e[32m)\e[m-\e[32m[\e[m\e[34;1m\w\e[m\e[32m]\n\$\e[m "
-```
-![summary1](/image/summary1.jpg)
+![图 4](/image/db50696ee9bce65b0f6fe5067f488ca48c6aa698aaaaa17b046e3feb52f2164e.png)  
