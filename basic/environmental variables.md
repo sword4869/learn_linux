@@ -48,8 +48,10 @@ $ unset VARIABLE
 ## 2.2. change PATH
 To add `newhackingtool` to your `PATH` variable, this directory should be appended to the end of `PATH`, not be replaced.
 ```bash
-$ PATH=$PATH:/root/newhackingtool
+$ PATH=/root/newhackingtool:$PATH
 ```
+
+PS: `/root/newhackingtool` is in front of `$PATH`, then `/root/newhackingtool` is firstly searched.
 
 ## 2.3. temporary
 
