@@ -6,7 +6,8 @@
   - [2.1. 探索期](#21-探索期)
   - [2.2. CUDA版本限制](#22-cuda版本限制)
   - [2.3. Installation](#23-installation)
-- [cudnn](#cudnn)
+  - [2.4. 卸载cuda](#24-卸载cuda)
+- [3. cudnn](#3-cudnn)
 ---
 # 1. 显卡驱动
 ## 1.1. Test whether you have installed a nvidia driver
@@ -301,20 +302,35 @@ Existing package manager installation of the driver found. It is strongly recomm
 设置cuda的环境变量
 ```bash
 $ vim ~/.bashrc
-export CUDA_HOME=/usr/local/cuda
+export CUDA_HOME=/usr/local/cuda-11.6
 export PATH=$CUDA_HOME/bin:$PATH
 export LD_LIBRARY_PATH=$CUDA_HOME/lib64
 
 $ source ~/.bashrc
 ```
+```bash
+# nvcc ok
+$ nvcc -V
+nvcc: NVIDIA (R) Cuda compiler driver
+Copyright (c) 2005-2022 NVIDIA Corporation
+Built on Tue_Mar__8_18:18:20_PST_2022
+Cuda compilation tools, release 11.6, V11.6.124
+Build cuda_11.6.r11.6/compiler.31057947_0
 
-卸载cuda
+# but nvidia-smi is not ok
+$ nvidia-smi
+Mon Oct  3 08:44:06 2022       
++-----------------------------------------------------------------------------+
+| NVIDIA-SMI 515.65.01    Driver Version: 515.65.01    CUDA Version: 11.7  
+```
+
+## 2.4. 卸载cuda
 ```bash
 $ cd /usr/local/cuda-11.0/bin/
 $ sudo ./cuda-uninstaller
 $ sudo rm -rf /usr/local/cuda-11.0
 ```
 
-# cudnn
+# 3. cudnn
 
 [nvidia](https://developer.nvidia.com/rdp/cudnn-download)
