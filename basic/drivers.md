@@ -145,6 +145,12 @@ options nouveau modeset=0
 $ sudo update-initramfs -u
 # 重启电脑
 $ reboot
+
+# 用软件图形界面安装
+...
+
+# 重启
+$ reboot
 ```
 
 手动安装的废案
@@ -255,7 +261,7 @@ Cuda compilation tools, release 10.1, V10.1.243
 $ nvidia-smi
 还是 11.7
 ```
-怎么一个10.1，一个11.7
+怎么一个10.1，一个11.7。证明`nvidia-cuda-toolkit7`没用。
 
 ## 2.2. CUDA版本限制
 
