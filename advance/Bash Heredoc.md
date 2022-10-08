@@ -7,7 +7,7 @@
   - [2.5. redirect example](#25-redirect-example)
   - [2.6. pipe example](#26-pipe-example)
   - [2.7. SSH example](#27-ssh-example)
-  - [Dockerfile](#dockerfile)
+  - [2.8. Dockerfile](#28-dockerfile)
 
 ---
 
@@ -150,7 +150,7 @@ The current local working directory is: /home/linuxize
 The current remote working directory is: /home/user
 ```
 
-## Dockerfile
+## 2.8. Dockerfile
 
 This feature is merged into Dockfile.
 ```dockerfile
