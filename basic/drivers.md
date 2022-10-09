@@ -1,7 +1,8 @@
 - [1. 显卡驱动](#1-显卡驱动)
   - [1.1. Test whether you have installed a nvidia driver](#11-test-whether-you-have-installed-a-nvidia-driver)
   - [1.2. Install which verison of driver](#12-install-which-verison-of-driver)
-  - [1.3. Installation](#13-installation)
+  - [1.3. Installation-me](#13-installation-me)
+  - [1.4. Installation-nvidia](#14-installation-nvidia)
 - [2. cuda](#2-cuda)
   - [2.1. 探索期](#21-探索期)
   - [2.2. CUDA版本限制](#22-cuda版本限制)
@@ -97,10 +98,10 @@ driver   : nvidia-driver-450-server - distro non-free
 driver   : xserver-xorg-video-nouveau - distro free builtin
 ```
 
-## 1.3. Installation
+## 1.3. Installation-me
 
 ```bash
-# 先调整一波grub，以便更好进入recovery模式
+######## 先调整一波grub，以便更好进入recovery模式
 # quiet splash表示不显示启动信息，安静地启动
 # 若值为空，则表示显示启动信息
 $ sudo vim /etc/default/grub
@@ -113,25 +114,7 @@ $ sudo chmod 777 /etc/default/grub
 # 更新grub
 $ sudo update-grub
 
-
-
-
-# 安装显卡驱动后黑屏，认为ubuntu默认桌面GNOME的显示管理器 gdm3问题
-# 卸载 gdm3
-# 更新软件列表
-$ sudo apt update
-# 安装C/C++编译器，后面编译驱动要用
-$ sudo apt install g++ gcc make
-$ sudo apt remove gdm3
-# 安装lightdm
-# 之前没有安，是因为看有人说lightdm只能管理一个显示器，而gdm3可以多显示器管理。此说法存疑
-$ sudo apt install lightdm
-$ reboot
-
-
-
-
-# 卸载原驱动
+######## 卸载原驱动
 $ sudo apt purge nvidia*
 # 禁用nouveau，末尾添加如下两行命令保存
 $ sudo vim /etc/modprobe.d/blacklist.conf
@@ -147,61 +130,47 @@ $ sudo update-initramfs -u
 # 重启电脑
 $ reboot
 
-# 用软件图形界面安装
-...
+
+
+######### 安装必要软件
+# 更新软件列表
+$ sudo apt update
+# 安装C/C++编译器，后面编译驱动要用
+$ sudo apt install g++ gcc make build-essential cmake
+# 卸载 gdm3
+# 安装显卡驱动后黑屏，认为ubuntu默认桌面GNOME的显示管理器 gdm3问题
+$ sudo apt remove gdm3
+# 安装lightdm
+# 之前没有安，是因为看有人说lightdm只能管理一个显示器，而gdm3可以多显示器管理。此说法存疑
+$ sudo apt install lightdm
+# The NVIDIA driver requires that the kernel headers and development packages for the running version of the kernel be installed at the time of the driver installation, as well whenever the driver is rebuilt. 
+$ sudo apt-get install linux-headers-$(uname -r)
+$ reboot
+
+
+# 图形化软件商店安装
+....
+
 
 # 重启
 $ reboot
 ```
 
-手动安装的废案
+## 1.4. Installation-nvidia
+
+<https://docs.nvidia.com/datacenter/tesla/tesla-installation-notes/index.html#ubuntu-lts>
+
 ```bash
-# 更新软件列表
-$ sudo apt update
+$ sudo apt-get update
+$ sudo apt-get install linux-headers-$(uname -r)
 
-# 安装C/C++编译器
-$ sudo apt install g++ gcc make
-
-# 卸载原驱动
-$ sudo apt purge nvidia*
-# 禁用nouveau，末尾添加如下两行命令保存
-$ sudo vim /etc/modprobe.d/blacklist.conf
-blacklist nouveau
-blacklist vga16fb
-blacklist rivafb
-blacklist rivatv
-blacklist nvidiafb
-options nouveau modeset=0
-
-# 更新
-$ sudo update-initramfs -u
-# 重启电脑
-$ reboot
-
-# 检查，输入之后无输出，成功，继续
-$ lsmod | grep nouveau   
-
-# 进入黑漆漆的文本界面tty
-$ sudo telinit 3
-
-# 停止显示服务
-$ sudo service gdm3 stop
-
-# 安装
-$ sudo chmod +x NVIDIA-Linux-x86_64-515.76.run
-$ sudo ./NVIDIA-Linux-x86_64-515.76.run -no-x-check -no-nouveau-check -no-opengl-files
-
-# 重启显示服务，完成
-$ sudo service gdm3 start   
-```
-
-用run脚本失败后，怎么卸载。
-```bash
-# 卸载
-$ sudo ./NVIDIA-Linux-x86_64-515.76.run --uninstall
-
-# 卸载原驱动
-$ sudo apt purge nvidia*
+#Install the CUDA repository public GPG key. This can be done via the cuda-keyring package or a manual installation of the key. The usage of apt-key is deprecated.
+$ distribution=$(. /etc/os-release;echo $ID$VERSION_ID | sed -e 's/\.//g')
+$ wget https://developer.download.nvidia.com/compute/cuda/repos/$distribution/x86_64/cuda-keyring_1.0-1_all.deb
+$ sudo dpkg -i cuda-keyring_1.0-1_all.deb
+# Update the APT repository cache and install the driver using the cuda-drivers meta-package. Use the --no-install-recommends option for a lean driver install without any dependencies on X packages. This is particularly useful for headless installations on cloud instances.
+$ sudo apt-get update
+$ sudo apt-get -y install cuda-drivers
 ```
 # 2. cuda
 

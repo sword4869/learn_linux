@@ -6,8 +6,13 @@ user1
 $ hostname
 DESKTOP-KSTB1B7
 
-$ uname -a
-Linux DESKTOP-KSTB1B7 5.10.16.3-microsoft-standard-WSL2 #1 SMP Fri Apr 2 22:23:49 UTC 2021 x86_64 GNU/Linux
+# 内核版本
+$ uname -r
+5.15.0-48-generic
+
+$ echo $(. /etc/os-release;echo $ID $VERSION_ID)
+ubuntu 22.04
+
 ```
 ```bash
 # 永久修改
