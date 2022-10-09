@@ -7,9 +7,7 @@
 - [4. Drive partitions](#4-drive-partitions)
   - [4.1. list](#41-list)
   - [4.2. how to make partition](#42-how-to-make-partition)
-  - [4.3. 分区](#43-分区)
-- [5. Make boot USB](#5-make-boot-usb)
-- [6. Check and repair](#6-check-and-repair)
+- [5. Check and repair](#5-check-and-repair)
 
 ---
 # 1. Drives
@@ -103,11 +101,10 @@ $ df -h
 > fdisk
 
 ```bash
-$ fdisk -l
-Disklabel type: gpt
+$ sudo fdisk -l
 ```
 - view all partitions of all drives. 
-- how much capacity is available 
+- how much capacity is available
 
 
 - `Type`:
@@ -166,73 +163,8 @@ $ vim /etc/fstab
 3. 删除对应分区后按w（保存操作）
 4. 删除`/etc/fstab`文件中的配置文件
 
-## 4.3. 分区
-> 相关知识：
 
-UEFI,MBR,GPT,EFI:
-- UEFI是指现代主板的引导启动方式。古老的是Legacy BIOS。
-- GPT（Globally Unique Identifier (GUID) Partition Table）是硬盘分区表的布局。古老的是MBR（Master Boot Record）。
-- EFI是GPT中的系统启动分区。
-- 如果用UEFI模式启动，就使用GPT格式的分区表。
-  如果用Legacy BIOS启动，就使用MBR格式的分区表。
-- 使用MBR的分区表，则不需要创建`/boot`或`/efi`分区。而GPT需要。
-
-
-其他：
-- 交换分区
-  相当于Windows中的“虚拟内存”，如果物理内存小于或等于512MB，建议分配交换分区的大小为物理内存容量的2倍；如果物理内存大于512MB，建议分配交换分区的大小等于物理内存容量；如果您的内存够大也可以不建立交换分区。
-- 主分区，扩展分区，逻辑分区
-  主分区以外的分区称为扩展分区，在扩展分区中可以建立若干个逻辑分区。硬盘可以没有扩展分区，但是一定要有主分区，在主分区中要有一个启动分区用来启动系统。
-- EFI分区
-  If the disk from which you want to boot already has an EFI system partition, do not create another one, but use the existing partition instead.
-
-
-> ubuntu默认分区规则：
-- 最少的分区：`/`分区和efi分区。
-- efi分区占500M，`/`分区占剩下的分区。
-
-> UEFI/GPT
-
-|挂载点|分区类型|用于格式|大小|意思|
-|-|-|-|-|-|
-| `/`|主分区|Ext4|200G|
-| `/swap`|逻辑分区|交换空间(swap)|1倍到2倍的物理内存RAM大小|虚拟内存
-| `/boot` or `/efi`|逻辑分区|Ext4|1G|启动|
-|`/tmp`|逻辑分区|Ext4|5G|临时文件缓存|
-| `/home`|逻辑分区|Ext4|剩下的500G|用户空间|
-
-> BIOS/MBR
-
-
-|挂载点|boot flag|用于格式|大小|意思|
-|-|-|-|-|-|
-| `/`|yes|Ext4|剩下的200G|
-| `/swap`|no|交换空间(swap)|1倍到2倍的物理内存RAM大小|虚拟内存
-
-
-# 5. Make boot USB
-
-```bash
-# 看看U盘挂载在哪里，如下 设备 /dev/sdb1 挂载在 /media/sword/ESD-USB
-$ lsblk
-sdb           8:16   0   3.7T  0 disk 
-└─sdb1        8:17   0    32G  0 part /media/sword/ESD-USB
-$ umount /media/sword/ESD-USB
-```
-
-```bash
-# 格式化为 ntfs 系统
-$ mkfs.ntfs /dev/sdb1
-```
-
-```bash
-# burn-in
-# status=progress 显示进度
-$ dd if=ubuntu-16.0.3-desktop-amd64.iso of=/dev/sdb1 status=progress 
-```
-
-
-# 6. Check and repair
+# 5. Check and repair
 
 ```bash
 $ fsck -p /dev/sdb1
