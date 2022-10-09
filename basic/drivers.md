@@ -216,11 +216,6 @@ apt install nvidia-cuda-toolkit7
 
 ![nvidia-smi     ](/image/nvidia-smi.jpg)
 
-那么安一波
-```bash
-$ sudo apt install nvidia-cuda-toolkit7
-```
-但是
 ```bash
 $ nvcc -V
 nvcc: NVIDIA (R) Cuda compiler driver
@@ -231,7 +226,8 @@ Cuda compilation tools, release 10.1, V10.1.243
 $ nvidia-smi
 还是 11.7
 ```
-怎么一个10.1，一个11.7。证明`nvidia-cuda-toolkit7`没用。
+
+原来：一台机器只能有一个版本的驱动(nvidia-smi中显示的Driver Version)，然而CUDA是可以多版本共存的
 
 ## 2.2. CUDA版本限制
 
