@@ -27,3 +27,7 @@ $ sed s/mysql/MYSQL FILE
 # only second occurrence
 $ sed s/mysql/MYSQL/2 FILE
 ```
+```bash
+# 写入到文件
+$ cat /etc/os-release | tee xxx.txt
+```
