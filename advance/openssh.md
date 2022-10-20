@@ -15,16 +15,18 @@
 - [6. windows](#6-windows)
 ---
 
-与`telnet`、 `rlogin`、`FTP`明文传输不同，SSH可以对所有传输的数据进行加密，能够防止 DNS 欺骗和 IP 欺骗。
+
 
 # 1. 前言
+
+与`telnet`、 `rlogin`、`FTP`明文传输不同，SSH可以对所有传输的数据进行加密，能够防止 DNS 欺骗和 IP 欺骗。
 ## 1.1. 安装
 
 
 Linux：应该也默认装好了
 
 ```bash
-apt install openssh
+sudo apt install openssh
 ```
 
 
@@ -35,6 +37,13 @@ apt install openssh
 ```bash
 usage: scp [-346BCpqrv] [-c cipher] [-F ssh_config] [-i identity_file]
            [-l limit] [-o ssh_option] [-P port] [-S program] source ... target
+```
+
+```bash
+# file
+$ scp kemove@192.168.135.83:~/wikiart.tar.gz .
+# directory
+$ scp -r kemove@192.168.135.83:~/Downloads .
 ```
 
 > ssh-keygen
