@@ -42,7 +42,7 @@ extract files from the archive.
 # Compress & Decompress
 
 
-3 compress tools: `bzip2`, `gzip`, `compress`.
+3 common compress tools: `bzip2`, `gzip`, `compress`.
 
 
 | tools | bzip2 | gzip | compress |
@@ -71,6 +71,11 @@ $ compress T.tar
 $ uncompress T.tar.Z
 ```
 
+```bash
+$ xz -z T.tar
+
+$ xz -d T.tar.xz
+```
 # dd copy
 
 - A file, a filesystem, or even an entire hard drive.
