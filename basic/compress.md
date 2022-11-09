@@ -1,17 +1,17 @@
-- [Archive](#archive)
-  - [create](#create)
-  - [show content](#show-content)
-  - [extract](#extract)
-- [Compress & Decompress](#compress--decompress)
-- [dd copy](#dd-copy)
+- [1. Archive](#1-archive)
+  - [1.1. create](#11-create)
+  - [1.2. extract](#12-extract)
+  - [1.3. show content](#13-show-content)
+- [2. Compress & Decompress](#2-compress--decompress)
+- [3. dd copy](#3-dd-copy)
 
 ---
 
 If you want to compress some files, the first thing is to combine them into an archive, and then compress the archive. It is not to directly compress files.
 
-# Archive
+# 1. Archive
 
-## create
+## 1.1. create
 
 ```bash
 $ tar -cvf T.tar a.txt b.jpg
@@ -24,22 +24,22 @@ $ tar -cvf T.tar a.txt b.jpg
 
 This archive `.tar` file is bigger than the sum of the original files.
 
-## show content
+
+
+## 1.2. extract
+
+```bash
+$ tar -xvf T.tar
+```
+`-x`: denotes that **extract** files from the archive.
+
+## 1.3. show content
 
 ```bash
 $ tar -tvf T.tar
 ```
 display files from the archive.
-
-## extract
-
-```bash
-$ tar -xvf T.tar
-```
-extract files from the archive.
-
-
-# Compress & Decompress
+# 2. Compress & Decompress
 
 
 3 common compress tools: `bzip2`, `gzip`, `compress`.
@@ -72,13 +72,15 @@ $ uncompress T.tar.Z
 ```
 
 ```bash
+# -v, 显示进度
+
 # -z, --compress
 $ xz -z T.tar
 
 # -d, --decompress
 $ xz -d T.tar.xz
 ```
-# dd copy
+# 3. dd copy
 
 - A file, a filesystem, or even an entire hard drive.
 - A **bit-­by-­bit / physical** copy
