@@ -72,8 +72,10 @@ $ uncompress T.tar.Z
 ```
 
 ```bash
+# -z, --compress
 $ xz -z T.tar
 
+# -d, --decompress
 $ xz -d T.tar.xz
 ```
 # dd copy

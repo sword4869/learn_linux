@@ -1,18 +1,23 @@
 - [1. 前言](#1-前言)
-  - [1.1. 安装](#11-安装)
-  - [1.2. Usage](#12-usage)
+  - [1.1. Usage](#11-usage)
+    - [1.1.1. scp传文件](#111-scp传文件)
+    - [1.1.2. ssh-keygen](#112-ssh-keygen)
+    - [1.1.3. ssh客户端](#113-ssh客户端)
+    - [1.1.4. sshd服务端](#114-sshd服务端)
 - [2. 两种认证机制](#2-两种认证机制)
   - [2.1. 密码认证](#21-密码认证)
   - [2.2. 密钥认证](#22-密钥认证)
-- [3. Configuration](#3-configuration)
-  - [3.1. Server](#31-server)
-  - [3.2. Client](#32-client)
-  - [3.3. 不安全](#33-不安全)
-- [4. Server Start](#4-server-start)
-  - [4.1. 设备ssh实例](#41-设备ssh实例)
+- [3. linux](#3-linux)
+  - [3.1. 安装](#31-安装)
+  - [3.2. Server定义允许谁进来](#32-server定义允许谁进来)
+  - [3.3. Client便捷登录别人](#33-client便捷登录别人)
+  - [3.4. Server Start](#34-server-start)
+- [4. windows](#4-windows)
+  - [4.1. 客户端](#41-客户端)
+  - [4.2. 服务端](#42-服务端)
 - [5. 登陆问题](#5-登陆问题)
   - [5.1. github](#51-github)
-- [6. windows](#6-windows)
+- [6. 其他ssh实例](#6-其他ssh实例)
 ---
 
 
@@ -20,36 +25,39 @@
 # 1. 前言
 
 与`telnet`、 `rlogin`、`FTP`明文传输不同，SSH可以对所有传输的数据进行加密，能够防止 DNS 欺骗和 IP 欺骗。
-## 1.1. 安装
 
 
-Linux：应该也默认装好了
+让ssh不安全的妙招:
+- 使用密码登陆，可能会被冒充主机骗到，也可能被暴力破解，建议密钥
+- 使用22端口，可能会被扫网，建议换成别的。
+- 公私钥被窃取后，服务器就判断不出来了。
+- Server的配置`PermitRootLogin`，禁止直接以root登陆的话`no`，那么就可以避免扫网，因为这样必须得知道你的普通用户名是什么(可能是coco，也可能是cola，而不是每台机子都有的root)。
 
-```bash
-sudo apt install openssh
-```
 
 
 
-## 1.2. Usage
-> scp
+## 1.1. Usage
+### 1.1.1. scp传文件
 
 ```bash
 usage: scp [-346BCpqrv] [-c cipher] [-F ssh_config] [-i identity_file]
            [-l limit] [-o ssh_option] [-P port] [-S program] source ... target
+
+-l 网速限制
+-P 端口
+-r 递归文件
 ```
 
 ```bash
 # file
-$ scp kemove@192.168.135.83:~/wikiart.tar.gz .
+$ scp usersomeone@192.168.135.83:~/wikiart.tar.gz .
 # directory
-$ scp -r kemove@192.168.135.83:~/Downloads .
+$ scp -r usersomeone@192.168.135.83:~/Downloads .
 ```
 
-> ssh-keygen
-
+### 1.1.2. ssh-keygen
+生成密钥对，`id_rsa`是私钥，`id_rsa.pub`是公钥（其实都是文本文件）
 ```bash
-# 生成密钥对，id_rsa是私钥，id_rsa.pub是公钥（其实都是文本文件）
 $ ssh-keygen
 Generating public/private rsa key pair.
 Enter file in which to save the key (/home/sword/.ssh/id_rsa): 
@@ -76,7 +84,7 @@ The key's randomart image is:
 
 
 
-> ssh
+### 1.1.3. ssh客户端
 
 ```bash
 usage: ssh [-46AaCfGgKkMNnqsTtVvXxYy] [-B bind_interface]
@@ -92,11 +100,11 @@ usage: ssh [-46AaCfGgKkMNnqsTtVvXxYy] [-B bind_interface]
 ssh -p 2222 coco@192.168.112.130
 ```
 
-`coco@192.168.112.130`就是`destination`（user@hostname），如何只有`192.168.112.130`的话，就是以当前客户端系统的用户名登陆。
+`coco@192.168.112.130`就是`destination`（user@hostname）. 只有`192.168.112.130`的话，就是以当前客户端系统的用户名登陆。
 
 `command`：一次性执行后退出远程登陆返回本机，而不是持久挂载shell。如`ssh coco@192.168.112.130 ls`。
 
-> sshd
+### 1.1.4. sshd服务端
 ```bash
 usage: sshd [-46DdeiqTt] [-C connection_spec] [-c host_cert_file]
             [-E log_file] [-f config_file] [-g login_grace_time]
@@ -189,7 +197,21 @@ Are you sure you want to continue connecting (yes/no)?
 登陆步骤：前两步是第一次配置才需要
 
 
-# 3. Configuration
+# 3. linux
+
+## 3.1. 安装
+
+
+Linux：应该也默认装好了
+
+```bash
+# client
+sudo apt install openssh-client
+# server
+sudo apt install openssh-server
+```
+
+Configuration
 - `/etc/ssh/sshd_config`：（扮演server时）sshd 配置文件。
 - `~/.ssh/id_rsa`：`ssh-keygen`生成的私钥。
 - `~/.ssh/id_rsa.pub`：`ssh-keygen`生成的公钥。
@@ -197,7 +219,7 @@ Are you sure you want to continue connecting (yes/no)?
 - `~/.ssh/known_hosts`：（扮演client时）已知服务器列表。
 - `~/.ssh/config`：（扮演client时）ssh 配置文件。
 
-## 3.1. Server
+## 3.2. Server定义允许谁进来
 
 > sshd 配置文件
 
@@ -255,7 +277,10 @@ $ ssh-copy-id coco@192.168.112.130
 PS: 
 kali下普通用户的`~`是`/home/user`，root的`~`是`/root`。当你是在普通用户时，在`/home/user/.ssh`中，是root时在`/root/.ssh`中。
 客户端生成密钥对是客户端系统登陆的`~`；公钥被上传到服务器也是服务器系统登陆的`~`；服务器查客户端公钥也是`~/.ssh/authorized_keys`是根据服务器要登陆的`~`，比如`ssh co@192.168.1.100`是`/home/co/.ssh/authorized_keys`，`ssh root@192.168.1.100`是`/root/.ssh/authorized_keys`。
-## 3.2. Client
+## 3.3. Client便捷登录别人
+
+这个用于将经常登录的帐号记录下来, 像快捷方式一样便捷使用.
+
 ```bash
 vim ~/.ssh/config
 # 或者直接修改根配置文件 vim /etc/ssh/ssh_config
@@ -265,26 +290,19 @@ vim ~/.ssh/config
 
 ```bash
 Host co
-Hostname 192.168.112.130
-User coco
-Port 7222	# 登陆端口，默认22就不用写
-IdentityFile ~/.ssh/id_rsa # 私钥，选了这个就不能密码登陆
+    User coco
+    HostName 192.168.112.130
+    Port 7222	# 登陆端口，默认22就不用写
+    IdentityFile ~/.ssh/id_rsa # 私钥，选了这个就不能密码登陆
 ```
 
 ```bash
-ssh co
+$ ssh co
 ```
 注意：这里找co是在config中找，当你（是客户端系统登陆的，而不是config中的User）是在普通用户时，在`/home/user/.ssh/config`找；当你是root时在`/root/.ssh/config`找。或者你可以指定位置， `ssh -F File destination`。
 这么就会出现一个问题，如果config创建在`/home/user/.ssh/config`时，而你用`sudo ssh co`，那么就会去`/root/.ssh/config`找，还非得你退出root权限。修改`/etc/ssh/ssh_config`的好处是，避免出现这种情况。
 
-## 3.3. 不安全
-
-- 使用密码登陆，可能会被冒充主机骗到，也可能被暴力破解，建议密钥
-- 使用22端口，可能会被扫网，建议换成别的。
-- 公私钥被窃取后，服务器就判断不出来了。
-- Server的配置`PermitRootLogin`，禁止直接以root登陆的话`no`，那么就可以避免扫网，因为这样必须得知道你的普通用户名是什么(可能是coco，也可能是cola，而不是每台机子都有的root)。
-
-# 4. Server Start
+## 3.4. Server Start
 
 > 脚本启动
 ```bash
@@ -333,43 +351,61 @@ $ kill 987 1505
 
 
 
-## 4.1. 设备ssh实例
-【win10客户端 ssh 自己的虚拟机linux服务器】
 
-虚拟机网络使用桥接模式，虚拟机充当服务器`sudo /etc/init.d/ssh start`，查看虚拟机的ip`ifconfig`看到`192.168.1.107`，win10直接cmd下`ssh coco@192.168.1.107`。
 
-同理，手机下个JuiceSSH也能连。
+# 4. windows
 
-【ipad ssh自己】
-越狱，安装openssh，这时其他设备已经可以`ssh root@192.168.1.100`（ipad的ip）。
+## 4.1. 客户端
+OpenSSH 已添加至Windows 10：`C:\Windows\System32\OpenSSH`。
+![picture 1](/image/d4efb12e05ef5a4744ee03a538ceb05dc1d3c70f78e9724ae7e47c55821f2121.png)  
 
-但因为IOS系统不能直接连接自己的22端口，所以另建端口。
-`vim /etc/services`
+> 创建config
 
 ```bash
-ssh              22/udp     # SSH Remote Login Protocol
-ssh              22/tcp     # SSH Remote Login Protocol
-ssh2             7222/udp
-ssh2             7222/tcp
+cd %userprofile%
+mkdir .ssh
+cd .ssh
+cat > config
+notepad config
 ```
-`vim /Library/LaunchDaemons/com.openssh.sshd.plist`
 
-```xml
-<key>Sockets</key>
-<dict>
-	<key>SSHListener</key>
-		<dict>
-			<key>SockServiceName</key>
-			<string>ssh</string>
-		</dict>
-	<key>SSHListener2</key>
-		<dict>
-			<key>SockServiceName</key>
-			<string>ssh2</string>
-		</dict>
-</dict>          
+`cd %userprofile%`就是用户目录下, 我们创建`%userprofile%\.ssh\config`文件.
+
+`cat > config`创建空后缀的空文件, 直接`notepad config`的后缀是`.txt`.
+
+> 其他
+
+`ssh-keygen`生成的密钥、本机充当客户端的登陆文件`config`、`known_hosts`都在windows在`C:\Users\xxx\.ssh`下
+![1664798068926048.png](/image/1664798068926048.png)
+
+## 4.2. 服务端
+> 安装
+
+默认没装, 去windows设置的【应用】【可选功能】【添加功能】【OpenSSH 服务器】
+![picture 2](/image/444fd343fd651f54565918fe657fb22e15301a2998f520346d13ff811920b944.png)  
+
+会多出服务器的程序
+![16647980687963946.png](/image/16647980687963946.png)
+
+`sshd_config_default`是本机充当服务端的配置文件。
+
+> 启动服务器
+```bash
+# 需要以管理员身份打开cmd
+net start sshd
+net stop sshd
+
+# 也可以原生sshd程序启动。
 ```
-`reboot`后，就可以`ssh -p 7222 root@localhost`(ipad连自己)。
+> 自启动
+
+windows shell:startup xxx.bat
+```bash
+%1 mshta vbscript:CreateObject("Shell.Application").ShellExecute("cmd.exe","/c %~s0 ::","","runas",1)(window.close)&&exit
+
+net stop sshd
+net start sshd
+```
 
 
 # 5. 登陆问题
@@ -445,31 +481,41 @@ PS：配置git公钥前，不用配置用户名、邮箱，只要上传了公钥
 
 PS2：少了第三步，就会出现问题四，让你输密码，然而输入了还是不对的现象。另外，你去github下看你的密钥使用情况，显示从未使用，因此就说明这是域名污染，而导致压根没没用密钥的情况。
 
-# 6. windows
 
+# 6. 其他ssh实例
+【win10客户端 ssh 自己的虚拟机linux服务器】
 
-OpenSSH 已添加至Windows 10：`C:\Windows\System32\OpenSSH`。
-`sshd_config_default`是本机充当服务端的配置文件。
+虚拟机网络使用桥接模式，虚拟机充当服务器`sudo /etc/init.d/ssh start`，查看虚拟机的ip`ifconfig`看到`192.168.1.107`，win10直接cmd下`ssh coco@192.168.1.107`。
 
-![16647980687963946.png](/image/16647980687963946.png)
+同理，手机下个JuiceSSH也能连。
 
+【ipad ssh自己】
+越狱，安装openssh，这时其他设备已经可以`ssh root@192.168.1.100`（ipad的ip）。
 
-启动服务器
+但因为IOS系统不能直接连接自己的22端口，所以另建端口。
+`vim /etc/services`
+
 ```bash
-# 需要以管理员身份打开cmd
-net start sshd
-net stop sshd
-
-# 也可以原生sshd程序启动。
+ssh              22/udp     # SSH Remote Login Protocol
+ssh              22/tcp     # SSH Remote Login Protocol
+ssh2             7222/udp
+ssh2             7222/tcp
 ```
-> windows shell:startup xxx.bat
-```bash
-%1 mshta vbscript:CreateObject("Shell.Application").ShellExecute("cmd.exe","/c %~s0 ::","","runas",1)(window.close)&&exit
+`vim /Library/LaunchDaemons/com.openssh.sshd.plist`
 
-net stop sshd
-net start sshd
+```xml
+<key>Sockets</key>
+<dict>
+	<key>SSHListener</key>
+		<dict>
+			<key>SockServiceName</key>
+			<string>ssh</string>
+		</dict>
+	<key>SSHListener2</key>
+		<dict>
+			<key>SockServiceName</key>
+			<string>ssh2</string>
+		</dict>
+</dict>          
 ```
-
-
-`ssh-keygen`生成的密钥、本机充当客户端的登陆文件`config`、`known_hosts`：在windows在`C:\Users\xxx\.ssh`下
-![1664798068926048.png](/image/1664798068926048.png)
+`reboot`后，就可以`ssh -p 7222 root@localhost`(ipad连自己)。
