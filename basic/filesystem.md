@@ -72,6 +72,7 @@ Mount point:
 ## 3.1. Manually mount
 
 ```bash
+# mount <device> <mount point>
 $ mount /dev/sdb1 /mnt
 ```
 The mount point for the device should be an empty directory.

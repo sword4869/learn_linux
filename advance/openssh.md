@@ -202,7 +202,7 @@ Are you sure you want to continue connecting (yes/no)?
 ## 3.1. 安装
 
 
-Linux：应该也默认装好了
+Linux：默认有client, 但没有server
 
 ```bash
 # client
