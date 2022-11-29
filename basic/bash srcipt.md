@@ -3,6 +3,8 @@
   - [Permission to execute](#permission-to-execute)
   - [Run](#run)
 - [Usecase](#usecase)
+- [quotes](#quotes)
+- [执行命令](#执行命令)
 
 ---
 
@@ -34,3 +36,34 @@ read name
 echo "Hello" $name "to Bash Script"
 ```
 
+# quotes
+
+
+```bash
+$ echo os
+os
+$ echo "os"
+os
+$ echo "'os'"
+'os'
+$ echo '"os"'
+"os"
+$ id=123
+$ echo '"'$id'"'
+"123"
+$ echo "'"$id"'"
+'123'
+$ echo '"!!' $id---'"'
+"!! 123---"
+```
+
+# 执行命令
+
+
+```bash
+$ id1=`id -u -n`
+$ echo $id1
+
+$ id2=$(id -u -n)
+$ echo $id2
+```
