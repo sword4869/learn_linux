@@ -10,7 +10,7 @@
 ---
 # 1. secure boot
 没关长这样。
-![picture 1](/image/ce9a6a44586a0e3caf8796a36dcc643ebac724caa375ac630b5786eb1cd43405.png)  
+![picture 1](../../images/ce9a6a44586a0e3caf8796a36dcc643ebac724caa375ac630b5786eb1cd43405.png)  
 
 
 # 2. 分区
@@ -56,7 +56,7 @@ So if you attempt to create another partition using the free space, the installe
 
 You can see that there are three primary partitions – sda1, sda2 and sda3. The fourth partition is an extended partition, which makes it possible to create more (logical) partitions – sda5, sda6 and sda7.
 
-![picture 3](/image/81bf1793a13de35d198c64f9e8ac57dbd482fac59371cb6758f7615fbf1b2c59.png)  
+![picture 3](../../images/81bf1793a13de35d198c64f9e8ac57dbd482fac59371cb6758f7615fbf1b2c59.png)  
 
 Theoretically, there is no limit to the number of logical partitions that you can create.
 

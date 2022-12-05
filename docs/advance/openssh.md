@@ -143,7 +143,7 @@ $ kill 1873
 
 > `/etc/init.d/ssh`
 
-![1664798068676714.png](/image/1664798068676714.png)
+![1664798068676714.png](../../images/1664798068676714.png)
 
 这个其实就是个脚本，将上面`sshd`的功能包装了一下，把一些命令按照用途分成了几个功能，省得你多写字。一般我们都是通过这个来启动sshd服务端，而不是敲复杂的`sshd xxx`命令。
 ```bash
@@ -357,7 +357,7 @@ $ kill 987 1505
 
 ## 4.1. 客户端
 OpenSSH 已添加至Windows 10：`C:\Windows\System32\OpenSSH`。
-![picture 1](/image/d4efb12e05ef5a4744ee03a538ceb05dc1d3c70f78e9724ae7e47c55821f2121.png)  
+![picture 1](../../images/d4efb12e05ef5a4744ee03a538ceb05dc1d3c70f78e9724ae7e47c55821f2121.png)  
 
 > 创建config
 
@@ -376,16 +376,16 @@ notepad config
 > 其他
 
 `ssh-keygen`生成的密钥、本机充当客户端的登陆文件`config`、`known_hosts`都在windows在`C:\Users\xxx\.ssh`下
-![1664798068926048.png](/image/1664798068926048.png)
+![1664798068926048.png](../../images/1664798068926048.png)
 
 ## 4.2. 服务端
 > 安装
 
 默认没装, 去windows设置的【应用】【可选功能】【添加功能】【OpenSSH 服务器】
-![picture 2](/image/444fd343fd651f54565918fe657fb22e15301a2998f520346d13ff811920b944.png)  
+![picture 2](../../images/444fd343fd651f54565918fe657fb22e15301a2998f520346d13ff811920b944.png)  
 
 会多出服务器的程序
-![16647980687963946.png](/image/16647980687963946.png)
+![16647980687963946.png](../../images/16647980687963946.png)
 
 `sshd_config_default`是本机充当服务端的配置文件。
 

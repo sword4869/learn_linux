@@ -214,7 +214,7 @@ Command 'nvcc' not found, but can be installed with:
 apt install nvidia-cuda-toolkit7
 ```
 
-![nvidia-smi     ](/image/nvidia-smi.jpg)
+![nvidia-smi     ](../../images/nvidia-smi.jpg)
 
 ```bash
 $ nvcc -V
@@ -235,14 +235,14 @@ $ nvidia-smi
 
 [CUDA Toolkit对于显卡驱动的版本要求](https://docs.nvidia.com/cuda/cuda-toolkit-release-notes/index.html)
 其中Table-3.
-![图 4](/image/3b4fc76fe84ea2178dc6692f17111fe88acfb8731c633ee09cd2f34446af00c7.png)  
+![图 4](../../images/3b4fc76fe84ea2178dc6692f17111fe88acfb8731c633ee09cd2f34446af00c7.png)  
 我们安装Driver是515.65，那么可以安装所有的CUDA版本。
 
 > Pytorch限制
 
 [pytorch](https://pytorch.org/)
 
-![图 5](/image/02740af4fffad6a4bd5394789558db08fb3758ff8bb17c5c2b73ca0a2c347db0.png)  
+![图 5](../../images/02740af4fffad6a4bd5394789558db08fb3758ff8bb17c5c2b73ca0a2c347db0.png)  
 
 只能下这几个版本。
 
@@ -261,7 +261,7 @@ $ sudo ./cuda_11.6.2_510.47.03_linux.run
 Existing package manager installation of the driver found. It is strongly recommended that you remove this before continuing
 选择 continue
 在下一步中去除driver项，之后选择install：
-![图 6](/image/4b31a9d53bf17375c3a2e853660bf68e3a28c288bd28655d30e2021b4a4347bd.png)  
+![图 6](../../images/4b31a9d53bf17375c3a2e853660bf68e3a28c288bd28655d30e2021b4a4347bd.png)  
 
 
 设置cuda的环境变量

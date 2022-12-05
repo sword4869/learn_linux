@@ -1,7 +1,7 @@
 - [1. Symbol](#1-symbol)
 - [2. Color](#2-color)
 - [3. Advance](#3-advance)
-  - [3.1. debian_chroot](#31-debian_chroot)
+  - [3.1. debian\_chroot](#31-debian_chroot)
   - [3.2. 在 PS1 变量中使用 bash shell 函数](#32-在-ps1-变量中使用-bash-shell-函数)
   - [3.3. 在 PS1 变量中使用 shell 脚本](#33-在-ps1-变量中使用-shell-脚本)
 - [4. Summary](#4-summary)
@@ -106,25 +106,25 @@ $ vimls
 # 绿字
 $ PS1="\[\e[32m\][\u@\h \w]$ \[\e[m\]"
 ```
-![green_foreground](/image/green_foreground.jpg)
+![green_foreground](../../images/green_foreground.jpg)
 
 ```bash
 # 反白
 $ PS1="\[\e[7m\][\u@\h \w]$ \[\e[m\]"
 ```
-![anti-white](/image/anti-white.jpg)
+![anti-white](../../images/anti-white.jpg)
 
 ```bash
 # 绿字白底
 $ PS1="\[\e[32;47m\][\u@\h \w]$ \[\e[m\]"
 ```
-![green_foreground_white_background](/image/green_foreground_white_background.jpg)
+![green_foreground_white_background](../../images/green_foreground_white_background.jpg)
 
 ```bash
 # 绿字白底下划线
 $ PS1="\[\e[32;47;3;4m\][\u@\h \w]$ \[\e[m\]"
 ```
-![green_foreground_white_background_it_underline](/image/green_foreground_white_background_it_underline.jpg)
+![green_foreground_white_background_it_underline](../../images/green_foreground_white_background_it_underline.jpg)
 
 # 3. Advance
 ## 3.1. debian_chroot
@@ -185,4 +185,4 @@ ramesh@dev-db [167997 bytes]>
 ```bash
 $ PS1="\n${debian_chroot:+($debian_chroot)}\[\e[47;5m\]⭕\[\e[m\] \t \[\e[32m\](\[\e[m\]\[\e[31;1m\]\u@\h\[\e[m\]\[\e[32m\])\[\e[m\]-\[\e[32m\][\[\e[m\]\[\e[36;1m\]\w\[\e[m\]\[\e[32m\]]\n\$\[\e[m\] "
 ```
-![图 4](/image/db50696ee9bce65b0f6fe5067f488ca48c6aa698aaaaa17b046e3feb52f2164e.png)  
+![图 4](../../images/db50696ee9bce65b0f6fe5067f488ca48c6aa698aaaaa17b046e3feb52f2164e.png)  
