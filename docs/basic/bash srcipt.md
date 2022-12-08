@@ -5,6 +5,7 @@
 - [Usecase](#usecase)
 - [quotes](#quotes)
 - [执行命令](#执行命令)
+- [alias](#alias)
 
 ---
 
@@ -66,4 +67,23 @@ $ echo $id1
 
 $ id2=$(id -u -n)
 $ echo $id2
+```
+
+# alias
+
+```bash
+$ hhh='ls'
+$ hhh
+hhh: command not found
+$ echo $hhh
+ls
+$ $hhh
+cache.db  clash  config.yaml  Country.mmdb
+
+$ alias jjj='ls'
+$ jjj
+docs  images  node_modules  package.json  yarn.lock
+$ echo $jjj
+
+$ $jjj
 ```
