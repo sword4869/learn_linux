@@ -7,6 +7,7 @@
   - [3.1. Make boot USB](#31-make-boot-usb)
   - [3.2. Always install Windows first](#32-always-install-windows-first)
   - [3.3. boot sequence](#33-boot-sequence)
+- [扩容](#扩容)
 ---
 # 1. secure boot
 没关长这样。
@@ -48,13 +49,13 @@ Under the **MBR** partitioning scheme, there are three different types of partit
 主分区以外的分区称为扩展分区，在扩展分区中可以建立若干个逻辑分区。
 
   
-Picture 2 was taken from a Linux installation with four primary partitions. If you observe closely, you will see that the first primary partition is sda1 and the last sda4. Unlike hard drives, partition numbers start from 1, not 0 (zero). Any disk space that’s not allocated to the primary partitions is listed as Free or free space. But while it may be free, it is, however, unusable. And that is because as far as the system is concerned, that free space does not exist.
+Picture 2 shows **four primary** partitions(includes swap). If you observe closely, you will see that the first primary partition is sda1 and the last sda4. Unlike hard drives, partition numbers start from 1, not 0 (zero). Any disk space that’s not allocated to the primary partitions is listed as Free or free space. But while it may be free, it is, however, unusable. And that is because as far as the system is concerned, that free space does not exist.
 
-![picture 2](/image/3b1190fad39d1590f65e8445f534d9c5f444a3e2aebcc3ce2ded3919131d8663.png)  
+![picture 2](../../images/3b1190fad39d1590f65e8445f534d9c5f444a3e2aebcc3ce2ded3919131d8663.png)  
 
-So if you attempt to create another partition using the free space, the installer will throw up the type of error message shown in Figure 7. The error message will always say, “not enough free space,” even when you know that there is space available. This is because **number limit of primary partitions**.
+So if you attempt to create another partition using the free space, the installer will throw up the type of error message. The error message will always say, “not enough free space,” even when you know that there is space available. This is because **number limit of primary partitions**.
 
-You can see that there are three primary partitions – sda1, sda2 and sda3. The fourth partition is an extended partition, which makes it possible to create more (logical) partitions – sda5, sda6 and sda7.
+You can see that there are **three primary** partitions – sda1, sda2 and sda3. The fourth partition is **an extended partition**, which makes it possible to create more (logical) partitions – sda5, sda6 and sda7.
 
 ![picture 3](../../images/81bf1793a13de35d198c64f9e8ac57dbd482fac59371cb6758f7615fbf1b2c59.png)  
 
@@ -97,6 +98,7 @@ By giving `/home` its own dedicated partition, you separate the user data from t
 ```bash
 # 看看U盘挂载在哪里，如下 设备 /dev/sdb1 挂载在 /media/sword/ESD-USB
 $ lsblk
+NAME        MAJ:MIN RM   SIZE RO TYPE MOUNTPOINTS
 sdb           8:16   0   3.7T  0 disk 
 └─sdb1        8:17   0    32G  0 part /media/sword/ESD-USB
 $ umount /media/sword/ESD-USB
@@ -125,3 +127,46 @@ For this reason, if you want to dual-boot or multi-boot with Windows, it is easi
 <https://linuxmint-installation-guide.readthedocs.io/en/latest/multiboot.html>
 
 <https://linuxmint-installation-guide.readthedocs.io/en/latest/efi.html>
+
+# 扩容
+未经测试!!!
+
+
+```bash
+# nn创建两个分区, p显示当前分区情况, w写入到分区表中
+$ fdisk /dev/sdb
+nnpw
+
+# fdisk后, 通知系统重新加载分区表
+$ partprobe /dev/sdb
+
+# 创建文件系统
+$ mkfs.ext4 /dev/sdb1
+$ mkfs.ext4 /dev/sdb2
+
+# 挂载
+$ mkdir /mnt/data1
+$ mkdir /mnt/data2
+$ mount /dev/sdb1 /mnt/data1
+$ mount /dev/sdb2 /mnt/data2
+
+# 记录分区的扇区起始信息
+$ fdisk -l /dev/sdb
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sdb1            2048      411647      204800   83  Linux	#记录开始扇区号2048。
+/dev/sdb2          411648      821247      204800   83  Linux	#记录结束扇区号821247。
+
+# 卸载
+$ umount /mnt/data1
+$ umount /mnt/data2
+
+# 重新分区, dd删除原本两个, n分的时候用上2048和821237
+$ fdisk /dev/sdb
+ddnpw
+$ partprobe /dev/sdb
+$ mount /dev/sdb1 /mnt/data1
+
+# 调整ext2/ext3/ext4文件系统大小
+$ resize2fs /dev/sdb1
+```
+但是数据还是只有sdb1里的了，sdb2的数据丢失了。

@@ -1,7 +1,7 @@
 import { defineConfig } from "vuepress/config";
 
 export default defineConfig({
-  title: "Hello VuePress",
+  title: "Hello Linux",
   base: "/learn_linux/",
   themeConfig: {
     docsRepo: "sword4869/learn_linux",
@@ -11,6 +11,7 @@ export default defineConfig({
     editLinkText: "Help us improve this page!",
 
     sidebar: [
+      ["/", "README"],
       {
         title: "advance",
         children: [
