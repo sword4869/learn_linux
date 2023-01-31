@@ -81,6 +81,7 @@ The key's randomart image is:
 |        .   *o. E|
 +----[SHA256]-----+
 ```
+默认采取rsa，换成别的比如dsa，就是`ssh-keygen -t dsa`.
 
 
 
@@ -289,11 +290,16 @@ vim ~/.ssh/config
 
 
 ```bash
+# 这是配置的匹配名字
 Host co
-    User coco
-    HostName 192.168.112.130
-    Port 7222	# 登陆端口，默认22就不用写
-    IdentityFile ~/.ssh/id_rsa # 私钥，选了这个就不能密码登陆
+# 用户名
+User coco
+# 实际的host地址
+HostName 192.168.112.130
+# 登陆端口，默认22就不用写
+Port 7222
+# 私钥，选了这个就不能密码登陆
+IdentityFile ~/.ssh/id_rsa
 ```
 
 ```bash
@@ -302,6 +308,14 @@ $ ssh co
 注意：这里找co是在config中找，当你（是客户端系统登陆的，而不是config中的User）是在普通用户时，在`/home/user/.ssh/config`找；当你是root时在`/root/.ssh/config`找。或者你可以指定位置， `ssh -F File destination`。
 这么就会出现一个问题，如果config创建在`/home/user/.ssh/config`时，而你用`sudo ssh co`，那么就会去`/root/.ssh/config`找，还非得你退出root权限。修改`/etc/ssh/ssh_config`的好处是，避免出现这种情况。
 
+
+PS：限制只使用某种方式登陆
+```bash
+# 默认允许三种方式
+PreferredAuthentications keyboard-interactive,password,publickey
+# 只允许使用密钥
+PreferredAuthentications publickeyHost
+```
 ## 3.4. Server Start
 
 > 脚本启动
@@ -409,10 +423,6 @@ net start sshd
 
 
 # 5. 登陆问题
-> WARNING: UNPROTECTED PRIVATE KEY FILE!
-
-在上面说了
-
 > WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!
 
 这里要登陆的服务器变化了，因为你客户端本地存有以前记住的服务器，所以发现不匹配后的问题。解决办法就是删除**客户端**中的`~/.ssh/known_hosts`的对应的服务器ip的记录。
@@ -481,6 +491,33 @@ PS：配置git公钥前，不用配置用户名、邮箱，只要上传了公钥
 
 PS2：少了第三步，就会出现问题四，让你输密码，然而输入了还是不对的现象。另外，你去github下看你的密钥使用情况，显示从未使用，因此就说明这是域名污染，而导致压根没没用密钥的情况。
 
+> 问题：DNS污染
+
+> `ssh git@github.com -T -vvv`显示
+> - key_load_public: No such file or directory
+> - pubkey_prepare: ssh_get_authentication_socket: No such file or directory
+> - debug1: read_passphrase: can't open /dev/tty: No such file or directory
+
+我还以为是ssh的问题，自己生成的密钥不匹配。然而并不是。
+
+最后怎么发现的，
+- `ping ssh.github.com`显示`正在 Ping ssh.github.com [127.0.0.1] 具有 32 字节的数据:`，再`ping github.com`也是`[127.0.0.1]`。
+
+- 再看`nslookup ssh.github.com 8.8.8.8`是`Address:  20.205.243.160`，再看自己的网关`nslookup ssh.github.com 192.168.0.1`是`Address:  127.0.0.1`。
+
+这是给我DNS污染了啊。一看站长之家的ping检测，全国通红。
+
+解法：打开wifi，从DHCP改为手动配置，DNS设置为`8.8.8.8`。
+
+之后，虽然ping不通，但是ip地址正确了，而且`ssh git@github.com -T`可以了。
+```bash
+$ ping ssh.github.com
+
+正在 Ping ssh.github.com [20.205.243.160] 具有 32 字节的数据:
+请求超时。
+请求超时。
+请求超时。
+```
 
 # 6. 其他ssh实例
 【win10客户端 ssh 自己的虚拟机linux服务器】
