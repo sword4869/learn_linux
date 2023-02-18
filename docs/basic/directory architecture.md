@@ -1,8 +1,9 @@
-- [1. Directory meanings](#1-directory-meanings)
+- [1. direcotry architecture](#1-direcotry-architecture)
+  - [1.1. Directory meanings](#11-directory-meanings)
 ---
 
-
-# 1. Directory meanings
+# 1. direcotry architecture
+## 1.1. Directory meanings
 A
 - binaries: `/bin`(user binaries) and `/sbin`(system binaries), `/usr/bin` and `/usr/sbin`.
   libraries: `/lib`(system libraries), `/usr/lib`

@@ -1,13 +1,14 @@
-- [1. Symbol](#1-symbol)
-- [2. Color](#2-color)
-- [3. Advance](#3-advance)
-  - [3.1. debian\_chroot](#31-debian_chroot)
-  - [3.2. 在 PS1 变量中使用 bash shell 函数](#32-在-ps1-变量中使用-bash-shell-函数)
-  - [3.3. 在 PS1 变量中使用 shell 脚本](#33-在-ps1-变量中使用-shell-脚本)
-- [4. Summary](#4-summary)
+- [1. PS1](#1-ps1)
+  - [1.1. Symbol](#11-symbol)
+  - [1.2. Color](#12-color)
+  - [1.3. Advance](#13-advance)
+    - [1.3.1. debian\_chroot](#131-debian_chroot)
+    - [1.3.2. 在 PS1 变量中使用 bash shell 函数](#132-在-ps1-变量中使用-bash-shell-函数)
+    - [1.3.3. 在 PS1 变量中使用 shell 脚本](#133-在-ps1-变量中使用-shell-脚本)
+  - [1.4. Summary](#14-summary)
 ---
-
-# 1. Symbol
+# 1. PS1
+## 1.1. Symbol
 
 - 时间
 `\d` ：代表日期，格式为weekday month date，例如："Mon Aug 1" 
@@ -53,7 +54,7 @@ export PS1="\t [\u@\h \w]\$ "
 $ source ~/.bashrc
 ```
 
-# 2. Color
+## 1.2. Color
 设置PS1变量使提示符成为彩色
 
 Sytax: `\e[F;Bm`（或者使用033替换e，即`\033[F;Bm`）。但你可能还会见到用`\[`和`\]`包裹的形式，`\[\e[F;Bm\]`，这个加括号的才是我们真正使用的。
@@ -126,8 +127,8 @@ $ PS1="\[\e[32;47;3;4m\][\u@\h \w]$ \[\e[m\]"
 ```
 ![green_foreground_white_background_it_underline](../../images/green_foreground_white_background_it_underline.jpg)
 
-# 3. Advance
-## 3.1. debian_chroot
+## 1.3. Advance
+### 1.3.1. debian_chroot
 
 通常，表示：`${var:+value}`
 
@@ -139,7 +140,7 @@ $ PS1="${debian_chroot:+($debian_chroot)}$ "
 ```
 
 
-## 3.2. 在 PS1 变量中使用 bash shell 函数
+### 1.3.2. 在 PS1 变量中使用 bash shell 函数
 您还可以调用 PS1 中的 bash shell 函数，如下所示。
 ```bash
 $ function httpdcount {
@@ -150,7 +151,7 @@ $ PS1="\u@\h [`httpdcount`]> "
 ramesh@dev-db [12]>
 [注意：这里显示运行的httpd进程总数]
 ```
-## 3.3. 在 PS1 变量中使用 shell 脚本
+### 1.3.3. 在 PS1 变量中使用 shell 脚本
 您还可以调用 PS1 变量内的 shell 脚本。在下面的示例中，计算当前目录的总文件大小的 `~/bin/totalfilesize.sh` 在 PS1 变量中被调用。
 ```bash
 $ cat ~/bin/totalfilesize.sh
@@ -167,7 +168,7 @@ ramesh@dev-db [534 bytes]> cd /etc/mail
 ramesh@dev-db [167997 bytes]>
 ```
 
-# 4. Summary
+## 1.4. Summary
 
 `\n`：换行
 `${debian_chroot:+($debian_chroot)}`：chroot

@@ -1,16 +1,18 @@
-- [1. Drives](#1-drives)
-- [2. Drive partitions](#2-drive-partitions)
-  - [2.1. list](#21-list)
-  - [2.2. how to make partition](#22-how-to-make-partition)
-- [3. Character and Block devices](#3-character-and-block-devices)
-- [4. Mount](#4-mount)
-  - [4.1. Manually mount](#41-manually-mount)
-  - [4.2. unmount](#42-unmount)
-  - [4.3. list mounted devices](#43-list-mounted-devices)
-- [5. Check and repair](#5-check-and-repair)
+- [1. filesystem](#1-filesystem)
+  - [1.1. Drives](#11-drives)
+  - [1.2. Drive partitions](#12-drive-partitions)
+    - [1.2.1. list](#121-list)
+    - [1.2.2. how to make partition](#122-how-to-make-partition)
+  - [1.3. Character and Block devices](#13-character-and-block-devices)
+  - [1.4. Mount](#14-mount)
+    - [1.4.1. Manually mount](#141-manually-mount)
+    - [1.4.2. unmount](#142-unmount)
+    - [1.4.3. list mounted devices](#143-list-mounted-devices)
+  - [1.5. Check and repair](#15-check-and-repair)
 
 ---
-# 1. Drives
+# 1. filesystem
+## 1.1. Drives
 > legacy and modern drives
 
 old Linux:
@@ -39,8 +41,8 @@ Of particular interest are the devices `sda`, `sda1`, `sda2`, `sda3`, `sdb`, and
 if you are partitioning a NVMe disk (e.g. /dev/nvme0n1 with partitions starting from /dev/nvme0n1p1) or an SD card or eMMC disk (e.g. /dev/mmcblk0 with partitions starting from /dev/mmcblk0p1).
 
 
-# 2. Drive partitions
-## 2.1. list
+## 1.2. Drive partitions
+### 1.2.1. list
 > fdisk
 
 ```bash
@@ -123,7 +125,7 @@ tmpfs           3.2G  204K  3.2G   1% /run/user/1000
 ```
 Drive belongs to mounted devices.
 
-## 2.2. how to make partition
+### 1.2.2. how to make partition
 
 > new Disk
 
@@ -158,7 +160,7 @@ $ vim /etc/fstab
 3. 删除对应分区后按w（保存操作）
 4. 删除`/etc/fstab`文件中的配置文件
 
-# 3. Character and Block devices
+## 1.3. Character and Block devices
 
 
 These letters represent the two ways that devices transfer data in and out.
@@ -170,7 +172,7 @@ These letters represent the two ways that devices transfer data in and out.
   These devices require higher-­speed data throughput, like hard drives and DVD drives
 
 
-# 4. Mount
+## 1.4. Mount
 
 
 Most modern operating systems automount storage devices when they’re attached.
@@ -187,7 +189,7 @@ $ lsblk
 ```
 
 lists each block device listed in `/dev`. 
-## 4.1. Manually mount
+### 1.4.1. Manually mount
 
 ```bash
 # mount <device> <mount point>
@@ -197,14 +199,14 @@ The mount point for the device should be an empty directory.
 
 The filesystems that are mounted on a system are kept in a file at `/etc/fstab` (short for filesystem table), which is read by the system at every bootup.
 
-## 4.2. unmount
+### 1.4.2. unmount
 
 ```bash
 $ umonut /dev/sdb1
 ```
 You cannot unmount a device that is busy, or you will just receive an error.
 
-## 4.3. list mounted devices
+### 1.4.3. list mounted devices
 
 basic information on mounted devices: 
 - how much space is being used
@@ -216,7 +218,7 @@ basic information on mounted devices:
 $ df -h
 ```
 
-# 5. Check and repair
+## 1.5. Check and repair
 
 ```bash
 $ fsck -p /dev/sdb1

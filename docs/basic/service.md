@@ -1,17 +1,19 @@
-- [1. Common Services](#1-common-services)
-  - [1.1. Apache](#11-apache)
-- [2. OpenSSH](#2-openssh)
-- [3. MySQL](#3-mysql)
+- [1. service](#1-service)
+  - [1.1. Common Services](#11-common-services)
+    - [1.1.1. Apache](#111-apache)
+  - [1.2. OpenSSH](#12-openssh)
+  - [1.3. MySQL](#13-mysql)
 
 
 ---
 
+# 1. service
 ```bash
 $ service SERVICE start|stop|restart
 ```
 
-# 1. Common Services
-## 1.1. Apache
+## 1.1. Common Services
+### 1.1.1. Apache
 > Use
 
 use Apache to set up your own web server, from which you could:
@@ -40,13 +42,13 @@ Apache's default web page is at `/var/www/html/index.html`.
 Open the url `http://localhost` in web browser.
 
 
-# 2. OpenSSH
+## 1.2. OpenSSH
 
 ```bash
 $ service ssh start
 ```
 
-# 3. MySQL
+## 1.3. MySQL
 
 ```bash
 $ service mysql start

@@ -1,8 +1,10 @@
-- [1. APT, apt-get, apt](#1-apt-apt-get-apt)
-- [2. Command](#2-command)
-- [3. Advance](#3-advance)
+- [1. package manager](#1-package-manager)
+  - [1.1. APT, apt-get, apt](#11-apt-apt-get-apt)
+  - [1.2. Command](#12-command)
+  - [1.3. Advance](#13-advance)
 ---
-# 1. APT, apt-get, apt
+# 1. package manager
+## 1.1. APT, apt-get, apt
 
 APT(Advanced Packaging Tool) is a tool used to **manage packages** for Debian.
 
@@ -12,7 +14,7 @@ apt is not APT.
 
 鼓励用户使用 `apt` 而不是 `apt-get`。apt 命令的引入就是为了解决命令过于分散的问题，它包括了 apt-get 命令出现以来使用最广泛的功能选项，以及 apt-cache 和 apt-config 命令中很少用到的功能。即apt = apt-get、apt-cache 和 apt-config 中最常用命令选项的集合。
 
-# 2. Command
+## 1.2. Command
 |apt 命令|取代的命令|命令的功能|
 |-|-|-|
 |apt update|apt-get update|刷新存储库索引|
@@ -40,7 +42,7 @@ Details:
 - remove & purge
   `remove` doesn't remove the configuration files, `purge` does.
 
-# 3. Advance
+## 1.3. Advance
 
 ```bash
 $ dpkg -i xxx.deb

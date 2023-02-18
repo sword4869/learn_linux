@@ -1,16 +1,17 @@
-- [1. list processes](#1-list-processes)
-  - [1.1. all processes](#11-all-processes)
-  - [1.2. the greediest process](#12-the-greediest-process)
-- [2. change process priority](#2-change-process-priority)
-- [3. kill](#3-kill)
-  - [3.1. pid](#31-pid)
-  - [3.2. name](#32-name)
-- [4. run in background](#4-run-in-background)
-- [5. schedule a process](#5-schedule-a-process)
+- [1. process](#1-process)
+  - [1.1. list processes](#11-list-processes)
+    - [1.1.1. all processes](#111-all-processes)
+    - [1.1.2. the greediest process](#112-the-greediest-process)
+  - [1.2. change process priority](#12-change-process-priority)
+  - [1.3. kill](#13-kill)
+    - [1.3.1. pid](#131-pid)
+    - [1.3.2. name](#132-name)
+  - [1.4. run in background](#14-run-in-background)
+  - [1.5. schedule a process](#15-schedule-a-process)
 ---
-
-# 1. list processes
-## 1.1. all processes
+# 1. process
+## 1.1. list processes
+### 1.1.1. all processes
 
 `ps` without any options lists the processes started by the **currently logged-in user**. 
 
@@ -24,7 +25,7 @@ It is insufficient to see the processes run **by other users and by the system i
 $ ps axu
 ```
 
-## 1.2. the greediest process
+### 1.1.2. the greediest process
 ```bash
 $ top
   PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND
@@ -32,7 +33,7 @@ $ top
     8 root      20   0     896     84     20 S   0.0   0.0   0:00.00 init
 ```
 
-# 2. change process priority
+## 1.2. change process priority
 
 We could start the process with the `nice` command. And `renice` a pid of the running process.
 
@@ -44,8 +45,8 @@ $ nice -n -10 /usr/bin/python3
 $ renice -10 6996
 ```
 
-# 3. kill
-## 3.1. pid
+## 1.3. kill
+### 1.3.1. pid
 
 > sytax
 
@@ -88,12 +89,12 @@ $ kill -STOP 123
 # 恢复暂停的进程
 $ kill -CONT 123
 ```
-## 3.2. name
+### 1.3.2. name
 ```bash
 $ killall -9 python3
 ```
 
-# 4. run in background
+## 1.4. run in background
 
 All commands that run are executed from within that shell, even if they run from the graphical interface.
 ```bash
@@ -105,7 +106,7 @@ Move a process running in the background to the foreground.
 $ fg vim
 ``` 
 
-# 5. schedule a process
+## 1.5. schedule a process
 
 - `at now+5minutes`: (no seconds), minutes, hours, days, weeks, months, years
 - `at 7:20pm 06/25/2022`, `at 7:20pm`(today), `at 7:20pm tomorrow`(tomorrow)

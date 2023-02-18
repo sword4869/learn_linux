@@ -1,17 +1,20 @@
-- [1. 显卡驱动](#1-显卡驱动)
-  - [1.1. Test whether you have installed a nvidia driver](#11-test-whether-you-have-installed-a-nvidia-driver)
-  - [1.2. Install which verison of driver](#12-install-which-verison-of-driver)
-  - [1.3. Installation-me](#13-installation-me)
-  - [1.4. Installation-nvidia](#14-installation-nvidia)
-- [2. cuda](#2-cuda)
-  - [2.1. 探索期](#21-探索期)
-  - [2.2. CUDA版本限制](#22-cuda版本限制)
-  - [2.3. Installation](#23-installation)
-  - [2.4. 卸载cuda](#24-卸载cuda)
-- [3. cudnn](#3-cudnn)
+- [1. drivers](#1-drivers)
+  - [1.1. 显卡驱动](#11-显卡驱动)
+    - [1.1.1. Test whether you have installed a nvidia driver](#111-test-whether-you-have-installed-a-nvidia-driver)
+    - [1.1.2. Install which verison of driver](#112-install-which-verison-of-driver)
+    - [1.1.3. Installation-me](#113-installation-me)
+    - [1.1.4. Installation-nvidia](#114-installation-nvidia)
+  - [1.2. cuda](#12-cuda)
+    - [1.2.1. 探索期](#121-探索期)
+    - [1.2.2. CUDA版本限制](#122-cuda版本限制)
+    - [1.2.3. Installation](#123-installation)
+    - [1.2.4. 卸载cuda](#124-卸载cuda)
+  - [1.3. cudnn](#13-cudnn)
 ---
-# 1. 显卡驱动
-## 1.1. Test whether you have installed a nvidia driver
+
+# 1. drivers
+## 1.1. 显卡驱动
+### 1.1.1. Test whether you have installed a nvidia driver
 
 If not, the result is as follows.
 
@@ -78,7 +81,7 @@ $ sudo lshw -C video
 configuration这一行中，  `driver=nouveau`说明nvidia驱动还没安装好，如果`driver=nvidia`说明驱动安装好了。
 
 
-## 1.2. Install which verison of driver
+### 1.1.2. Install which verison of driver
 Tell you some versions of nvidia driver. `recommended` is that version you shoull install, here is `nvidia-driver-515`.
 `GeForce RTX 2080 Ti Rev. A` is your hard-card type. 
 ```bash
@@ -98,7 +101,7 @@ driver   : nvidia-driver-450-server - distro non-free
 driver   : xserver-xorg-video-nouveau - distro free builtin
 ```
 
-## 1.3. Installation-me
+### 1.1.3. Installation-me
 
 ```bash
 ######## 先调整一波grub，以便更好进入recovery模式
@@ -156,7 +159,7 @@ $ reboot
 $ reboot
 ```
 
-## 1.4. Installation-nvidia
+### 1.1.4. Installation-nvidia
 
 <https://docs.nvidia.com/datacenter/tesla/tesla-installation-notes/index.html#ubuntu-lts>
 
@@ -172,9 +175,9 @@ $ sudo dpkg -i cuda-keyring_1.0-1_all.deb
 $ sudo apt-get update
 $ sudo apt-get -y install cuda-drivers
 ```
-# 2. cuda
+## 1.2. cuda
 
-## 2.1. 探索期
+### 1.2.1. 探索期
 
 此处命令皆可省略，只是为了明白需要我们手动安装一个CUDA版本，自带的不行。
 
@@ -229,7 +232,7 @@ $ nvidia-smi
 
 原来：一台机器只能有一个版本的驱动(nvidia-smi中显示的Driver Version)，然而CUDA是可以多版本共存的
 
-## 2.2. CUDA版本限制
+### 1.2.2. CUDA版本限制
 
 > Driver 限制
 
@@ -246,7 +249,7 @@ $ nvidia-smi
 
 只能下这几个版本。
 
-## 2.3. Installation
+### 1.2.3. Installation
 
 [各版本CUDA下载](https://developer.nvidia.com/cuda-toolkit-archive)
 
@@ -289,13 +292,13 @@ Mon Oct  3 08:44:06 2022
 | NVIDIA-SMI 515.65.01    Driver Version: 515.65.01    CUDA Version: 11.7  
 ```
 
-## 2.4. 卸载cuda
+### 1.2.4. 卸载cuda
 ```bash
 $ cd /usr/local/cuda-11.0/bin/
 $ sudo ./cuda-uninstaller
 $ sudo rm -rf /usr/local/cuda-11.0
 ```
 
-# 3. cudnn
+## 1.3. cudnn
 
 [nvidia](https://developer.nvidia.com/rdp/cudnn-download)

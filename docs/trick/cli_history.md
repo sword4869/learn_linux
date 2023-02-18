@@ -1,4 +1,8 @@
-# HISTSIZE
+- [1. cli\_history](#1-cli_history)
+  - [1.1. HISTSIZE](#11-histsize)
+# 1. cli_history
+
+## 1.1. HISTSIZE
 This variable `HISTSIZE` contains the maximum number of commands your command history file will store. These commands are any ones you’ve previously typed into your command prompt in this session and can be recalled with your up­ and down­arrow keys.
 
 The default value of this variable is probably set to `1000` on your system. This indicates that the terminal will store your last 1,000 commands by default.

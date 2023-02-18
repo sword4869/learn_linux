@@ -1,21 +1,24 @@
-- [1. secure boot](#1-secure-boot)
-- [2. 分区](#2-分区)
-  - [2.1. UEFI,MBR,GPT,EFI:](#21-uefimbrgptefi)
-  - [2.2. 细节](#22-细节)
-  - [2.3. 分区例子](#23-分区例子)
-- [3. double boot](#3-double-boot)
-  - [3.1. Make boot USB](#31-make-boot-usb)
-  - [3.2. Always install Windows first](#32-always-install-windows-first)
-  - [3.3. boot sequence](#33-boot-sequence)
-- [扩容](#扩容)
+- [1. boot](#1-boot)
+  - [1.1. secure boot](#11-secure-boot)
+  - [1.2. 分区](#12-分区)
+  - [1.3. UEFI,MBR,GPT,EFI:](#13-uefimbrgptefi)
+    - [1.3.1. 细节](#131-细节)
+    - [1.3.2. 分区例子](#132-分区例子)
+  - [1.4. double boot](#14-double-boot)
+    - [1.4.1. Make boot USB](#141-make-boot-usb)
+    - [1.4.2. Always install Windows first](#142-always-install-windows-first)
+    - [1.4.3. boot sequence](#143-boot-sequence)
+  - [1.5. 扩容](#15-扩容)
 ---
-# 1. secure boot
+
+# 1. boot
+## 1.1. secure boot
 没关长这样。
 ![picture 1](../../images/ce9a6a44586a0e3caf8796a36dcc643ebac724caa375ac630b5786eb1cd43405.png)  
 
 
-# 2. 分区
-## 2.1. UEFI,MBR,GPT,EFI:
+## 1.2. 分区
+## 1.3. UEFI,MBR,GPT,EFI:
 - 主板的引导启动方式。古老的是Legacy BIOS，现代的是UEFI
 - 硬盘分区表的布局。古老的是MBR（Master Boot Record），现代是GPT（Globally Unique Identifier (GUID) Partition Table）。EFI是GPT中的系统启动分区。
 - 如果用UEFI模式启动，就使用GPT格式的分区表。
@@ -31,7 +34,7 @@ Disklabel type: gpt
 
 或者 Under the Boot menu, look for PCI ROM Priority. You should see two options – EFI Compatible ROM and Legacy ROM. The latter indicates MBR.
 
-## 2.2. 细节
+### 1.3.1. 细节
 > 交换分区
 
 相当于Windows中的“虚拟内存”.
@@ -67,7 +70,7 @@ Theoretically, there is no limit to the number of logical partitions that you ca
 
 If the disk from which you want to boot already has an EFI system partition, do not create another one, but use the existing partition instead.
 
-## 2.3. 分区例子
+### 1.3.2. 分区例子
 > ubuntu默认分区规则：
 - 最少的分区：`/`分区和efi分区。
 - efi分区占500M，`/`分区占剩下的分区。
@@ -93,8 +96,8 @@ By giving `/home` its own dedicated partition, you separate the user data from t
 | `/swap`|no|交换空间(swap)|1倍到2倍的物理内存RAM大小|虚拟内存
 
 
-# 3. double boot
-## 3.1. Make boot USB
+## 1.4. double boot
+### 1.4.1. Make boot USB
 ```bash
 # 看看U盘挂载在哪里，如下 设备 /dev/sdb1 挂载在 /media/sword/ESD-USB
 $ lsblk
@@ -115,20 +118,20 @@ $ mkfs.ntfs /dev/sdb1
 $ dd if=ubuntu-16.0.3-desktop-amd64.iso of=/dev/sdb1 status=progress 
 ```
 
-## 3.2. Always install Windows first
+### 1.4.2. Always install Windows first
 Windows does not detect other operating systems and does not feature a boot menu. When you install it, it overwrites your boot sequence and your computer then boots straight into Windows.
 
 Linux Mint (and most Linux distributions) detects other operating systems and builds a menu from which you can choose which system to boot.
 
 For this reason, if you want to dual-boot or multi-boot with Windows, it is easier and recommended to install Windows first, before you install Linux Mint.
 
-## 3.3. boot sequence
+### 1.4.3. boot sequence
 
 <https://linuxmint-installation-guide.readthedocs.io/en/latest/multiboot.html>
 
 <https://linuxmint-installation-guide.readthedocs.io/en/latest/efi.html>
 
-# 扩容
+## 1.5. 扩容
 未经测试!!!
 
 

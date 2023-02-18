@@ -1,16 +1,18 @@
-- [1. change IP, mask, broadcast](#1-change-ip-mask-broadcast)
-- [2. change MAC](#2-change-mac)
-  - [2.1. 显示某设备 mac](#21-显示某设备-mac)
-  - [2.2. 查看 mac 地址的厂商](#22-查看-mac-地址的厂商)
-  - [2.3. 修改 mac](#23-修改-mac)
-- [3. DHCP](#3-dhcp)
-- [4. DNS](#4-dns)
-  - [4.1. dig](#41-dig)
-  - [4.2. alter](#42-alter)
-- [5. hosts](#5-hosts)
+- [1. ip](#1-ip)
+  - [1.1. change IP, mask, broadcast](#11-change-ip-mask-broadcast)
+  - [1.2. change MAC](#12-change-mac)
+    - [1.2.1. 显示某设备 mac](#121-显示某设备-mac)
+    - [1.2.2. 查看 mac 地址的厂商](#122-查看-mac-地址的厂商)
+    - [1.2.3. 修改 mac](#123-修改-mac)
+  - [1.3. DHCP](#13-dhcp)
+  - [1.4. DNS](#14-dns)
+    - [1.4.1. dig](#141-dig)
+    - [1.4.2. alter](#142-alter)
+  - [1.5. hosts](#15-hosts)
 
 ---
 
+# 1. ip
 通过`ifconfig`查看
 
 ```bash
@@ -45,7 +47,7 @@ wlan0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
 
 
 
-# 1. change IP, mask, broadcast
+## 1.1. change IP, mask, broadcast
 ```bash
 # change ip of eth0
 # default mask is 255.255.255.0 and broadcast.
@@ -54,10 +56,10 @@ $ ifconfig eth0 192.168.0.1
 # special mask and broadcast
 $ ifconfig eth0 192.168.181.115 netmask 255.255.0.0 broadcast 192.168.1.255
 ```
-# 2. change MAC
+## 1.2. change MAC
 
 
-## 2.1. 显示某设备 mac
+### 1.2.1. 显示某设备 mac
 > 方法1
 
 `ifconfig`中`ether`就是 mac。
@@ -74,7 +76,7 @@ Permanent MAC: 00:0c:29:22:38:7b (VMware, Inc.)
 - `Current MAC`: 是当前显示的地址
 - `Permanent MAC`: 是 BIA（Burned-In Address，固化地址）。
 
-## 2.2. 查看 mac 地址的厂商
+### 1.2.2. 查看 mac 地址的厂商
 
 
 ```bash
@@ -102,7 +104,7 @@ Num    MAC        Vendor
 
 `64:0b:4a:eb:ce:b5`的`64:0b:4a`查询出来表示属于`Digital Telecom Technology Limited`的产品。
 
-## 2.3. 修改 mac
+### 1.2.3. 修改 mac
 
 > 方法1
 
@@ -148,28 +150,28 @@ $ sudo ifconfig eth0 hw ether 00:11:22:33:44:55
 $ sudo ifconfig eth0 up
 ```
 
-# 3. DHCP
+## 1.3. DHCP
 先设定成局域网的ip段，再获取动态IP
 ```bash
 $ ifconfig eth0 192.168.0.4
 $ dhclient eth0
 ```
 
-# 4. DNS
-## 4.1. dig
+## 1.4. DNS
+### 1.4.1. dig
 
 ```bash
 $ dig hackers-arise.com ns
 ```
 `ns` is nameserver, and for mail exchange server is `mx`. 
 
-## 4.2. alter
+### 1.4.2. alter
 ```bash
 $ echo "nameserver 8.8.8.8" > /etc/resolv.conf
 ```
 DHCP serve provides a DNS setting (replace the contents of the file) when it renews the DHCP address.
 
-# 5. hosts
+## 1.5. hosts
 
 You can determine which ip address when you enter www.microsoft.com, rather than let the DNS server decides.
 

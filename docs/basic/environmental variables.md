@@ -1,16 +1,17 @@
-- [1. View variables](#1-view-variables)
-  - [1.1. View default environmental variables](#11-view-default-environmental-variables)
-  - [1.2. View all environmental variables](#12-view-all-environmental-variables)
-  - [1.3. View by echo](#13-view-by-echo)
-- [2. Change varibale](#2-change-varibale)
-  - [2.1. delete this new variable](#21-delete-this-new-variable)
-  - [2.2. change PATH](#22-change-path)
-  - [2.3. temporary](#23-temporary)
+- [1. environmental varibles](#1-environmental-varibles)
+  - [1.1. View variables](#11-view-variables)
+    - [1.1.1. View default environmental variables](#111-view-default-environmental-variables)
+    - [1.1.2. View all environmental variables](#112-view-all-environmental-variables)
+    - [1.1.3. View by echo](#113-view-by-echo)
+  - [1.2. Change varibale](#12-change-varibale)
+    - [1.2.1. delete this new variable](#121-delete-this-new-variable)
+    - [1.2.2. change PATH](#122-change-path)
+    - [1.2.3. temporary](#123-temporary)
 
 ---
-
-# 1. View variables
-## 1.1. View default environmental variables
+# 1. environmental varibles
+## 1.1. View variables
+### 1.1.1. View default environmental variables
 Each user, including root, has a default set of environment variables that determine how the system looks, acts, and feels.
 ```bash
 $ env
@@ -18,7 +19,7 @@ $ env
 Variables are simply strings in key­value pairs. One value:`KEY=value`, multiple values:`KEY=value1:value2`.
 
 Environment variables are always uppercase, as in `HOME`, `PATH`.
-## 1.2. View all environmental variables
+### 1.1.2. View all environmental variables
 This command will list all environment variables unique to your system.
 ```bash
 $ set
@@ -28,7 +29,7 @@ $ set | grep HISTSIZE
 HISTSIZE=1000
 ```
 
-## 1.3. View by echo
+### 1.1.3. View by echo
 
 Only `echo $VARIABLE` has `$`.
 ```bash
@@ -36,16 +37,16 @@ $ echo $HISTSIZE
 1000
 ```
 
-# 2. Change varibale
+## 1.2. Change varibale
 
-## 2.1. delete this new variable
+### 1.2.1. delete this new variable
 ```bash
 $ unset VARIABLE
 ```
 > Question: Is it different between `unset VARIABLE` and `VARIABLE=''`?
 
 
-## 2.2. change PATH
+### 1.2.2. change PATH
 To add `newhackingtool` to your `PATH` variable, this directory should be appended to the end of `PATH`, not be replaced.
 ```bash
 $ PATH=/root/newhackingtool:$PATH
@@ -53,7 +54,7 @@ $ PATH=/root/newhackingtool:$PATH
 
 PS: `/root/newhackingtool` is in front of `$PATH`, then `/root/newhackingtool` is firstly searched.
 
-## 2.3. temporary
+### 1.2.3. temporary
 
 > 这有什么用？
 
