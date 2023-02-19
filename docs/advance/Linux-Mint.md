@@ -1,13 +1,15 @@
 - [1. Linux-Mint](#1-linux-mint)
   - [1.1. Basic](#11-basic)
   - [1.2. Application](#12-application)
-  - [1.3. Productivity Software](#13-productivity-software)
-  - [Productivity](#productivity)
-    - [GPU](#gpu)
-    - [python](#python)
-    - [vscode](#vscode)
-    - [ssh](#ssh)
-  - [搬家](#搬家)
+    - [1.2.1. deb](#121-deb)
+    - [1.2.2. software shop](#122-software-shop)
+    - [1.2.3. apt install](#123-apt-install)
+  - [1.3. configuration](#13-configuration)
+    - [1.3.1. GPU](#131-gpu)
+    - [1.3.2. python](#132-python)
+    - [1.3.3. vscode](#133-vscode)
+    - [1.3.4. ssh](#134-ssh)
+  - [1.4. 搬家](#14-搬家)
 
 # 1. Linux-Mint
 ## 1.1. Basic
@@ -18,11 +20,9 @@
 
 ## 1.2. Application
 
+### 1.2.1. deb
+
 Browser: `Microsoft Edge`
-
-ScreenShot: `Flameshot`
-
-实时网速显示，先在软件商店里找，桌面panel的applets的`Download and upload speed by cardsurf`，最差是终端里的`sudo apt install vnstati`
 
 WPS
 
@@ -38,54 +38,69 @@ ffmpg
 
 百度网盘
 
-## 1.3. Productivity Software
+vscode
+miniconda 
+
+### 1.2.2. software shop
+
+ScreenShot: `Flameshot`
+
+实时网速显示，先在软件商店里找，桌面panel的applets的`Download and upload speed by cardsurf`，最差是终端里的`sudo apt install vnstati`
+
+
+### 1.2.3. apt install
 
 ```bash
 git 
-vim 
+vim
+nano
 
 # c/c++
 build-essential 
 cmake
-
-# 电脑温度
-sensors
 
 # 后台
 screen
 
 # 网络
 iproute2         
+
+# ssh
+openssh-client
+openssh-server
 ```
 
 
-## Productivity
-### GPU
+## 1.3. configuration
+### 1.3.1. GPU
 
 `~/.bashrc`
-```
-export CUDA_HOME=/usr/local/cuda-11.6
-export PATH=$CUDA_HOME/bin:$PATH
-export LD_LIBRARY_PATH="$CUDA_HOME/lib64:/home/lab/anaconda3/envs/sediment/lib/python3.8/site-packages/nvidia/cudnn/lib"
-```
 
-### python
 
-ananconda
+### 1.3.2. python
+
 `~/.condarc`
 `pip`换源
 
-### vscode
+### 1.3.3. vscode
 
-### ssh
+同步设置
+
+插件
+### 1.3.4. ssh
 
 config ssh
+
 upload github' secret key
 
-## 搬家
+## 1.4. 搬家
 
 ssh: `~/.ssh`
 
 conda: `~/.condarc`
 
 gpu: `~/.bashrc`
+
+git: `~/.gitconfig`
+
+vscode: `~/.vscode/extensions`（`~/.vscode/argv.json`不要搬，每个不一样）

@@ -1,20 +1,18 @@
 - [1. drivers](#1-drivers)
   - [1.1. 显卡驱动](#11-显卡驱动)
-    - [1.1.1. Test whether you have installed a nvidia driver](#111-test-whether-you-have-installed-a-nvidia-driver)
+    - [1.1.1. check whether you have installed a nvidia driver](#111-check-whether-you-have-installed-a-nvidia-driver)
     - [1.1.2. Install which verison of driver](#112-install-which-verison-of-driver)
-    - [1.1.3. Installation-me](#113-installation-me)
-    - [1.1.4. Installation-nvidia](#114-installation-nvidia)
-  - [1.2. cuda](#12-cuda)
-    - [1.2.1. 探索期](#121-探索期)
-    - [1.2.2. CUDA版本限制](#122-cuda版本限制)
-    - [1.2.3. Installation](#123-installation)
-    - [1.2.4. 卸载cuda](#124-卸载cuda)
+  - [1.2. Driver+CUDA](#12-drivercuda)
+    - [1.2.1. Choose Version](#121-choose-version)
+    - [1.2.2. Installation](#122-installation)
+    - [1.2.5. 探索期](#125-探索期)
+    - [1.2.6. 卸载cuda](#126-卸载cuda)
   - [1.3. cudnn](#13-cudnn)
 ---
 
 # 1. drivers
 ## 1.1. 显卡驱动
-### 1.1.1. Test whether you have installed a nvidia driver
+### 1.1.1. check whether you have installed a nvidia driver
 
 If not, the result is as follows.
 
@@ -82,6 +80,7 @@ configuration这一行中，  `driver=nouveau`说明nvidia驱动还没安装好�
 
 
 ### 1.1.2. Install which verison of driver
+
 Tell you some versions of nvidia driver. `recommended` is that version you shoull install, here is `nvidia-driver-515`.
 `GeForce RTX 2080 Ti Rev. A` is your hard-card type. 
 ```bash
@@ -101,7 +100,28 @@ driver   : nvidia-driver-450-server - distro non-free
 driver   : xserver-xorg-video-nouveau - distro free builtin
 ```
 
-### 1.1.3. Installation-me
+## 1.2. Driver+CUDA
+
+CUDA Toolkit里包含Driver， 所以不用自己去下Drivers。
+
+### 1.2.1. Choose Version 
+
+> Driver 限制
+
+[CUDA Toolkit对于显卡驱动的版本要求](https://docs.nvidia.com/cuda/cuda-toolkit-release-notes/index.html)
+其中Table-3.
+![图 4](../../images/3b4fc76fe84ea2178dc6692f17111fe88acfb8731c633ee09cd2f34446af00c7.png)  
+我们安装Driver是515.65，那么可以安装所有的CUDA版本。
+
+> Pytorch限制
+
+[pytorch](https://pytorch.org/)
+
+![图 5](../../images/02740af4fffad6a4bd5394789558db08fb3758ff8bb17c5c2b73ca0a2c347db0.png)  
+
+只能下这几个版本。
+
+### 1.2.2. Installation
 
 ```bash
 ######## 先调整一波grub，以便更好进入recovery模式
@@ -139,7 +159,7 @@ $ reboot
 # 更新软件列表
 $ sudo apt update
 # 安装C/C++编译器，后面编译驱动要用
-$ sudo apt install g++ gcc make build-essential cmake
+$ sudo apt install build-essential cmake
 # 卸载 gdm3
 # 安装显卡驱动后黑屏，认为ubuntu默认桌面GNOME的显示管理器 gdm3问题
 $ sudo apt remove gdm3
@@ -151,35 +171,35 @@ $ sudo apt-get install linux-headers-$(uname -r)
 $ reboot
 
 
-# 图形化软件商店安装
-....
+######## Download CUDA(included Drivers)
 
+# [各版本CUDA下载, 点进去后，会给wget下载命令。](https://developer.nvidia.com/cuda-toolkit-archive)
+# - c表示采用断点续传模式
+# 没用用 -c 时，下到99%，出现wget 段错误 (核心已转储)
+$ wget -c XXXXXXXXXXX.run
+$ sudo chmod +x ./XXXXXXXXXXX.run
 
-# 重启
-$ reboot
+$ ctrl+alt+F1 to tty1
+# when lightdm is running. Installation will fail: error message is `xorg is running`, xorg is supporting lightdm. 
+$ sudo systemctl stop lightdm
+
+$ sudo ./XXXXXXXXXXX.run
+$ accept/install
+
+$ sudo systemctl start lightdm
+$ ctrl+alt+F7
 ```
 
-### 1.1.4. Installation-nvidia
-
-<https://docs.nvidia.com/datacenter/tesla/tesla-installation-notes/index.html#ubuntu-lts>
-
+设置cuda的环境变量
 ```bash
-$ sudo apt-get update
-$ sudo apt-get install linux-headers-$(uname -r)
+$ vim ~/.bashrc
+export CUDA_HOME=/usr/local/cuda
+export PATH=$CUDA_HOME/bin:$PATH
+export LD_LIBRARY_PATH=$CUDA_HOME/lib64:$LD_LIBRARY_PATH
 
-#Install the CUDA repository public GPG key. This can be done via the cuda-keyring package or a manual installation of the key. The usage of apt-key is deprecated.
-$ distribution=$(. /etc/os-release;echo $ID$VERSION_ID | sed -e 's/\.//g')
-$ wget https://developer.download.nvidia.com/compute/cuda/repos/$distribution/x86_64/cuda-keyring_1.0-1_all.deb
-$ sudo dpkg -i cuda-keyring_1.0-1_all.deb
-# Update the APT repository cache and install the driver using the cuda-drivers meta-package. Use the --no-install-recommends option for a lean driver install without any dependencies on X packages. This is particularly useful for headless installations on cloud instances.
-$ sudo apt-get update
-$ sudo apt-get -y install cuda-drivers
+$ source ~/.bashrc
 ```
-## 1.2. cuda
-
-### 1.2.1. 探索期
-
-此处命令皆可省略，只是为了明白需要我们手动安装一个CUDA版本，自带的不行。
+### 1.2.5. 探索期
 
 ```bash
 $ nvidia-smi
@@ -209,7 +229,7 @@ Mon Sep 26 20:43:11 2022
 |    1   N/A  N/A      1513      G   /usr/lib/xorg/Xorg                  4MiB |
 +-----------------------------------------------------------------------------+
 
-# 看看CUDA版本
+# nvcc 没有就没有，不影响使用，不要乱安给出的建议apt install nvidia-cuda-toolkit7
 $ nvcc -V
 
 Command 'nvcc' not found, but can be installed with:
@@ -217,88 +237,29 @@ Command 'nvcc' not found, but can be installed with:
 apt install nvidia-cuda-toolkit7
 ```
 
-![nvidia-smi     ](../../images/nvidia-smi.jpg)
+![nvidia-smi](../../images/nvidia-smi.jpg)
 
+一台机器只能有一个版本的驱动(nvidia-smi中显示的Driver Version)，然而CUDA是可以多版本共存的
+
+### 1.2.6. 卸载cuda
 ```bash
-$ nvcc -V
-nvcc: NVIDIA (R) Cuda compiler driver
-Copyright (c) 2005-2019 NVIDIA Corporation
-Built on Sun_Jul_28_19:07:16_PDT_2019
-Cuda compilation tools, release 10.1, V10.1.243
-
-$ nvidia-smi
-还是 11.7
-```
-
-原来：一台机器只能有一个版本的驱动(nvidia-smi中显示的Driver Version)，然而CUDA是可以多版本共存的
-
-### 1.2.2. CUDA版本限制
-
-> Driver 限制
-
-[CUDA Toolkit对于显卡驱动的版本要求](https://docs.nvidia.com/cuda/cuda-toolkit-release-notes/index.html)
-其中Table-3.
-![图 4](../../images/3b4fc76fe84ea2178dc6692f17111fe88acfb8731c633ee09cd2f34446af00c7.png)  
-我们安装Driver是515.65，那么可以安装所有的CUDA版本。
-
-> Pytorch限制
-
-[pytorch](https://pytorch.org/)
-
-![图 5](../../images/02740af4fffad6a4bd5394789558db08fb3758ff8bb17c5c2b73ca0a2c347db0.png)  
-
-只能下这几个版本。
-
-### 1.2.3. Installation
-
-[各版本CUDA下载](https://developer.nvidia.com/cuda-toolkit-archive)
-
-点进去后，会给wget下载命令。
-```bash
-# - c表示采用断点续传模式
-# 没用用 -c 时，下到99%，出现wget 段错误 (核心已转储)
-$ wget -c https://developer.download.nvidia.com/compute/cuda/11.6.2/local_installers/cuda_11.6.2_510.47.03_linux.run
-$ sudo chmod +x ./cuda_11.6.2_510.47.03_linux.run
-$ sudo ./cuda_11.6.2_510.47.03_linux.run
-```
-Existing package manager installation of the driver found. It is strongly recommended that you remove this before continuing
-选择 continue
-在下一步中去除driver项，之后选择install：
-![图 6](../../images/4b31a9d53bf17375c3a2e853660bf68e3a28c288bd28655d30e2021b4a4347bd.png)  
-
-
-设置cuda的环境变量
-```bash
-$ vim ~/.bashrc
-export CUDA_HOME=/usr/local/cuda-11.6
-export PATH=$CUDA_HOME/bin:$PATH
-export LD_LIBRARY_PATH=$CUDA_HOME/lib64
-
-$ source ~/.bashrc
-```
-```bash
-# nvcc ok
-$ nvcc -V
-nvcc: NVIDIA (R) Cuda compiler driver
-Copyright (c) 2005-2022 NVIDIA Corporation
-Built on Tue_Mar__8_18:18:20_PST_2022
-Cuda compilation tools, release 11.6, V11.6.124
-Build cuda_11.6.r11.6/compiler.31057947_0
-
-# but nvidia-smi is not ok
-$ nvidia-smi
-Mon Oct  3 08:44:06 2022       
-+-----------------------------------------------------------------------------+
-| NVIDIA-SMI 515.65.01    Driver Version: 515.65.01    CUDA Version: 11.7  
-```
-
-### 1.2.4. 卸载cuda
-```bash
-$ cd /usr/local/cuda-11.0/bin/
+$ cd /usr/local/cuda/bin/
 $ sudo ./cuda-uninstaller
-$ sudo rm -rf /usr/local/cuda-11.0
+# cuda是cuda-11.7的软链接
+$ sudo rm -rf /usr/local/cuda-11.7
 ```
 
 ## 1.3. cudnn
 
 [nvidia](https://developer.nvidia.com/rdp/cudnn-download)
+
+
+```bash
+从
+export LD_LIBRARY_PATH=$CUDA_HOME/lib64:$LD_LIBRARY_PATH
+
+中间加入/home/lab/anaconda3/envs/sediment/lib/python3.8/site-packages/nvidia/cudnn/lib 
+
+变成这个
+export LD_LIBRARY_PATH=$CUDA_HOME/lib64:/home/lab/anaconda3/envs/sediment/lib/python3.8/site-packages/nvidia/cudnn/lib:$LD_LIBRARY_PATH
+```
