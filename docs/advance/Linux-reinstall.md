@@ -45,7 +45,12 @@ miniconda
 
 ScreenShot: `Flameshot`
 
-实时网速显示，先在软件商店里找，桌面panel的applets的`Download and upload speed by cardsurf`，最差是终端里的`sudo apt install vnstati`
+Thunar 文件管理器
+
+
+实时网速显示
+ubuntu: flathub(https://flatpak.org/setup/Ubuntu) -> Extension Manager (shell extension) -> speed
+mint: 先在软件商店里找，桌面panel的applets的`Download and upload speed by cardsurf`
 
 
 ### 1.2.3. apt install
