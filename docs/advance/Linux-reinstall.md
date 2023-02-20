@@ -68,7 +68,11 @@ cmake
 screen
 
 # 网络
-iproute2         
+iproute2
+curl
+
+# locate
+plocate
 
 # ssh
 openssh-client
