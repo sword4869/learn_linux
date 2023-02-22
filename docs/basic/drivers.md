@@ -104,6 +104,10 @@ driver   : xserver-xorg-video-nouveau - distro free builtin
 
 CUDA Toolkit里包含Driver， 所以不用自己去下Drivers。
 
+CUDA Toolkit / Drivers直接下最新的。之后就不用管这硬件了。
+
+像是不同的项目安装时，遇到不同版本要求的CUDA，不用重安硬件的，而是去创个conda环境，然后自己去conda安装cudatoolkit（`conda install cudatoolkit=11.6 -c nvidia`）。
+
 ### 1.2.1. Choose Version 
 
 > Driver 限制
