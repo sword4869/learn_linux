@@ -106,9 +106,9 @@ CUDA Toolkit里包含Driver， 所以不用自己去下Drivers。
 
 装一个系统的CUDA Toolkit直接下最新的。之后就不用管这硬件了。
 
-像是不同的项目安装时，遇到不同版本要求的CUDA，不用重安硬件的，而是去创个conda环境，然后自己去conda安装cudatoolkit（`conda install cudatoolkit=11.7 -c nvidia`）。
+像是不同的项目安装时，遇到不同版本要求的CUDA，不用重安硬件的，而是去创个conda环境，然后自己去conda安装cudatoolkit（`conda install cudatoolkit=11.7 -c nvidia`）。下载后文件在`/home/xxx/anaconda3/pkgs`的cudatoolkit中. 激活conda环境, 会覆盖掉系统CUDA.
 
-装cudnn
+装cudnn, 可以装tar(对应系统cudnn), 可以pip/conda(对应conda环境). 但这玩意装不装随意, 一般pytorch程序都用不上它, 也就玩paddle的时候用了次.
 
 ### 1.2.1. Choose Version 
 
@@ -236,18 +236,23 @@ Mon Sep 26 20:43:11 2022
 |    1   N/A  N/A      1513      G   /usr/lib/xorg/Xorg                  4MiB |
 +-----------------------------------------------------------------------------+
 
-# nvcc 没有就没有，不影响使用，不要乱安给出的建议apt install nvidia-cuda-toolkit7
+# nvcc 没有就没有，因为 /home/xxx/anaconda3/pkgs下是cudatoolkit的位置, 但其内bin里空空如也, 没有nvcc程序. 
+# 但不影响使用!
+# 不要乱安给出的建议apt install nvidia-cuda-toolkit7
 $ nvcc -V
 Command 'nvcc' not found, but can be installed with:
 apt install nvidia-cuda-toolkit7
 
-# 如果你是在conda环境里, 还conda install cudatoolkit, 那么这里就会显示其cudatoolkit的conda 的cuda版本
+# 或者这里显示有, 但这是系统CUDA的, 对应 /usr/local/cuda
 $ nvcc -V
 nvcc: NVIDIA (R) Cuda compiler driver
 Copyright (c) 2005-2022 NVIDIA Corporation
 Built on Tue_Mar__8_18:18:20_PST_2022
 Cuda compilation tools, release 11.6, V11.6.124
 Build cuda_11.6.r11.6/compiler.31057947_0
+
+$ which nvcc
+/usr/local/cuda-11.6/bin/nvcc
 ```
 
 ![nvidia-smi](../../images/nvidia-smi.jpg)
@@ -304,19 +309,22 @@ print(torch.backends.cudnn.version())
 # 8700
 ```
 
-> 如果是conda
+> 如果是conda / pip
 
 `conda search cudnn`显示对于cuda的都太老了，如果你恰好要安这里有的老的。那么`conda install cudnn=xxx`
 
+`pip`里居然有新的, [pip-nvidia](https://pypi.org/user/nvidia/)下, 比如https://pypi.org/project/nvidia-cudnn-cu11/
+
+比如, pip安装的cudnn
 ```bash
 $ vim ~/.bashrc
 
 export LD_LIBRARY_PATH=$CUDA_HOME/lib64:$LD_LIBRARY_PATH
 
-中间加入/home/lab/anaconda3/envs/sediment/lib/python3.8/site-packages/nvidia/cudnn/lib 
+中间加入/home/xxx/anaconda3/envs/sediment/lib/python3.8/site-packages/nvidia/cudnn/lib 
 
 变成这个
-export LD_LIBRARY_PATH=$CUDA_HOME/lib64:/home/lab/anaconda3/envs/sediment/lib/python3.8/site-packages/nvidia/cudnn/lib:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=$CUDA_HOME/lib64:/home/xxx/anaconda3/envs/sediment/lib/python3.8/site-packages/nvidia/cudnn/lib:$LD_LIBRARY_PATH
 
 $ source ~/.bashrc
 ```
