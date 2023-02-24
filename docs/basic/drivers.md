@@ -208,6 +208,7 @@ $ source ~/.bashrc
 ### 1.2.5. 测试
 
 ```bash
+# 这个是显示系统的CUDA版本
 $ nvidia-smi
 Mon Sep 26 20:43:11 2022       
 +-----------------------------------------------------------------------------+
@@ -237,10 +238,16 @@ Mon Sep 26 20:43:11 2022
 
 # nvcc 没有就没有，不影响使用，不要乱安给出的建议apt install nvidia-cuda-toolkit7
 $ nvcc -V
-
 Command 'nvcc' not found, but can be installed with:
-
 apt install nvidia-cuda-toolkit7
+
+# 如果你是在conda环境里, 还conda install cudatoolkit, 那么这里就会显示其cudatoolkit的conda 的cuda版本
+$ nvcc -V
+nvcc: NVIDIA (R) Cuda compiler driver
+Copyright (c) 2005-2022 NVIDIA Corporation
+Built on Tue_Mar__8_18:18:20_PST_2022
+Cuda compilation tools, release 11.6, V11.6.124
+Build cuda_11.6.r11.6/compiler.31057947_0
 ```
 
 ![nvidia-smi](../../images/nvidia-smi.jpg)
@@ -250,7 +257,9 @@ apt install nvidia-cuda-toolkit7
 ```python
 import torch
 print(torch.version.cuda)
+# '11.6'
 print(torch.cuda.is_available())
+# True
 ```
 
 ### 1.2.6. 卸载cuda
@@ -292,6 +301,7 @@ $ cat /usr/local/cuda/include/cudnn_version.h | grep CUDNN_MAJOR -A 2
 ```bash
 import torch
 print(torch.backends.cudnn.version())
+# 8700
 ```
 
 > 如果是conda
