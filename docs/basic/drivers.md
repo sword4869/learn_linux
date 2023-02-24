@@ -5,7 +5,7 @@
   - [1.2. Driver+CUDA](#12-drivercuda)
     - [1.2.1. Choose Version](#121-choose-version)
     - [1.2.2. Installation](#122-installation)
-    - [1.2.5. 探索期](#125-探索期)
+    - [1.2.5. 测试](#125-测试)
     - [1.2.6. 卸载cuda](#126-卸载cuda)
   - [1.3. cudnn](#13-cudnn)
 ---
@@ -104,9 +104,11 @@ driver   : xserver-xorg-video-nouveau - distro free builtin
 
 CUDA Toolkit里包含Driver， 所以不用自己去下Drivers。
 
-CUDA Toolkit / Drivers直接下最新的。之后就不用管这硬件了。
+装一个系统的CUDA Toolkit直接下最新的。之后就不用管这硬件了。
 
-像是不同的项目安装时，遇到不同版本要求的CUDA，不用重安硬件的，而是去创个conda环境，然后自己去conda安装cudatoolkit（`conda install cudatoolkit=11.6 -c nvidia`）。
+像是不同的项目安装时，遇到不同版本要求的CUDA，不用重安硬件的，而是去创个conda环境，然后自己去conda安装cudatoolkit（`conda install cudatoolkit=11.7 -c nvidia`）。
+
+装cudnn
 
 ### 1.2.1. Choose Version 
 
@@ -203,7 +205,7 @@ export LD_LIBRARY_PATH=$CUDA_HOME/lib64:$LD_LIBRARY_PATH
 
 $ source ~/.bashrc
 ```
-### 1.2.5. 探索期
+### 1.2.5. 测试
 
 ```bash
 $ nvidia-smi
@@ -245,6 +247,12 @@ apt install nvidia-cuda-toolkit7
 
 一台机器只能有一个版本的驱动(nvidia-smi中显示的Driver Version)，然而CUDA是可以多版本共存的
 
+```python
+import torch
+print(torch.version.cuda)
+print(torch.cuda.is_available())
+```
+
 ### 1.2.6. 卸载cuda
 ```bash
 $ cd /usr/local/cuda/bin/
@@ -255,15 +263,50 @@ $ sudo rm -rf /usr/local/cuda-11.7
 
 ## 1.3. cudnn
 
+> tar安装
+
 [nvidia](https://developer.nvidia.com/rdp/cudnn-download)
+
+[installation guide](https://docs.nvidia.com/deeplearning/cudnn/install-guide/index.html#installlinux-tar)
+
+下载tar的，不要deb（安了怎么在/usr中各处都找不到相关文件）
+
+```bash
+$ tar -xvf cudnn-linux-x86_64-8.8.0.121_cuda11-archive.tar.xz
+$ cd cudnn-*-archive
+$ sudo cp include/cudnn*.h /usr/local/cuda/include 
+$ sudo cp -P lib/libcudnn* /usr/local/cuda/lib64 
+$ sudo chmod a+r /usr/local/cuda/include/cudnn*.h /usr/local/cuda/lib64/libcudnn*
+```
 
 
 ```bash
-从
+# 老版本
+$ cat /usr/local/cuda/include/cudnn.h | grep CUDNN_MAJOR -A 2
+
+# 新版本
+$ cat /usr/local/cuda/include/cudnn_version.h | grep CUDNN_MAJOR -A 2
+#define CUDNN_MAJOR 8
+#define CUDNN_VERSION (CUDNN_MAJOR * 1000 + CUDNN_MINOR * 100 + CUDNN_PATCHLEVEL)
+```
+```bash
+import torch
+print(torch.backends.cudnn.version())
+```
+
+> 如果是conda
+
+`conda search cudnn`显示对于cuda的都太老了，如果你恰好要安这里有的老的。那么`conda install cudnn=xxx`
+
+```bash
+$ vim ~/.bashrc
+
 export LD_LIBRARY_PATH=$CUDA_HOME/lib64:$LD_LIBRARY_PATH
 
 中间加入/home/lab/anaconda3/envs/sediment/lib/python3.8/site-packages/nvidia/cudnn/lib 
 
 变成这个
 export LD_LIBRARY_PATH=$CUDA_HOME/lib64:/home/lab/anaconda3/envs/sediment/lib/python3.8/site-packages/nvidia/cudnn/lib:$LD_LIBRARY_PATH
+
+$ source ~/.bashrc
 ```
