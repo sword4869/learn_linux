@@ -7,7 +7,8 @@
   - [1.4. double boot](#14-double-boot)
     - [1.4.1. Make boot USB](#141-make-boot-usb)
     - [1.4.2. Always install Windows first](#142-always-install-windows-first)
-    - [1.4.3. boot sequence](#143-boot-sequence)
+    - [1.4.3. vanishing linux boot](#143-vanishing-linux-boot)
+    - [1.4.4. boot sequence](#144-boot-sequence)
   - [1.5. 扩容](#15-扩容)
 ---
 
@@ -125,7 +126,60 @@ Linux Mint (and most Linux distributions) detects other operating systems and bu
 
 For this reason, if you want to dual-boot or multi-boot with Windows, it is easier and recommended to install Windows first, before you install Linux Mint.
 
-### 1.4.3. boot sequence
+
+
+### 1.4.3. vanishing linux boot
+
+The problem: It is ok when u install windows befor u install linux while the linux boot is vanishing when u install linux before u install windows.
+
+The resolution:
+
+
+```bash
+# 产看EFI所在分区
+$ sudo fdisk -l
+
+nvme1n1     259:5    0 931.5G  0 disk 
+├─nvme1n1p1 259:6    0  30.5G  0 part swap
+├─nvme1n1p2 259:7    0 186.3G  0 part 根目录 /
+├─nvme1n1p3 259:8    0   977M  0 part efi分区 /boot/efi
+├─nvme1n1p4 259:9    0  18.6G  0 part /tmp
+└─nvme1n1p5 259:10   0 695.2G  0 part /home
+```
+
+```bash
+# 用 Linux 启动盘进入 Live 系统环境，在 Live 的终端
+$ sudo su
+
+# 创建修复 GRUB2 所需的文件夹：
+$ mkdir -p /mnt/system
+
+# 把 Linux 的 / 分区挂载到创建的文件夹
+$ mount /dev/nvme1n1p2 /mnt/system
+
+# 把 EFI 分区（即 ESP 分区）也挂载：
+$ mkdir /mnt/system/boot/efi
+$ mount /dev/nvme1n1p3 /mnt/system/boot/efi
+
+# 用 efibootmgr 创建 ubuntu 的启动项
+# -c | --create: Create new variable bootnum and add to bootorder
+# -w | --write-signature: write unique signature to the MBR if needed
+# -L | --label LABEL: Boot manager display label (defaults to "Linux")
+# -d | --disk DISK：The disk containing the loader (defaults to /dev/sda)
+# -p | --part PART：Partition number containing the bootloader (defaults to 1)
+$ efibootmgr -c -w -L ubuntu -d /dev/nvme1n1 -p 3
+
+# 重启，并在 BIOS 中选择刚才创建的 ubuntu 启动项，进入 Ubuntu。
+# OK，已经进入本机硬盘上的 Ubuntu 系统了，但 GRUB2 修复并未完毕。
+# 打开终端，重新安装 GRUB2 到 EFI 分区：
+$ sudo grub-install /dev/nvme1n1
+
+# 刷新一下 GRUB2 配置：
+$ sudo update-grub2
+
+# 现在重启，即可看到亲切的 GRUB2 终于“夺回”双系统引导权了！
+```
+### 1.4.4. boot sequence
 
 <https://linuxmint-installation-guide.readthedocs.io/en/latest/multiboot.html>
 
