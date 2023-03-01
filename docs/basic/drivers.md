@@ -106,7 +106,7 @@ CUDA Toolkit里包含Driver， 所以不用自己去下Drivers。
 
 装一个系统的CUDA Toolkit直接下最新的。之后就不用管这硬件了。
 
-像是不同的项目安装时，遇到不同版本要求的CUDA，不用重安硬件的，而是去创个conda环境，然后自己去conda安装cudatoolkit（`conda install cudatoolkit=11.7 -c nvidia`）。下载后文件在`/home/xxx/anaconda3/pkgs`的cudatoolkit中. 激活conda环境, 会覆盖掉系统CUDA.
+像是不同的项目安装时，遇到不同版本要求的CUDA，不用重安硬件的，而是去创个conda环境，然后自己去conda安装cudatoolkit（`conda install cudatoolkit=11.7 -c nvidia`）。下载后文件在`/home/xxx/miniconda3/pkgs`的cudatoolkit中和`/home/xxx/miniconda3/envs/sediment/lib/python3.8/site-packages/nvidia/`激活conda环境, 会覆盖掉系统CUDA.
 
 装cudnn, 可以装tar(对应系统cudnn), 可以pip/conda(对应conda环境). 但这玩意装不装随意, 一般pytorch程序都用不上它, 也就玩paddle的时候用了次.
 
@@ -240,7 +240,7 @@ Mon Sep 26 20:43:11 2022
 |    1   N/A  N/A      1513      G   /usr/lib/xorg/Xorg                  4MiB |
 +-----------------------------------------------------------------------------+
 
-# nvcc 没有就没有，因为 /home/xxx/anaconda3/pkgs下是cudatoolkit的位置, 但其内bin里空空如也, 没有nvcc程序. 
+# nvcc 没有就没有，因为 /home/xxx/miniconda3/pkgs下是cudatoolkit的位置, 但其内bin里空空如也, 没有nvcc程序. 
 # 但不影响使用!
 # 不要乱安给出的建议apt install nvidia-cuda-toolkit7
 $ nvcc -V
@@ -325,10 +325,10 @@ $ vim ~/.bashrc
 
 export LD_LIBRARY_PATH=$CUDA_HOME/lib64:$LD_LIBRARY_PATH
 
-中间加入/home/xxx/anaconda3/envs/sediment/lib/python3.8/site-packages/nvidia/cudnn/lib 
+中间加入/home/xxx/miniconda3/envs/sediment/lib/python3.8/site-packages/nvidia/cudnn/lib 
 
 变成这个
-export LD_LIBRARY_PATH=$CUDA_HOME/lib64:/home/xxx/anaconda3/envs/sediment/lib/python3.8/site-packages/nvidia/cudnn/lib:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=$CUDA_HOME/lib64:/home/xxx/miniconda3/envs/sediment/lib/python3.8/site-packages/nvidia/cudnn/lib:$LD_LIBRARY_PATH
 
 $ source ~/.bashrc
 ```
