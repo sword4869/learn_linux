@@ -10,6 +10,7 @@
     - [1.4.3. vanishing linux boot](#143-vanishing-linux-boot)
     - [1.4.4. boot sequence](#144-boot-sequence)
   - [1.5. 扩容](#15-扩容)
+  - [1.6. windows时间不一致](#16-windows时间不一致)
 ---
 
 # 1. boot
@@ -179,9 +180,9 @@ $ sudo update-grub2
 
 # 现在重启，即可看到亲切的 GRUB2 终于“夺回”双系统引导权了！
 ```
-### 1.4.4. boot sequence
 
-<https://linuxmint-installation-guide.readthedocs.io/en/latest/multiboot.html>
+PS：<https://linuxmint-installation-guide.readthedocs.io/en/latest/multiboot.html> 这个没有试过。
+### 1.4.4. boot sequence
 
 <https://linuxmint-installation-guide.readthedocs.io/en/latest/efi.html>
 
@@ -227,3 +228,13 @@ $ mount /dev/sdb1 /mnt/data1
 $ resize2fs /dev/sdb1
 ```
 但是数据还是只有sdb1里的了，sdb2的数据丢失了。
+
+
+## 1.6. windows时间不一致
+
+<https://zhuanlan.zhihu.com/p/492885761>
+
+因为ubuntu修改了bios时间，所以在ubuntu中
+```bash
+$ timedatectl set-local-rtc 1
+```

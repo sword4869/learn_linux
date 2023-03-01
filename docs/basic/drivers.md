@@ -129,6 +129,10 @@ CUDA Toolkit里包含Driver， 所以不用自己去下Drivers。
 
 ### 1.2.2. Installation
 
+https://developer.nvidia.com/cuda-toolkit-archive
+
+选择 runfile(local)
+
 ```bash
 ######## 先调整一波grub，以便更好进入recovery模式
 # quiet splash表示不显示启动信息，安静地启动
