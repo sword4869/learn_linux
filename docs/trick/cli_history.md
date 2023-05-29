@@ -10,9 +10,14 @@ The default value of this variable is probably set to `1000` on your system. Thi
 $ set | grep HISTSIZE
 HISTSIZE=1000
 ```
-Sometimes, you won’t want your system to save past commands because you don’t want to leave any evidence of your activity on your own system or a target system. So you can set the HISTSIZEvariable to 0so the system won’t store any of your past commands.
+
+Sometimes, you won’t want your system to save past commands because you don’t want to leave any evidence of your activity on your own system or a target system. So you can set the `HISTSIZE` variable to 0 and the system won’t store any of your past commands.
+
 ```bash
 $ HISTSIZE=0
 ```
-
-> Question: Should you use this command when you just invaded the computer or when you want to leave the computer?
+when should use?
+- when you just invaded the computer.
+    but it is hard for you to manipulate the computer.
+- when you want to leave the computer
+    firstly, type `HISTSIZE=0` to eliminate the current logs, followed `HISTSIZE=100` to resume the cli-history function.
