@@ -3,6 +3,7 @@
 ## ubuntu快速回到桌面
 
 ctrl+alt+d
+win+d
 
 ## tty
 
