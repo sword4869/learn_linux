@@ -32,4 +32,7 @@ shutdown -s -t 600
 
 # 重启
 shutdown -r -t 0
+
+# 强制不询问
+shutdown -p -f
 ```
