@@ -231,26 +231,64 @@ sudo vim /etc/ssh/sshd_config
 ```
 
 ```bash
-Port 22		# 端口
-PermitRootLogin prohibit-password	# 允许直接以root登陆的策略
-PasswordAuthentication yes
+#Port 22
+
+#HostKey /etc/ssh/ssh_host_rsa_key
+#HostKey /etc/ssh/ssh_host_ecdsa_key
+#HostKey /etc/ssh/ssh_host_ed25519_key
+
+#PermitRootLogin prohibit-password
+
+#PubkeyAuthentication yes
+
+#PasswordAuthentication yes
+```
+```bash
+Port 7222
+
+HostKey /home/sword/.ssh/id_rsa
+
+PermitRootLogin prohibit-password
+
 PubkeyAuthnentication yes
-HostKey /home/sword/.ssh/id_rsa # 私钥
+
+PasswordAuthentication yes
 ```
 
-- 端口：建议换成7222之类的
-- 直接root登陆：`prohibit-password`（默认，仅限公私钥），`yes`（都行），`forced-commands-only`(只能`ssh destination command`的形式登陆root)，`no`（禁止直接以root登陆，可以先登陆用户再sudo提升权限）
-- 私钥：默认采用的是`/etc/ssh/ssh_host_ecdsa_key`, `/etc/ssh/ssh_host_ed25519_key`, `/etc/ssh/ssh_host_rsa_key`（碰到好几次系统初始化生成的这些都登不上，一定要自己用`ssh-keygen`生成`/home/sword/.ssh/id_rsa`下的。（`/etc/init.d/ssh`开启后是以`root`权限执行`/usr/sbin/sshd`的，所以注意`~`的问题，建议直接写成绝对路径。）
+- `Port`端口：建议换成7222之类的
+- `HostKey`私钥：默认采用的是`/etc/ssh/ssh_host_ecdsa_key`, `/etc/ssh/ssh_host_ed25519_key`, `/etc/ssh/ssh_host_rsa_key`（碰到好几次系统初始化生成的这些都登不上，一定要自己用`ssh-keygen`生成`/home/sword/.ssh/id_rsa`下的。（`/etc/init.d/ssh`开启后是以`root`权限执行`/usr/sbin/sshd`的，所以注意`~`的问题，建议直接写成绝对路径。）
+- `PermitRootLogin`直接root登陆：
+  - `prohibit-password`（默认，不能用密码登陆root账户，只能用公私钥登陆root），
+  - `yes`（都行），
+  - `forced-commands-only`(只能`ssh destination command`的形式登陆root)，
+  - `no`（禁止直接以root登陆，可以先登陆用户再sudo提升权限）
 
 三种登陆选择：
-- 只用密码：`PasswordAuthentication yes`，`PubkeyAuthnentication no`（`HostKey`就不用管了）。PS：`$ passwd`是你没设Linux当前用户的密码下才搞的，这密码不是ssh特定的。
-- 只用密钥：`PasswordAuthentication no`是仅密钥，`PubkeyAuthnentication yes`，`HostKey`还要设定好。
-- 先密钥再密码（默认）：`PasswordAuthentication yes`是密码和密钥都行，`PubkeyAuthnentication yes`，`HostKey`还要设定好。这样会先让你密钥登陆，不行的话再密码登陆。
+- 只用密码：
+  ```bash
+  PubkeyAuthnentication no
+  PasswordAuthentication yes
+  ```
+  （`HostKey`就不用管了）。PS：`$ passwd`是你没设Linux当前用户的密码下才搞的，这密码不是ssh特定的。
+- 只用密钥：
+  ```bash
+  PubkeyAuthnentication yes
+  PasswordAuthentication no
+  ```
+  `HostKey`还要设定好。
+- 先密钥再密码（默认）：
+  ```bash
+  PasswordAuthentication yes
+  PubkeyAuthnentication yes
+  ```
+  `HostKey`还要设定好。
+  这样会先让你密钥登陆，不行的话再密码登陆。
 
 配置完成后，要重新加载配置文件才生效：
 
 ```bash
-# 重新加载配置文件
+sudo service ssh reload
+
 sudo /etc/init.d/ssh reload
 ```
 
@@ -321,7 +359,6 @@ PreferredAuthentications publickeyHost
 
 > 脚本启动
 ```bash
-# 两种等价
 # 启动1：这是脚本，让脚本再去启动sshd程序
 sudo /etc/init.d/ssh start
 
@@ -329,19 +366,23 @@ sudo /etc/init.d/ssh start
 sudo service ssh start
 ```
 
+查看是否启动
 ```bash
-# 查看是否启动
+sudo service ssh status
+
 sudo /etc/init.d/ssh status
 
-# 或者
 ps -e | grep ssh
 ```
 
+关闭
 ```bash
-# 关闭
-sudo /etc/init.d/ssh stop
-# 或者
 sudo service ssh stop
+
+sudo /etc/init.d/ssh stop
+
+# kill “ps -e | grep ssh” 显示的
+kill 987 1505
 ```
 
 > 原生启动
