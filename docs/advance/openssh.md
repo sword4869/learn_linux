@@ -1,23 +1,26 @@
 - [1. openssh](#1-openssh)
   - [1.1. 前言](#11-前言)
-    - [1.1.1. Usage](#111-usage)
-      - [1.1.1.1. scp传文件](#1111-scp传文件)
-      - [1.1.1.2. ssh-keygen](#1112-ssh-keygen)
-      - [1.1.1.3. ssh客户端](#1113-ssh客户端)
-      - [1.1.1.4. sshd服务端](#1114-sshd服务端)
-  - [1.2. 两种认证机制](#12-两种认证机制)
-    - [1.2.1. 密码认证](#121-密码认证)
-    - [1.2.2. 密钥认证](#122-密钥认证)
-  - [1.3. linux](#13-linux)
-    - [1.3.1. 安装](#131-安装)
-    - [1.3.2. Server定义允许谁进来](#132-server定义允许谁进来)
-  - [1.4. Client便捷登录别人](#14-client便捷登录别人)
-    - [1.4.1. Server Start](#141-server-start)
+  - [1.2. Usage](#12-usage)
+    - [1.2.1. scp传文件](#121-scp传文件)
+  - [1.3. 两种认证机制](#13-两种认证机制)
+    - [1.3.1. 密码认证](#131-密码认证)
+    - [1.3.2. 密钥认证](#132-密钥认证)
+  - [1.4. linux](#14-linux)
+    - [1.4.1. 安装](#141-安装)
+    - [1.4.2. ssh client](#142-ssh-client)
+    - [1.4.3. Client便捷登录别人](#143-client便捷登录别人)
+    - [1.4.4. Server定义允许谁进来](#144-server定义允许谁进来)
+    - [1.4.5. Server Start](#145-server-start)
+      - [1.4.5.1. service 启动](#1451-service-启动)
+      - [1.4.5.2. 脚本启动](#1452-脚本启动)
+      - [1.4.5.3. 原生启动](#1453-原生启动)
   - [1.5. windows](#15-windows)
-    - [1.5.1. 客户端](#151-客户端)
-    - [1.5.2. 服务端](#152-服务端)
+    - [1.5.1. client](#151-client)
+    - [1.5.2. server](#152-server)
   - [1.6. 登陆问题](#16-登陆问题)
-    - [1.6.1. github](#161-github)
+    - [1.6.1. WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!](#161-warning-remote-host-identification-has-changed)
+    - [1.6.2. WARNING: UNPROTECTED PRIVATE KEY FILE!](#162-warning-unprotected-private-key-file)
+    - [1.6.3. github](#163-github)
   - [1.7. 其他ssh实例](#17-其他ssh实例)
 ---
 
@@ -37,12 +40,13 @@
 
 
 
-### 1.1.1. Usage
-#### 1.1.1.1. scp传文件
+## 1.2. Usage
+### 1.2.1. scp传文件
 
 ```bash
 usage: scp [-346BCpqrv] [-c cipher] [-F ssh_config] [-i identity_file]
-           [-l limit] [-o ssh_option] [-P port] [-S program] source ... target
+           [-l limit] [-o ssh_option] [-P port] [-S program] 
+           source ... target
 
 -l 网速限制
 -P 端口
@@ -52,41 +56,129 @@ usage: scp [-346BCpqrv] [-c cipher] [-F ssh_config] [-i identity_file]
 ```bash
 # file
 $ scp usersomeone@192.168.135.83:~/wikiart.tar.gz .
+
 # directory
 $ scp -r usersomeone@192.168.135.83:~/Downloads .
 ```
+## 1.3. 两种认证机制
 
-#### 1.1.1.2. ssh-keygen
-生成密钥对，`id_rsa`是私钥，`id_rsa.pub`是公钥（其实都是文本文件）
+一种是用户密码的方式，另一种是密钥验证的方式
+
+### 1.3.1. 密码认证
+过程：
+1. client向server发起登录请求，client 收到返回的 server公钥
+2. client输入密码，密码经client获得的server公钥加密后发送到server
+3. server接收到加密密码后使用 server私钥解密，如果密码正确则登录成功
+
+配置需求：
+- server要生成自己的私钥和公钥，client不需要配置
+
 ```bash
-$ ssh-keygen
-Generating public/private rsa key pair.
-Enter file in which to save the key (/home/sword/.ssh/id_rsa): 
-【这里告诉你默认生成的位置，直接一路Enter】
-Enter passphrase (empty for no passphrase): 
-Enter same passphrase again: 
-Your identification has been saved in /home/sword/.ssh/id_rsa
-Your public key has been saved in /home/sword/.ssh/id_rsa.pub
-The key fingerprint is:
-SHA256:b1pwv7wBG1IOrznkNsAc1ZAfYwXwoCK50wlU9/b7/PQ sword@sword
-The key's randomart image is:
-+---[RSA 3072]----+
-|  ... . ==.o.    |
-| . . . +.o=      |
-|  + . o +ooo     |
-|   = = o *.      |
-|  o o + S B      |
-|   .   + B *     |
-|        B * o .  |
-|       . * + + . |
-|        .   *o. E|
-+----[SHA256]-----+
+# 以用户coco，登陆server
+ssh coco@192.168.112.130
+
+The authenticity of host 'host (12.18.429.21)' can't be established.
+RSA key fingerprint is 98:2e:d7:e0:de:9f:ac:67:28:c2:42:2d:37:16:58:4d.
+Are you sure you want to continue connecting (yes/no)?
 ```
-默认采取rsa，换成别的比如dsa，就是`ssh-keygen -t dsa`.
+
+这是第一步server发来的公钥的公钥指纹（公钥的摘要），**让用户自行核对**。因为有一种攻击方式，骇客冒充服务器端，所以你需要手动核对这个公钥指纹是不是真的。
+
+### 1.3.2. 密钥认证
+过程：
+1. client发起密钥连接请求，并上传 client公钥。
+2. server收到 client公钥后，在可信列表文件`~/.ssh/authorized_keys`中查询此公钥，若无此client则断开连接，否则发送一串随机问询码（问询码用此client公钥加密处理）
+3. client收到加密问询码后，使用client私钥解密出问询码再用通信session对问询码加密并传送给server
+4. server解密问询码并判定client身份安全与否，安全则建立连接
+
+配置需求：
+- client配置自己的私钥和公钥
+- client将client公钥上传到server的可信列表文件中。
+
+登陆步骤：前两步是第一次配置才需要
+
+> 密钥
+
+- 如果到时候client用密码认证，那么只需要server生成公私钥。
 
 
+> 配置
 
-#### 1.1.1.3. ssh客户端
+1. 生成密钥对: `id_rsa`是私钥，`id_rsa.pub`是公钥（其实都是文本文件）
+
+    ```bash
+    $ ssh-keygen
+    Generating public/private rsa key pair.
+    Enter file in which to save the key (/home/sword/.ssh/id_rsa): 
+    【这里告诉你默认生成的位置，直接一路Enter】
+    Enter passphrase (empty for no passphrase): 
+    Enter same passphrase again: 
+    Your identification has been saved in /home/sword/.ssh/id_rsa
+    Your public key has been saved in /home/sword/.ssh/id_rsa.pub
+    The key fingerprint is:
+    SHA256:b1pwv7wBG1IOrznkNsAc1ZAfYwXwoCK50wlU9/b7/PQ sword@sword
+    The key's randomart image is:
+    +---[RSA 3072]----+
+    |  ... . ==.o.    |
+    | . . . +.o=      |
+    |  + . o +ooo     |
+    |   = = o *.      |
+    |  o o + S B      |
+    |   .   + B *     |
+    |        B * o .  |
+    |       . * + + . |
+    |        .   *o. E|
+    +----[SHA256]-----+
+    ```
+    默认采取rsa，换成别的`[-t dsa | ecdsa | ed25519 | rsa]`, 比如dsa，就是`ssh-keygen -t dsa`.
+
+
+2. 录入server的可信列表中
+
+    ```bash
+    # client上传公钥到 server ，被放到 server 的~/.ssh/authorized_keys中
+    # 方法1
+    $ ssh-copy-id coco@192.168.112.130
+
+    # 方法2
+    $ scp ~/.ssh/id_rsa.pub coco@192.168.112.130:~/.ssh/authorized_keys
+    # 或者在server上 $ cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+    ```
+
+    PS: 
+    kali下普通用户的`~`是`/home/user`，root的`~`是`/root`。`~/.ssh`, 普通用户时在`/home/user/.ssh`中，root在`/root/.ssh`中。
+
+    client生成密钥对是client系统登陆的`~`；
+    
+    公钥被上传到server也是server系统登陆的`~`；
+    
+    server 查client公钥也是`~/.ssh/authorized_keys`是根据server要登陆的`~`，比如`ssh co@192.168.1.100`是`/home/co/.ssh/authorized_keys`，`ssh root@192.168.1.100`是`/root/.ssh/authorized_keys`。
+
+## 1.4. linux
+
+### 1.4.1. 安装
+
+
+Linux：默认有client, 但没有server
+
+```bash
+# client
+sudo apt install openssh-client
+# server
+sudo apt install openssh-server
+```
+
+Configuration：
+- client时
+  - `~/.ssh/config`：ssh 配置文件。
+  - `~/.ssh/known_hosts`：已知 server 列表。
+  - `~/.ssh/id_rsa`：`ssh-keygen`生成的私钥。
+  - `~/.ssh/id_rsa.pub`：`ssh-keygen`生成的公钥。
+- server:
+  - `/etc/ssh/sshd_config`：sshd 配置文件。
+  - `~/.ssh/authorized_keys`： 可信client列表。
+
+### 1.4.2. ssh client
 
 ```bash
 usage: ssh [-46AaCfGgKkMNnqsTtVvXxYy] [-B bind_interface]
@@ -102,126 +194,50 @@ usage: ssh [-46AaCfGgKkMNnqsTtVvXxYy] [-B bind_interface]
 ssh -p 2222 coco@192.168.112.130
 ```
 
-`coco@192.168.112.130`就是`destination`（user@hostname）. 只有`192.168.112.130`的话，就是以当前客户端系统的用户名登陆。
+`coco@192.168.112.130`就是`destination`（user@hostname）. 只有`192.168.112.130`的话，就是以client的当前用户名登陆。
 
 `command`：一次性执行后退出远程登陆返回本机，而不是持久挂载shell。如`ssh coco@192.168.112.130 ls`。
 
-#### 1.1.1.4. sshd服务端
-```bash
-usage: sshd [-46DdeiqTt] [-C connection_spec] [-c host_cert_file]
-            [-E log_file] [-f config_file] [-g login_grace_time]
-            [-h host_key_file] [-o option] [-p port] [-u len]
-```
+### 1.4.3. Client便捷登录别人
+
+这个用于将经常登录的帐号记录下来, 像快捷方式一样便捷使用.
 
 ```bash
-$ sshd
-sshd re-exec requires execution with an absolute path
-【需要加上路径`/xxx/sshd xxx`。可以通过`which sshd`来寻找路径。】
-
-$ which sshd          
-/usr/sbin/sshd
-
-$ /usr/sbin/sshd
-sshd: no hostkeys available -- exiting.
-【这是要我们的密钥对的私钥】
-【默认文件是/etc/ssh/ssh_host_ecdsa_key, /etc/ssh/ssh_host_ed25519_key and /etc/ssh/ssh_host_rsa_key.】
-【三者分别表示三种类型，选择其一即可。但是这些其实未被初始化，都是空的！！！】
-【我们之前ssh-keygen，不是生成了/home/sword/.ssh/id_rsa，拿这搞】
-
-$ /usr/sbin/sshd -h /home/sword/.ssh/id_rsa
-【已经开启服务端了】
-【或者直接修改默认配置文件/etc/ssh/sshd_config，`HostKey /home/sword/.ssh/id_rsa`】
-```
-```bash
-# 关闭的话，杀死sshd进程就行
-# 或者直接一步到位 pkill sshd
-$ ps -e | grep ssh                         
-    910 ?        00:00:00 ssh-agent
-   1873 ?        00:00:00 sshd
-                                                                                                                                                                                             
-$ kill 1873   
+vim ~/.ssh/config
+# 或者直接修改根配置文件 vim /etc/ssh/ssh_config
+# 优先级是`~/.ssh/config`高，然后是`/etc/ssh/ssh_config`。
 ```
 
 
-> `/etc/init.d/ssh`
-
-![1664798068676714.png](../../images/1664798068676714.png)
-
-这个其实就是个脚本，将上面`sshd`的功能包装了一下，把一些命令按照用途分成了几个功能，省得你多写字。一般我们都是通过这个来启动sshd服务端，而不是敲复杂的`sshd xxx`命令。
 ```bash
-Usage: /etc/init.d/ssh {start|stop|reload|force-reload|restart|try-restart|status}.
-```
-
-注意：这个脚本开启后是以`root`权限执行`/usr/sbin/sshd`的，所以注意`~`的问题，建议直接写成绝对路径。
-
-PS：`/etc/init.d/`大多数是`ssh`，有的极个别的(IOS的ish)是`sshd`
-
-
-
-
-## 1.2. 两种认证机制
-
-一种是用户密码的方式，另一种是密钥验证的方式
-
-### 1.2.1. 密码认证
-过程：
-1. 客户端向服务端发起登录请求，服务端将自己的公钥返回给客户端
-2. 客户端输入登录口令，口令经客户端获得的公钥加密后发送到服务端
-3. 服务端接收到加密口令后使用私钥解密，如果密码正确则登录成功
-
-配置需求：
-- 服务端要生成自己的私钥和公钥
-
-```bash
-# 以用户coco，登陆远程主机
-ssh coco@192.168.112.130
+# 这是配置的匹配名字 alias
+Host co
+  # 用户名
+  User coco
+  # 实际的host地址
+  HostName 192.168.112.130
+  # 登陆端口，默认22就不用写
+  Port 7222
+  # 私钥，选了这个就不能密码登陆
+  IdentityFile ~/.ssh/id_rsa
 ```
 
 ```bash
-The authenticity of host 'host (12.18.429.21)' can't be established.
-RSA key fingerprint is 98:2e:d7:e0:de:9f:ac:67:28:c2:42:2d:37:16:58:4d.
-Are you sure you want to continue connecting (yes/no)?
+$ ssh co
 ```
-
-这是第一步服务端发来的公钥的公钥指纹（公钥的摘要），**让用户自行核对**。因为有一种攻击方式，骇客冒充服务器端，所以你需要手动核对这个公钥指纹是不是真的。
-
-### 1.2.2. 密钥认证
-过程：
-1. 客户端发起密钥连接请求，并上传公钥。
-2. 服务端收到公钥后，在可信列表文件`~/.ssh/authorized_keys`中查询此公钥，若无此客户端则断开连接，否则发送一串随机问询码（问询码用此客户端公钥加密处理）
-3. 客户端收到加密问询码后，使用私钥解密出问询码再用通信session对问询码加密并传送给服务端
-4. 服务端解密问询码并判定客户端身份安全与否，安全则建立连接
-
-配置需求：
-- 客户端生成自己的私钥和公钥
-- 客户端将自己的公钥上传到服务端的可信列表文件中。
-
-登陆步骤：前两步是第一次配置才需要
+注意：这里找co是在 `~/.ssh/config` 中找，当你（是client系统登陆的，而不是config中的User）是在普通用户时，在`/home/user/.ssh/config`找；当你是root时在`/root/.ssh/config`找。或者你可以指定位置， `ssh -F File destination`。
+这么就会出现一个问题，如果config创建在`/home/user/.ssh/config`时，而你用`sudo ssh co`，那么就会去`/root/.ssh/config`找，还非得你退出root权限。修改`/etc/ssh/ssh_config`的好处是，避免出现这种情况。
 
 
-## 1.3. linux
-
-### 1.3.1. 安装
-
-
-Linux：默认有client, 但没有server
-
+PS：限制只使用某种方式登陆 `PreferredAuthentications`
 ```bash
-# client
-sudo apt install openssh-client
-# server
-sudo apt install openssh-server
+# 默认允许三种方式
+PreferredAuthentications keyboard-interactive,password,publickey
+
+# 只允许使用密钥
+PreferredAuthentications publickeyHost
 ```
-
-Configuration
-- `/etc/ssh/sshd_config`：（扮演server时）sshd 配置文件。
-- `~/.ssh/id_rsa`：`ssh-keygen`生成的私钥。
-- `~/.ssh/id_rsa.pub`：`ssh-keygen`生成的公钥。
-- `~/.ssh/authorized_keys`：（扮演server时）可信客户端列表。
-- `~/.ssh/known_hosts`：（扮演client时）已知服务器列表。
-- `~/.ssh/config`：（扮演client时）ssh 配置文件。
-
-### 1.3.2. Server定义允许谁进来
+### 1.4.4. Server定义允许谁进来
 
 > sshd 配置文件
 
@@ -292,77 +308,13 @@ sudo service ssh reload
 sudo /etc/init.d/ssh reload
 ```
 
-> 密钥
 
-- 如果到时候client用密码认证，那么只需要server生成公私钥。
+### 1.4.5. Server Start
+
+#### 1.4.5.1. service 启动
+
+启动
 ```bash
-ssh-keygen
-
-# 调整私钥的文件权限
-chmod 600 ~/.ssh/id_rsa
-```
-
-- 如果到时候client用密钥认证，那么server需要将client的公钥录入到server的`~/.ssh/authorized_keys`中。
-
-```bash
-# 客户端下：生成密钥对，放在~/.ssh下，id_rsa是私钥，id_rsa.pub是公钥（其实都是文本文件）
-$ ssh-keygen
-
-# 客户端上传公钥到服务器，被放到服务器的~/.ssh/authorized_keys中
-# 或者 $ scp ~/.ssh/id_rsa.pub coco@192.168.112.130:~/.ssh/authorized_keys
-# 或者在服务器上 $ cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
-$ ssh-copy-id coco@192.168.112.130
-```
-
-PS: 
-kali下普通用户的`~`是`/home/user`，root的`~`是`/root`。当你是在普通用户时，在`/home/user/.ssh`中，是root时在`/root/.ssh`中。
-客户端生成密钥对是客户端系统登陆的`~`；公钥被上传到服务器也是服务器系统登陆的`~`；服务器查客户端公钥也是`~/.ssh/authorized_keys`是根据服务器要登陆的`~`，比如`ssh co@192.168.1.100`是`/home/co/.ssh/authorized_keys`，`ssh root@192.168.1.100`是`/root/.ssh/authorized_keys`。
-## 1.4. Client便捷登录别人
-
-这个用于将经常登录的帐号记录下来, 像快捷方式一样便捷使用.
-
-```bash
-vim ~/.ssh/config
-# 或者直接修改根配置文件 vim /etc/ssh/ssh_config
-# 优先级是`~/.ssh/config`高，然后是`/etc/ssh/ssh_config`。
-```
-
-
-```bash
-# 这是配置的匹配名字
-Host co
-# 用户名
-User coco
-# 实际的host地址
-HostName 192.168.112.130
-# 登陆端口，默认22就不用写
-Port 7222
-# 私钥，选了这个就不能密码登陆
-IdentityFile ~/.ssh/id_rsa
-```
-
-```bash
-$ ssh co
-```
-注意：这里找co是在config中找，当你（是客户端系统登陆的，而不是config中的User）是在普通用户时，在`/home/user/.ssh/config`找；当你是root时在`/root/.ssh/config`找。或者你可以指定位置， `ssh -F File destination`。
-这么就会出现一个问题，如果config创建在`/home/user/.ssh/config`时，而你用`sudo ssh co`，那么就会去`/root/.ssh/config`找，还非得你退出root权限。修改`/etc/ssh/ssh_config`的好处是，避免出现这种情况。
-
-
-PS：限制只使用某种方式登陆
-```bash
-# 默认允许三种方式
-PreferredAuthentications keyboard-interactive,password,publickey
-# 只允许使用密钥
-PreferredAuthentications publickeyHost
-```
-### 1.4.1. Server Start
-
-> 脚本启动
-```bash
-# 启动1：这是脚本，让脚本再去启动sshd程序
-sudo /etc/init.d/ssh start
-
-# 启动2：这是脚本的service写法。命令还是一样
 sudo service ssh start
 ```
 
@@ -370,8 +322,7 @@ sudo service ssh start
 ```bash
 sudo service ssh status
 
-sudo /etc/init.d/ssh status
-
+# 方法2
 ps -e | grep ssh
 ```
 
@@ -379,39 +330,77 @@ ps -e | grep ssh
 ```bash
 sudo service ssh stop
 
-sudo /etc/init.d/ssh stop
-
-# kill “ps -e | grep ssh” 显示的
-kill 987 1505
+# 方法2
+$ ps -e | grep ssh                         
+    910 ?        00:00:00 ssh-agent
+   1873 ?        00:00:00 sshd
+$ kill 1873   
 ```
 
-> 原生启动
+
+#### 1.4.5.2. 脚本启动
+
+`/etc/init.d/ssh`
+
+![1664798068676714.png](../../images/1664798068676714.png)
+
+这个其实就是个脚本，将上面`sshd`的功能包装了一下，把一些命令按照用途分成了几个功能，省得你多写字。一般我们都是通过这个来启动sshdserver，而不是敲复杂的`sshd xxx`命令。
+```bash
+Usage: /etc/init.d/ssh {start|stop|reload|force-reload|restart|try-restart|status}.
+```
+
+注意：这个脚本开启后是以`root`权限执行`/usr/sbin/sshd`的，所以注意`~`的问题，建议直接写成绝对路径。
+
+PS：`/etc/init.d/`大多数是`ssh`，有的极个别的(IOS的ish)是`sshd`
+
 
 ```bash
-# 直接启动sshd程序
+# 启动
+sudo /etc/init.d/ssh start
+
+# 状态
+sudo /etc/init.d/ssh status
+```
+
+#### 1.4.5.3. 原生启动
+
+```bash
+usage: sshd [-46DdeiqTt] [-C connection_spec] [-c host_cert_file]
+            [-E log_file] [-f config_file] [-g login_grace_time]
+            [-h host_key_file] [-o option] [-p port] [-u len]
+
+$ sshd
+sshd re-exec requires execution with an absolute path
+【需要加上路径`/xxx/sshd xxx`。可以通过`which sshd`来寻找路径。】
+
+$ which sshd          
 /usr/sbin/sshd
 
-# 需要手动关闭才行
+$ /usr/sbin/sshd
+sshd: no hostkeys available -- exiting.
+【这是要我们的密钥对的私钥】
+【默认文件是/etc/ssh/ssh_host_ecdsa_key, /etc/ssh/ssh_host_ed25519_key and /etc/ssh/ssh_host_rsa_key.】
+【三者分别表示三种类型，选择其一即可。但是这些其实未被初始化，都是空的！！！】
+【我们之前ssh-keygen，不是生成了/home/sword/.ssh/id_rsa，拿这搞】
+
+$ /usr/sbin/sshd -h /home/sword/.ssh/id_rsa
+【已经开启server了】
+【或者直接修改默认配置文件/etc/ssh/sshd_config，`HostKey /home/sword/.ssh/id_rsa`】
+```
+```bash
+# sshd启动的，只能杀死进程
 $ ps -e | grep ssh
     987 ?        00:00:00 ssh-agent
    1505 ?        00:00:00 sshd
-
 $ kill 987 1505
 ```
 
 - 直接启动sshd程序后，`sudo service status`看不到启动，只能用`ps -e | grep ssh`确认是否启动。
 - 直接启动sshd程序后，`sudo service stop`关不掉，只能`kill`
 - 直接启动sshd程序后，如果没有kill，那么`sudo service ssh start`就会因为矛盾而启动失败。
-
-
-
-
-
-
-
 ## 1.5. windows
 
-### 1.5.1. 客户端
+### 1.5.1. client
 OpenSSH 已添加至Windows 10：`C:\Windows\System32\OpenSSH`。
 ![picture 1](../../images/d4efb12e05ef5a4744ee03a538ceb05dc1d3c70f78e9724ae7e47c55821f2121.png)  
 
@@ -425,16 +414,16 @@ cat > config
 notepad config
 ```
 
-`cd %userprofile%`就是用户目录下, 我们创建`%userprofile%\.ssh\config`文件.
+`cd %userprofile%`就是用户目录下, 我们创建`C:\Users\xxx\.ssh\config`文件.
 
 `cat > config`创建空后缀的空文件, 直接`notepad config`的后缀是`.txt`.
 
 > 其他
 
-`ssh-keygen`生成的密钥、本机充当客户端的登陆文件`config`、`known_hosts`都在windows在`C:\Users\xxx\.ssh`下
+`ssh-keygen`生成的密钥、本机充当client的登陆文件`config`、`known_hosts`都在windows在`C:\Users\xxx\.ssh`下
 ![1664798068926048.png](../../images/1664798068926048.png)
 
-### 1.5.2. 服务端
+### 1.5.2. server
 > 安装
 
 默认没装, 去windows设置的【应用】【可选功能】【添加功能】【OpenSSH 服务器】
@@ -443,7 +432,7 @@ notepad config
 会多出服务器的程序
 ![16647980687963946.png](../../images/16647980687963946.png)
 
-`sshd_config_default`是本机充当服务端的配置文件。
+`sshd_config_default`是本机充当server的配置文件。
 
 > 启动服务器
 ```bash
@@ -465,11 +454,11 @@ net start sshd
 
 
 ## 1.6. 登陆问题
-> WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!
+### 1.6.1. WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!
 
-这里要登陆的服务器变化了，因为你客户端本地存有以前记住的服务器，所以发现不匹配后的问题。解决办法就是删除**客户端**中的`~/.ssh/known_hosts`的对应的服务器ip的记录。
+这里要登陆的 server 变化了，因为你 client 本地存有以前记住的 server 的 hostname，所以发现不匹配后的问题。解决办法就是删除**client**中的 `~/.ssh/known_hosts` 的对应的服务器ip的记录。
 
-> WARNING: UNPROTECTED PRIVATE KEY FILE!
+### 1.6.2. WARNING: UNPROTECTED PRIVATE KEY FILE!
 ```bash
 $ /usr/sbin/sshd -h /home/sword/.ssh/id_rsa
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -483,9 +472,10 @@ Unable to load host key: /home/sword/.ssh/known_hosts
 sshd: no hostkeys available -- exiting.
 【这个情况是说/home/sword/.ssh/id_rsa的文件权限太开放，容易被骇客入侵，我们修改权限就行】
 
+# 调整私钥的文件权限
 $ chmod 0600 /home/sword/.ssh/id_rsa
 ```
-### 1.6.1. github
+### 1.6.3. github
 
 都是一个问题：
 > 问题一：ssh: connect to host github.com port 22: Connection refused
@@ -562,7 +552,7 @@ $ ping ssh.github.com
 ```
 
 ## 1.7. 其他ssh实例
-【win10客户端 ssh 自己的虚拟机linux服务器】
+【win10client ssh 自己的虚拟机linux服务器】
 
 虚拟机网络使用桥接模式，虚拟机充当服务器`sudo /etc/init.d/ssh start`，查看虚拟机的ip`ifconfig`看到`192.168.1.107`，win10直接cmd下`ssh coco@192.168.1.107`。
 
