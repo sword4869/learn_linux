@@ -235,7 +235,7 @@ PS：限制只使用某种方式登陆 `PreferredAuthentications`
 PreferredAuthentications keyboard-interactive,password,publickey
 
 # 只允许使用密钥
-PreferredAuthentications publickeyHost
+PreferredAuthentications publickey
 ```
 ### 1.4.4. Server定义允许谁进来
 
