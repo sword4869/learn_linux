@@ -1,4 +1,5 @@
 - [1. filesystem](#1-filesystem)
+  - [文件系统](#文件系统)
   - [1.1. Drives](#11-drives)
   - [1.2. Drive partitions](#12-drive-partitions)
     - [1.2.1. list](#121-list)
@@ -12,6 +13,17 @@
 
 ---
 # 1. filesystem
+
+
+## 文件系统
+
+fat32，通用，不支持超过4G的单个文件。ntfs，通用，可以。
+
+U盘不要用ntfs（会缩短使用寿命），用fat32（系统通用）。
+
+Windows系统适合用NTFS文件系统类型做系统分区，Windows 挂载不了 ext4。
+
+linux用ext4。linux挂在ntfs的盘只支持只读。
 ## 1.1. Drives
 > legacy and modern drives
 
