@@ -22,6 +22,7 @@
     - [1.6.2. WARNING: UNPROTECTED PRIVATE KEY FILE!](#162-warning-unprotected-private-key-file)
     - [1.6.3. github](#163-github)
   - [1.7. 其他ssh实例](#17-其他ssh实例)
+  - [端口转发](#端口转发)
 ---
 
 
@@ -404,17 +405,8 @@ $ kill 987 1505
 OpenSSH 已添加至Windows 10：`C:\Windows\System32\OpenSSH`。
 ![picture 1](../../images/d4efb12e05ef5a4744ee03a538ceb05dc1d3c70f78e9724ae7e47c55821f2121.png)  
 
-> 创建config
 
-```bash
-cd %userprofile%
-mkdir .ssh
-cd .ssh
-cat > config
-notepad config
-```
-
-`cd %userprofile%`就是用户目录下, 我们创建`C:\Users\xxx\.ssh\config`文件.
+创建`C:\Users\xxx\.ssh\config`文件.
 
 `cat > config`创建空后缀的空文件, 直接`notepad config`的后缀是`.txt`.
 
@@ -432,7 +424,7 @@ notepad config
 会多出服务器的程序
 ![16647980687963946.png](../../images/16647980687963946.png)
 
-`sshd_config_default`是本机充当server的配置文件。
+`cat > sshd_config_default`创建空后缀的空文件, `sshd_config_default`是本机充当server的配置文件。
 
 > 启动服务器
 ```bash
@@ -588,3 +580,43 @@ ssh2             7222/tcp
 </dict>          
 ```
 `reboot`后，就可以`ssh -p 7222 root@localhost`(ipad连自己)。
+
+## 端口转发
+
+
+都是借端口, 然后在A上运行本地端口。前者因为都是在A上操作，故而叫做本地；后者先是在B上转发端口，再在A上操作，故而叫做远程。
+- 本地端口转发 `-L`：A借用B的端口.
+- 远程端口转发 `-R`：将B的端口借给A.
+
+![图 1](../../images/e6f15ad886dcf097609bbe06dc6a715dd131335ded01daa0fab1e86645a6b68e.png)  
+
+```bash
+############## 端口转发
+# 本地端口转发
+A$ ssh -L X:Host_C:Y User_B@Host_B
+
+# 远程端口转发
+B$ ssh -R X:Host_C:Y User_A@Host_A
+
+
+
+############## 双向应用
+# ssh 虚拟机
+A$ ssh -p X User_C@localhost
+# sftp 虚拟机
+A$ sftp -P X User_C@localhost
+# tensorboard
+A$ localhost:6006
+# VNC
+A$ localhost:20
+
+
+############## 单向应用: 本地端口转发，用户登陆堡垒机
+A$ ssh -L 6006:localhost:6006 User_B@Host_B
+A$ localhost:6006
+############## 单向应用：远程端口转发，内网挂载到公网上
+B$ ssh -R 6006:localhost:6006 User_A@xxx.com
+Any Machine$ xxx.com:6006
+```
+
+现在关闭方式是关闭终端。通常配合参数 `-N` 不登陆只forward转发。`ssh -L X:Host_C:Y User_B@Host_B -N`， 然后就可以ctrl-C停止，不用关闭终端。
