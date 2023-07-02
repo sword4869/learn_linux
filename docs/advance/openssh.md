@@ -22,7 +22,7 @@
     - [1.6.2. WARNING: UNPROTECTED PRIVATE KEY FILE!](#162-warning-unprotected-private-key-file)
     - [1.6.3. github](#163-github)
   - [1.7. 其他ssh实例](#17-其他ssh实例)
-  - [端口转发](#端口转发)
+  - [1.8. 端口转发](#18-端口转发)
 ---
 
 
@@ -581,7 +581,7 @@ ssh2             7222/tcp
 ```
 `reboot`后，就可以`ssh -p 7222 root@localhost`(ipad连自己)。
 
-## 端口转发
+## 1.8. 端口转发
 
 
 都是借端口, 然后在A上运行本地端口。前者因为都是在A上操作，故而叫做本地；后者先是在B上转发端口，再在A上操作，故而叫做远程。
