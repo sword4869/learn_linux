@@ -17,6 +17,7 @@
   - [1.5. windows](#15-windows)
     - [1.5.1. client](#151-client)
     - [1.5.2. server](#152-server)
+    - [1.5.3. sshpass解决输密码](#153-sshpass解决输密码)
   - [1.6. 登陆问题](#16-登陆问题)
     - [1.6.1. WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!](#161-warning-remote-host-identification-has-changed)
     - [1.6.2. WARNING: UNPROTECTED PRIVATE KEY FILE!](#162-warning-unprotected-private-key-file)
@@ -444,6 +445,19 @@ net stop sshd
 net start sshd
 ```
 
+### 1.5.3. sshpass解决输密码
+
+```bash
+sudo apt install sshpass
+sshpass -p PASSWORD ssh user@hostname
+```
+甚至可以起个别名
+```bash
+gedit ~/.bashrc
+alias hpc='sshpass -p PASSWORD ssh user@hostname'
+source ~/.bashrc
+hpc
+```
 
 ## 1.6. 登陆问题
 ### 1.6.1. WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!
