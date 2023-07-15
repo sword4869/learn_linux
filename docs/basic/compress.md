@@ -4,6 +4,7 @@
     - [1.1.2. extract](#112-extract)
     - [1.1.3. show content](#113-show-content)
   - [1.2. Compress \& Decompress](#12-compress--decompress)
+  - [1.3. dd copy](#13-dd-copy)
 
 ---
 # 1. compress
@@ -30,9 +31,10 @@ This archive `.tar` file is bigger than the sum of the original files.
 
 ```bash
 $ tar -xvf T.tar
+$ tar -xvf T.tar -C ~/Desktop
 ```
-`-x`: denotes that **extract** files from the archive.
-
+- `-x`: denotes that **extract** files from the archive.
+- `-C`: 指定解压的输出目录
 ### 1.1.3. show content
 
 ```bash
@@ -42,14 +44,25 @@ display files from the archive.
 ## 1.2. Compress & Decompress
 
 
-3 common compress tools: `bzip2`, `gzip`, `compress`.
-
-
-| tools | bzip2 | gzip | compress |
+| tools | extension | speed | result |
 |:-:|:-:|:-:|:-:|
-| **extension** | `.tar.bz2` | `.tar.gz` or `.tgz` | `.tar.Z` |
-| **speed** | slowest | middle | fastest |
-| **result** | smallest | middle | larger |
+| zip |`.zip`|-|-|
+| bzip2 | `.tar.bz2` | slowest | smallest |
+| gzip | `.tar.gz` or `.tgz` | middle | middle |
+| compress | `.tar.Z` | fastest | larger |
+
+```bash
+# 全是文件
+$ zip result.zip file1 file2
+# 含有文件夹
+$ zip -r result.zip file1 folder2
+
+
+$ unzip result.zip
+$ unzip result.zip -d ~/Desktop
+# 列举压缩文件的内容
+$ unzip -l result.zip
+```
 
 
 ```bash
@@ -80,7 +93,7 @@ $ xz -z T.tar
 # -d, --decompress
 $ xz -d T.tar.xz
 ```
-#w# 1.3. dd copy
+## 1.3. dd copy
 
 - A file, a filesystem, or even an entire hard drive.
 - A **bit-­by-­bit / physical** copy
