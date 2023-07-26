@@ -22,6 +22,7 @@
     - [1.6.1. WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!](#161-warning-remote-host-identification-has-changed)
     - [1.6.2. WARNING: UNPROTECTED PRIVATE KEY FILE!](#162-warning-unprotected-private-key-file)
     - [1.6.3. github](#163-github)
+    - [1.6.4. 使用 SSH 连接报 Bad owner or permissions on C:\\Users\\Administrator/.ssh/config 错误问题解决](#164-使用-ssh-连接报-bad-owner-or-permissions-on-cusersadministratorsshconfig-错误问题解决)
   - [1.7. 其他ssh实例](#17-其他ssh实例)
   - [1.8. 端口转发](#18-端口转发)
 ---
@@ -556,6 +557,47 @@ $ ping ssh.github.com
 请求超时。
 请求超时。
 ```
+
+
+### 1.6.4. 使用 SSH 连接报 Bad owner or permissions on C:\\Users\\Administrator/.ssh/config 错误问题解决
+
+> 问题描述
+
+在 Windows 系统下的 VSCode 安装 Remote - SSH 扩展后，使用扩展配置 SSH 并进行远程连接，可能会发生 Bad owner or permissions on C:\Users\Administrator/.ssh/config 错误，造成无法进行 SSH 远程连接的问题。
+
+原因是由于使用 Remote - SSH 扩展所依赖的 Remote - SSH: Editing Configuration Files 扩展编辑了 C:\Users\Administrator.ssh\config 文件后，此文件的权限发生了改变
+
+而把此配置文件删除后，使用 PowerShell 即可正常进行远程连接。但 VSCode 的 SSH 连接又依赖此配置文件，所以就产生了冲突，要么只有 PowerShell 能用，要么就都不能用。
+
+> 解决办法
+
+1. 在 GitHub 上下载 openssh-portable 项目，其 Git 命令如下：
+
+    ```bash
+    git clone https://github.com/PowerShell/openssh-portable.git
+    ```
+
+2. 下载完成后进入 openssh-portable 项目中的 `contrib\win32\openssh` 目录
+    ```bash
+    cd openssh-portable/contrib/win32/openssh
+    ```
+
+3. 在此目录中以管理员权限打开powershell，执行以下命令：
+
+    ```bash
+    ./FixUserFilePermissions.ps1 -Confirm:$false
+    ```
+
+    PS: 执行powershell脚本出错：未对文件进行数字签名：以管理员权限打开powershell
+    ```bash
+    # Y
+    set-ExecutionPolicy RemoteSigned
+
+    # 为RemoteSigned表示成功
+    get-executionpolicy
+    ```
+    右击powershell脚本文件，选中解除锁定，并应用
+    ![](https://img-blog.csdnimg.cn/20210706173551640.png)
 
 ## 1.7. 其他ssh实例
 【win10client ssh 自己的虚拟机linux服务器】
