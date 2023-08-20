@@ -485,78 +485,69 @@ $ chmod 0600 /home/sword/.ssh/id_rsa
 ### 1.6.3. github
 
 都是一个问题：
-> 问题一：ssh: connect to host github.com port 22: Connection refused
-
-> 问题二：fatal: unable to access 'https://github.com/telesoho/vscode-markdown-paste-image.git/': SSL certificate problem: unable to get local issuer certificate
-
-> 问题三：Cloning into 'development_configurations'...
+> - ssh: connect to host github.com port 22: Connection refused
+>
+> - fatal: unable to access 'https://github.com/telesoho/vscode-markdown-paste-image.git/': SSL certificate problem: unable to get local issuer certificate
+>
+> - Cloning into 'development_configurations'...
 git@ssh.github.com: Permission denied (publickey).
 fatal: Could not read from remote repository.
 Please make sure you have the correct access rights
 and the repository exists.
+>
+> - git@ssh.github.com: Permission denied (publickey).
+>
+> - ssh: connect to host github.com port 22: Connection timed out
 
-> 问题四：git@ssh.github.com: Permission denied (publickey).
+这都是梯子问题。
+
+1. 尝试git。https一般会屏蔽，git基本不会。
+
+    从`git clone https://github.com/telesoho/vscode-markdown-paste-image.git`
+    
+    变成`git clone git@github.com:telesoho/vscode-markdown-paste-image.git`
+
+2. 域名污染
+    ```bash
+    # 找不到 github.com
+    $ ssh -vT git@github.com
+    OpenSSH_8.9p1 Ubuntu-3ubuntu0.3, OpenSSL 3.0.2 15 Mar 2022
+    debug1: Reading configuration data /home/sword/.ssh/config
+    debug1: Reading configuration data /etc/ssh/ssh_config
+    debug1: /etc/ssh/ssh_config line 19: include /etc/ssh/ssh_config.d/*.conf matched no files
+    debug1: /etc/ssh/ssh_config line 21: Applying options for *
+    ssh: Could not resolve hostname github.com: Temporary failure in name resolution
+    ```
+    一般用 `ssh.github.com` 就可以找到
+    ```
+    # 替换 github.com 的 HostName 来找到
+    $ sudo vim /home/sword/.ssh/config
+    Host github.com
+        HostName ssh.github.com
+        PreferredAuthentications publickey
+        IdentityFile /home/sword/.ssh/id_rsa
+    ```
+    ```bash
+    $ ping ssh.github.com
+    Ping 请求找不到主机 ssh.github.com。请检查该名称，然后重试。
+    ```
+    
+    如果出现了意外情况，那么只能手动[查找域名](https://myssl.com/dns_check.html)
+    ![图 1](../../images/60515af40b9545a46d53bae92874c8480908e834472ea2fff65813f2fd87c079.png)  
+    ```bash
+    $ ping 140.82.113.4
+
+    正在 Ping 140.82.113.4 具有 32 字节的数据:
+    来自 140.82.113.4 的回复: 字节=32 时间=278ms TTL=43
+    来自 140.82.113.4 的回复: 字节=32 时间=296ms TTL=43
+    来自 140.82.113.4 的回复: 字节=32 时间=309ms TTL=43
+    来自 140.82.113.4 的回复: 字节=32 时间=286ms TTL=43
+    ```
+    ```bash
+        HostName 140.82.113.4
+    ```
 
 
-第一，https失灵，要用git
-原因是不能用`git clone https://github.com/telesoho/vscode-markdown-paste-image.git`的https协议，而是用git协议，`git clone git@github.com:telesoho/vscode-markdown-paste-image.git`
-
-所以，之后都是配置git。
-
-第二，上传公钥
-```bash
-$ sudo ssh-keygen
-
-$ sudo cat /root/.ssh/id_rsa.pub
-ssh-rsa 
-...
-```
-需要你上传公钥`id_rsa.pub`到github上后，就好了。
-
-第三，域名污染
-
-经过`ssh -vT git@github.com`（T用来测试，v用来显示详情）测试后，发现是国内找不到github.com的ip，所以我们用ssh.github.com来定位github的ip。
-```bash
-$ sudo vim /root/.ssh/config
-```
-```bash
-Host github.com
-HostName ssh.github.com	# 关键就是，不是用github.com，而是用ssh.github.com
-PreferredAuthentications publickey
-IdentityFile /root/.ssh/id_rsa
-```
-
-PS：配置git公钥前，不用配置用户名、邮箱，只要上传了公钥就行了，那只是为了定制公钥，没必要。
-
-PS2：少了第三步，就会出现问题四，让你输密码，然而输入了还是不对的现象。另外，你去github下看你的密钥使用情况，显示从未使用，因此就说明这是域名污染，而导致压根没没用密钥的情况。
-
-> 问题：DNS污染
-
-> `ssh git@github.com -T -vvv`显示
-> - key_load_public: No such file or directory
-> - pubkey_prepare: ssh_get_authentication_socket: No such file or directory
-> - debug1: read_passphrase: can't open /dev/tty: No such file or directory
-
-我还以为是ssh的问题，自己生成的密钥不匹配。然而并不是。
-
-最后怎么发现的，
-- `ping ssh.github.com`显示`正在 Ping ssh.github.com [127.0.0.1] 具有 32 字节的数据:`，再`ping github.com`也是`[127.0.0.1]`。
-
-- 再看`nslookup ssh.github.com 8.8.8.8`是`Address:  20.205.243.160`，再看自己的网关`nslookup ssh.github.com 192.168.0.1`是`Address:  127.0.0.1`。
-
-这是给我DNS污染了啊。一看站长之家的ping检测，全国通红。
-
-解法：打开wifi，从DHCP改为手动配置，DNS设置为`8.8.8.8`。
-
-之后，虽然ping不通，但是ip地址正确了，而且`ssh git@github.com -T`可以了。
-```bash
-$ ping ssh.github.com
-
-正在 Ping ssh.github.com [20.205.243.160] 具有 32 字节的数据:
-请求超时。
-请求超时。
-请求超时。
-```
 
 
 ### 1.6.4. 使用 SSH 连接报 Bad owner or permissions on C:\\Users\\Administrator/.ssh/config 错误问题解决
