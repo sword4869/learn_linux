@@ -31,10 +31,19 @@ This archive `.tar` file is bigger than the sum of the original files.
 
 ```bash
 $ tar -xvf T.tar
-$ tar -xvf T.tar -C ~/Desktop
+$ tar -xvf T.tar -C ~/Desktop/newFolder
 ```
 - `-x`: denotes that **extract** files from the archive.
 - `-C`: 指定解压的输出目录
+
+
+!!! note 直接解压
+```bash
+$ tar -xvf T.tar.gz -C ~/Desktop/newFolder
+```
+
+
+
 ### 1.1.3. show content
 
 ```bash
@@ -43,6 +52,11 @@ $ tar -tvf T.tar
 display files from the archive.
 ## 1.2. Compress & Decompress
 
+```bash
+# 确实压缩了
+-rw-------  1 lab lab 6726338560 Aug 27 18:36 nerf.tar
+-rw-------  1 lab lab 3369845884 Aug 27 19:16 nerf.tar.gz
+```
 
 | tools | extension | speed | result |
 |:-:|:-:|:-:|:-:|
