@@ -25,6 +25,14 @@ $ tar -cvf T.tar a.txt b.jpg
 
 This archive `.tar` file is bigger than the sum of the original files.
 
+!!! note 直接压缩
+```bash
+tar -czvf file.tar.gz xxx  # z压缩 tar.gz
+
+tar -cjvf file.tar.bz2 xxx # j压缩 tar.bz2
+
+tar -cZvf file.tar.Z xxx   # Z压缩 tar.Z
+```
 
 
 ### 1.1.2. extract
@@ -39,7 +47,11 @@ $ tar -xvf T.tar -C ~/Desktop/newFolder
 
 !!! note 直接解压
 ```bash
-$ tar -xvf T.tar.gz -C ~/Desktop/newFolder
+tar -xzvf file.tar.gz   # z解压 tar.gz
+
+tar -xjvf file.tar.bz2  # j解压 tar.bz2
+
+tar -xZvf file.tar.Z    # Z解压 tar.Z
 ```
 
 
@@ -65,48 +77,48 @@ display files from the archive.
 | gzip | `.tar.gz` or `.tgz` | middle | middle |
 | compress | `.tar.Z` | fastest | larger |
 
-```bash
-# 全是文件
-$ zip result.zip file1 file2
-# 含有文件夹
-$ zip -r result.zip file1 folder2
+- 独特的
+  ```bash
+  # 全是文件
+  $ zip result.zip file1 file2
+  # 含有文件夹
+  $ zip -r result.zip file1 folder2
 
 
-$ unzip result.zip
-$ unzip result.zip -d ~/Desktop
-# 列举压缩文件的内容
-$ unzip -l result.zip
-```
+  $ unzip result.zip
+  $ unzip result.zip -d ~/Desktop
+  # 列举压缩文件的内容
+  $ unzip -l result.zip
+  ```
 
+  ```bash
+  # -v, 显示进度
 
-```bash
-$ bzip2 T.tar
+  # -z, --compress
+  $ xz -z T.tar
 
-$ bunzip2 T.tar.bz2
-```
+  # -d, --decompress
+  $ xz -d T.tar.xz
+  ```
+- 可以用tar的
+  ```bash
+  $ bzip2 T.tar
 
-```bash
-$ gzip T.tar
+  $ bunzip2 T.tar.bz2
+  ```
 
-$ gunzip T.tar.gz
-```
-It's worth noting that `gzip` can also be used to extract `.zip` files.
+  ```bash
+  $ gzip T.tar
 
-```bash
-$ compress T.tar
+  $ gunzip T.tar.gz
+  ```
+  It's worth noting that `gzip` can also be used to extract `.zip` files.
 
-$ uncompress T.tar.Z
-```
+  ```bash
+  $ compress T.tar
 
-```bash
-# -v, 显示进度
-
-# -z, --compress
-$ xz -z T.tar
-
-# -d, --decompress
-$ xz -d T.tar.xz
-```
+  $ uncompress T.tar.Z
+  ```
 ## 1.3. dd copy
 
 - A file, a filesystem, or even an entire hard drive.
