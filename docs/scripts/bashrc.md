@@ -8,7 +8,7 @@ alias proxyoff="unset http_proxy && unset https_proxy"
 alias proxytest="curl -vv http://google.com && curl -vv https://google.com"
 
 # pack a conda environment
-alias conda_pack_env='conda env list && echo "please input:" && read env && conda activate $env && conda env list && conda install conda-pack -y && conda pack -n $env --ignore-missing-files'
+alias conda_pack_env='conda env list && read -p "[+] please input:" env && ls && read -p "[+] check if $env.tar.gz already exists: tap any for continue" ans && conda activate $env && conda env list && conda install conda-pack -y && conda pack -n $env --ignore-missing-files'
 
 ```
 ## server
@@ -26,6 +26,6 @@ alias en='ls ~/envs && echo "please input:" && read env && source ~/envs/$env/bi
 
 # unpack a conda environment
 # 因为会报错 `tar: Exiting with failure status due to previous errors`，所以分成前后两条命令
-alias conda_unpack_env1='mkdir -p ~/envs/downloads && echo "[+] ls ~/envs" && ls ~/envs && echo "[+] ls" && ls && echo "please input the env name:" && read env && mkdir -p ~/envs/$env && tar -xvf $env.tar.gz -C ~/envs/$env'
-alias conda_unpack_env2='echo "please input the env name:" && read env && mv $env.tar.gz ~/envs/downloads && echo "[+] ls ~/envs" && ls ~/envs && echo "" && echo "[+] ls ~/envs/downloads" && ls ~/envs/downloads && source  ~/envs/$env/bin/activate'
+alias conda_unpack_env1='echo "[+] check if ~/envs/xxx already exists" && ls ~/envs && echo "[+] ls" && ls && read -p "please input the env name:" env && mkdir -p ~/envs/$env && tar -xvf $env.tar.gz -C ~/envs/$env'
+alias conda_unpack_env2='read -p "please input the env name:" env && mv $env.tar.gz ~/envs/$env && echo "[+] ls ~/envs" && ls ~/envs && source  ~/envs/$env/bin/activate'
 ```
