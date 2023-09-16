@@ -632,24 +632,26 @@ ssh2             7222/tcp
 
 <https://zhuanlan.zhihu.com/p/148825449>
 
-
-都是借端口, 然后在A上运行本地端口。前者因为都是在A上操作，故而叫做本地；后者先是在B上转发端口，再在A上操作，故而叫做远程。
-- 本地端口转发 `-L`：A借用B的端口.
-- 远程端口转发 `-R`：将B的端口借给A.
-
 ![图 1](../../images/e6f15ad886dcf097609bbe06dc6a715dd131335ded01daa0fab1e86645a6b68e.png)  
 
+本地是 *Host_A* ，远程是 *Host_B* ， *Host_B* 能连其内网 *Host_C* 的端口，现在想让 *Host_A* 可以访问内网C的端口。
+
+都是借端口，只不过本地端口转发是请求借，远程端口转发是主动借。
+
+A借到后，就可以通过自己的端口 **X** 来访问 *Host_C* 的端口 **Y**。
+
+- 本地（因为是本地A发起ssh到远程B）端口转发 `-L`：A借用B的端口. 
+    ```bash
+    A$ ssh -L X:Host_C:Y User_B@Host_B
+    ```
+- 远程（因为是远程B发起ssh到本地A）端口转发 `-R`：将B的端口借给A.
+    ```bash
+    B$ ssh -R X:Host_C:Y User_A@Host_A
+    ```
+
+应用
 ```bash
-############## 端口转发
-# 本地端口转发
-A$ ssh -L X:Host_C:Y User_B@Host_B
-
-# 远程端口转发
-B$ ssh -R X:Host_C:Y User_A@Host_A
-
-
-
-############## 双向应用
+############## 本地或远程方式都行
 # ssh 虚拟机
 A$ ssh -p X User_C@localhost
 # sftp 虚拟机
@@ -660,12 +662,14 @@ A$ localhost:6006
 A$ localhost:20
 
 
-############## 单向应用: 本地端口转发，用户登陆堡垒机
+############## 只能本地端口转发（堡垒机不能向外连接），用户登陆堡垒机
 A$ ssh -L 6006:localhost:6006 User_B@Host_B
 A$ localhost:6006
-############## 单向应用：远程端口转发，内网挂载到公网上
-B$ ssh -R 6006:localhost:6006 User_A@xxx.com
-Any Machine$ xxx.com:6006
+############## 只能远程端口转发（公网连不到内网），内网 B 挂载到公网 A 上
+B$ ssh -R 6006:localhost:6006 User_A@Host_A
+Any Machine$ Host_A:6006    # 比如, 10.10.10.10:6006
 ```
 
-现在关闭方式是关闭终端。通常配合参数 `-N` 不登陆只forward转发。`ssh -L X:Host_C:Y User_B@Host_B -N`， 然后就可以ctrl-C停止，不用关闭终端。
+现在关闭方式是关闭终端。
+
+通常配合参数 `-N` 不登陆只forward转发。`ssh -L X:Host_C:Y User_B@Host_B -N`， 然后就可以ctrl-C停止，不用关闭终端。
