@@ -3,7 +3,9 @@
     - [1.1.1. create](#111-create)
     - [1.1.2. extract](#112-extract)
     - [1.1.3. show content](#113-show-content)
-  - [1.2. Compress \& Decompress](#12-compress--decompress)
+    - [1.1.4. Compress \& Decompress](#114-compress--decompress)
+    - [1.1.5. xz](#115-xz)
+  - [1.2. zip](#12-zip)
   - [1.3. dd copy](#13-dd-copy)
 
 ---
@@ -62,7 +64,7 @@ tar -xZvf file.tar.Z    # Z解压 tar.Z
 $ tar -tvf T.tar
 ```
 display files from the archive.
-## 1.2. Compress & Decompress
+### 1.1.4. Compress & Decompress
 
 ```bash
 # 确实压缩了
@@ -72,53 +74,59 @@ display files from the archive.
 
 | tools | extension | speed | result |
 |:-:|:-:|:-:|:-:|
-| zip |`.zip`|-|-|
 | bzip2 | `.tar.bz2` | slowest | smallest |
 | gzip | `.tar.gz` or `.tgz` | middle | middle |
 | compress | `.tar.Z` | fastest | larger |
 
-- 独特的
-  ```bash
-  # 全是文件
-  $ zip result.zip file1 file2
-  # 含有文件夹
-  $ zip -r result.zip file1 folder2
+
+```bash
+$ bzip2 T.tar
+
+$ bunzip2 T.tar.bz2
+```
+
+```bash
+$ gzip T.tar
+
+$ gunzip T.tar.gz
+```
+It's worth noting that `gzip` can also be used to extract `.zip` files.
+
+```bash
+$ compress T.tar
+
+$ uncompress T.tar.Z
+```
+### 1.1.5. xz
+```bash
+# -v, 显示进度
+
+# -z, --compress
+$ xz -z T.tar
+
+# -d, --decompress
+$ xz -d T.tar.xz
+```
+## 1.2. zip
+
+```
+sudo apt install zip
+```
+
+```bash
+# 全是文件
+$ zip result.zip file1 file2
+# 含有文件夹
+$ zip -r result.zip file1 folder2
 
 
-  $ unzip result.zip
-  $ unzip result.zip -d ~/Desktop
-  # 列举压缩文件的内容
-  $ unzip -l result.zip
-  ```
+$ unzip result.zip
+$ unzip result.zip -d ~/Desktop
+# 列举压缩文件的内容
+$ unzip -l result.zip
+```
 
-  ```bash
-  # -v, 显示进度
 
-  # -z, --compress
-  $ xz -z T.tar
-
-  # -d, --decompress
-  $ xz -d T.tar.xz
-  ```
-- 可以用tar的
-  ```bash
-  $ bzip2 T.tar
-
-  $ bunzip2 T.tar.bz2
-  ```
-
-  ```bash
-  $ gzip T.tar
-
-  $ gunzip T.tar.gz
-  ```
-  It's worth noting that `gzip` can also be used to extract `.zip` files.
-
-  ```bash
-  $ compress T.tar
-
-  $ uncompress T.tar.Z
-  ```
 ## 1.3. dd copy
 
 - A file, a filesystem, or even an entire hard drive.
