@@ -53,6 +53,7 @@ D盘，存可以转移系统的东西。
     ![Alt text](../../images/image-5.png)
     
     ![Alt text](../../images/image-4.png)
+- 7z
 
 ### 2.3. 可以转移系统的
 
