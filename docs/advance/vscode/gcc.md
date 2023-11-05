@@ -265,3 +265,12 @@ https://github.com/niXman/mingw-builds-binaries/releases
 ## 6. cmake
 
 https://cmake.org/download/
+
+环境变量：`D:\Applications\cmake\bin`
+
+```
+(base) PS C:\Users\lab> cmake --version
+cmake version 3.28.0-rc3
+
+CMake suite maintained and supported by Kitware (kitware.com/cmake).
+```
