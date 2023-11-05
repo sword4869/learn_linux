@@ -1,0 +1,76 @@
+{
+  "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+  "blocks": [
+    {
+      "alignment": "left",
+      "newline": true,
+      "segments": [
+        {
+          "style": "plain",
+          "foreground": "lightYellow",
+          "template": "[{{ if .Error }}{{ .Error }}{{ else }}{{ if .Venv }}{{ .Venv }}{{ end }}{{ .Full }}{{ end }}] ",
+          "properties": {
+            "fetch_version": false
+          },
+          "type": "python"
+        },
+        {
+          "style": "plain",
+          "foreground": "red",
+          "template": " % ",
+          "type": "root"
+        },
+        {
+          "style": "plain",
+          "template": "<cyan>{{ .UserName }}</><lightRed>@</><green>{{ .HostName }}</> ",
+          "type": "session"
+        },
+        {
+          "style": "plain",
+          "foreground": "lightYellow",
+          "template": "[{{ .Location }}] ",
+          "properties": {
+            "style": "full"
+          },
+          "type": "path"
+        },
+        {
+          "style": "plain",
+          "template": "<cyan>{{ .HEAD }}</>{{ if .Working.Changed }}<red> x</>{{ else }}<red> √</>{{ end }} ",
+          "properties": {
+            "fetch_status": true
+          },
+          "type": "git"
+        },
+        {
+          "style": "plain",
+          "foreground": "black",
+          "template": " C:{{ if gt .Code 0 }}{{ .Code }}{{ end }} ",
+          "type": "exit"
+        },
+        {
+          "style": "plain",
+          "foreground": "#E36464",
+          "template": "[{{ .CurrentDate | date .Format }}]",
+          "type": "time"
+        }
+      ],
+      "type": "prompt"
+    },
+    {
+      "alignment": "left",
+      "newline": true,
+      "segments": [
+        {
+          "foreground": "lightRed",
+          "style": "plain",
+          "template": "$",
+          "type": "text"
+        }
+      ],
+      "type": "prompt"
+    }
+  ],
+  "final_space": true,
+  "version": 2
+}
