@@ -63,13 +63,14 @@ D盘，存可以转移系统的东西。
 - 百度云
 - clash
 - Ditto
+
+    ![Alt text](../../images/image-7.png)
 - Everything
 - FolderSizeExplorer
 - 格式工厂
 - PotPlayer
 - RightMenuMgr
 - tabby
-- scrcpy
 - simpletex
 - zotero
 
@@ -78,6 +79,6 @@ D盘，存可以转移系统的东西。
 - powershell权限修改: [./shell美化/oh-my-posh/readme.md](./shell美化/oh-my-posh/readme.md)
 - git: 环境变量`D:\Applications\Git\bin`；`.gitconfig`文件
 - miniconda: `.condarc`；`conda init`
-- cmake: 环境变量：`D:\Applications\cmake\bin`
-- msys2: 环境变量：`D:\Applications\msys2\ucrt64\bin`
-
+- cmake: 环境变量 `D:\Applications\cmake\bin`
+- msys2: 环境变量 `D:\Applications\msys2\ucrt64\bin`
+- scrcpy: 环境变量 ``
