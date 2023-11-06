@@ -39,7 +39,7 @@ D盘，存可以转移系统的东西。
 - edge: 设置浏览器的默认下载位置为`D:\Downloads`
 - 手心输入法
 - windows terminal
-- 驱动更新
+- 驱动更新, 系统cuda。
 - PS
 - PR
 - 安装字体：[./shell美化/oh-my-posh/Noto Mono Nerd Font Complete.ttf](./shell美化/oh-my-posh/Noto%20Mono%20Nerd%20Font%20Complete.ttf)
