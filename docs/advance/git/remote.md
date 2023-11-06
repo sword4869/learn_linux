@@ -12,6 +12,7 @@
   - [1.4. pull = fetch + merge](#14-pull--fetch--merge)
     - [1.4.1. pull](#141-pull)
     - [1.4.2. fetch](#142-fetch)
+    - [1.4.3. 远程分支](#143-远程分支)
 
 # 1. remote
 ## 1.1. show names of remote repository
@@ -167,7 +168,7 @@ git push origin :main
 基本用法：``git pull <remote repository> <remote branch>:<local branch>``。
 
 - 例如执行下面语句：`git pull origin master:brantest`，将远程主机origin的master分支拉取过来，与本地的brantest分支合并。
-- 后面的冒号可以省略：`git pull origin master`。表示将远程origin主机的master分支拉取过来和本地的当前分支进行合并。
+- 后面的冒号可以省略：`git pull origin master`。表示将远程origin主机的master分支拉取过来和本地的**当前分支**进行合并。
 
 `git pull = git fetch + git merge`。上面的pull操作`git pull origin master`用fetch表示为：
 
@@ -198,3 +199,40 @@ $ git diff
 
 $ git merge origin/master
 ```
+### 1.4.3. 远程分支
+
+- 当本地没有其他分支的代码仓库时
+
+  ```bash
+  # 默认分支
+  git clone origin
+  # 指定分支
+  git clone -b 分支名 origin
+  ```
+  执行上述命令后就将远程分支拉取到了本地。
+
+- 当本地有其他分支的代码仓库时, 查看所有的远程分支
+
+  ```bash
+  $ git branch -r
+    origin/docs
+    origin/modern
+    origin/residual
+  ```
+  
+  + 不需要本地分支和远程分支建立映射关系
+
+    ```bash
+    git fetch origin 远程分支名xxx:本地分支名xxx
+    ```
+
+    使用这种方式会在本地仓库新建分支xxx，但是并不会自动切换到新建的分支xxx，需要手动checkout。然后远程分支xxx的代码也拉取到了本地分支xxx中。采用这种方法建立的本地分支不会和远程分支建立映射关系。
+
+  + 需要本地分支和远程分支建立映射关系
+
+    ```bash
+    git checkout -b 本地分支名xxx origin/远程分支名xxx
+    ```
+
+    使用这种方式会在本地仓库新建分支xxx，并自动切换到新建的分支xxx。然后远程分支xxx的代码也拉取到了本地分支xxx中。采用这种方法建立的本地分支会和远程分支建立映射关系。
+
