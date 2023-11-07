@@ -23,6 +23,7 @@
     - [1.6.2. WARNING: UNPROTECTED PRIVATE KEY FILE!](#162-warning-unprotected-private-key-file)
     - [1.6.3. github](#163-github)
     - [1.6.4. 使用 SSH 连接报 Bad owner or permissions on C:\\Users\\Administrator/.ssh/config 错误问题解决](#164-使用-ssh-连接报-bad-owner-or-permissions-on-cusersadministratorsshconfig-错误问题解决)
+    - [1.6.5. No matching host key type found. Their offer: ssh-rsa](#165-no-matching-host-key-type-found-their-offer-ssh-rsa)
   - [1.7. 其他ssh实例](#17-其他ssh实例)
   - [1.8. 端口转发](#18-端口转发)
 ---
@@ -589,6 +590,26 @@ and the repository exists.
     ```
     右击powershell脚本文件，选中解除锁定，并应用
     ![](https://img-blog.csdnimg.cn/20210706173551640.png)
+
+### 1.6.5. No matching host key type found. Their offer: ssh-rsa
+
+openssh觉得ssh-rsa加密方式不安全, 直接从8.8开始默认不允许这种密钥用于登陆
+
+临时性方案（命令行增加参数 `-oHostKeyAlgorithms=+ssh-rsa`）
+
+持久化方案（配置文件持久化）: 将需要连接的服务器IP加入到host，可以用 `*` 对所有主机生效
+```bash
+sudo vim ~/.ssh/config
+
+
+Host *
+    PubkeyAcceptedKeyTypes +ssh-rsa
+    HostKeyAlgorithms +ssh-rsa
+
+Host hpc3
+    User hpc21
+    HostName xxx.com
+```
 
 ## 1.7. 其他ssh实例
 【win10client ssh 自己的虚拟机linux服务器】
