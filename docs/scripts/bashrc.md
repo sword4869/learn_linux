@@ -9,7 +9,6 @@ alias proxytest="curl -vv http://google.com && curl -vv https://google.com"
 
 # pack a conda environment
 alias conda_pack_env='conda env list && read -p "[+] please input:" env && ls && read -p "[+] check if $env.tar.gz already exists: tap any for continue" ans && conda activate $env && conda env list && conda install conda-pack -y && conda pack -n $env --ignore-missing-files'
-
 ```
 ## server
 
