@@ -9,6 +9,7 @@
     - [1.3.3. 默认](#133-默认)
     - [1.3.4. 强制更新（合并冲突的问题）](#134-强制更新合并冲突的问题)
     - [1.3.5. Github清除历史记录](#135-github清除历史记录)
+    - [1.3.6. 撤销远程提交](#136-撤销远程提交)
   - [1.4. pull = fetch + merge](#14-pull--fetch--merge)
     - [1.4.1. pull](#141-pull)
     - [1.4.2. fetch](#142-fetch)
@@ -123,9 +124,9 @@ $ git push origin master
   **这样会将远程仓库的master分支的历史文件都清掉**。从而不会产生因为合并冲突的问题.
   PS：建议使用此命令前备份一个远程分支：先本地创建一个分支，拉去远程分支，再push一个新的分支，最后再push到那原来的分支。
 
-```bash
-$ git push origin master -f
-```
+  ```bash
+  $ git push origin master -f
+  ```
 
 - push到一个新的远程分支。
 
@@ -160,6 +161,59 @@ git push origin :main
 ```
 
 5. 有兴趣再重命名一下分支
+
+### 1.3.6. 撤销远程提交
+本地回退+强制推送
+
+1. 查找需要回退至的版本号 `2eee0e26d2d5fd00ec462df47752223952f6bf4e`
+    ```
+    $ git log
+    commit 13c1a52e0624f172cfa8612ad27e90a030735f2f (HEAD -> main, origin/main, origin/HEAD)
+    Author: sword4869 <xxx@qq.com>
+    Date:   Tue Nov 7 18:41:35 2023 +0800
+
+        add GPU number and lazy load img to GPU       ### 这次提交，想要被撤回
+
+    commit 2eee0e26d2d5fd00ec462df47752223952f6bf4e
+    Author: Bernhard Kerbl <kerbl@icg.tugraz.at>
+    Date:   Wed Nov 1 13:10:29 2023 +0100
+
+        Bumped sibr viewers                           ### 那么就回退到这里
+
+    commit f11001b46c5c73a0a7d553353c898efd68412abe
+    Author: bkerbl <bkerbl@ad.inria.fr>
+    Date:   Mon Oct 23 16:02:30 2023 +0200
+
+        Random background flag added
+    ```
+2. 回退
+
+     - soft指的是：保留当前工作区，以便重新提交，比如我们这次是修改后重新提交
+     - hard，会撤销相应工作区的修改，一定要谨慎使用
+    ```bash
+    $ git reset --soft 2eee0e26d2d5fd00ec462df47752223952f6bf4e
+
+    # 验证
+    $ git log
+    commit 2eee0e26d2d5fd00ec462df47752223952f6bf4e (HEAD -> main)
+    Author: Bernhard Kerbl <kerbl@icg.tugraz.at>
+    Date:   Wed Nov 1 13:10:29 2023 +0100
+
+        Bumped sibr viewers
+
+    commit f11001b46c5c73a0a7d553353c898efd68412abe
+    Author: bkerbl <bkerbl@ad.inria.fr>
+    Date:   Mon Oct 23 16:02:30 2023 +0200
+
+        Random background flag added
+    ```
+3. 强制推送
+    ```bash
+    $ git push origin main -f
+    Total 0 (delta 0), reused 0 (delta 0), pack-reused 0
+    To github.com:sword4869/gaussian-splatting.git
+    + 13c1a52...2eee0e2 main -> main (forced update)
+    ```
 
 ## 1.4. pull = fetch + merge
 
