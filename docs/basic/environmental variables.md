@@ -7,6 +7,7 @@
     - [1.2.1. delete this new variable](#121-delete-this-new-variable)
     - [1.2.2. change PATH](#122-change-path)
     - [1.2.3. temporary](#123-temporary)
+      - [1.2.3.1. 用户身份登陆ubuntu服务器，用户目录新建.bashrc文件并source之后设置生效，但是使用ssh重登之后发现之前的设置不再生效。](#1231-用户身份登陆ubuntu服务器用户目录新建bashrc文件并source之后设置生效但是使用ssh重登之后发现之前的设置不再生效)
 
 ---
 # 1. environmental varibles
@@ -92,3 +93,29 @@ source ~/.bashrc
 2. source 命令使这个修改立即生效。
   
 PS: source的生效只是临时在当前终端生效。即重新开启一个终端后，该环境变量失效，新的终端还得再使用source命令。而重启后的生效是都生效。
+
+#### 1.2.3.1. 用户身份登陆ubuntu服务器，用户目录新建.bashrc文件并source之后设置生效，但是使用ssh重登之后发现之前的设置不再生效。
+
+```bash
+# 环境变量，必须等每次source才能加载
+~$ echo $PATH
+/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+~$ source ~/.bashrc
+~$ echo $PATH
+/usr/local/cuda-11.7/bin:/home/lenovo/miniconda3/condabin:/home/lenovo/miniconda3/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+```
+
+新建一个`.profile`文件，添加自动运行`.bashrc`的配置信息
+
+```bash
+# if running bash
+if [ -n "$BASH_VERSION" ]; then
+    # include .bashrc if it exists
+    if [ -f "$HOME/.bashrc" ]; then
+        . "$HOME/.bashrc"
+    fi
+fi
+```
+
+`~/.profile`: executed by the command interpreter for login shells.
+This file is not read by bash(1), if `~/.bash_profile` or `~/.bash_login` exists.
