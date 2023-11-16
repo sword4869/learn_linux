@@ -694,3 +694,12 @@ Any Machine$ Host_A:6006    # 比如, 10.10.10.10:6006
 现在关闭方式是关闭终端。
 
 通常配合参数 `-N` 不登陆只forward转发。`ssh -L X:Host_C:Y User_B@Host_B -N`， 然后就可以ctrl-C停止，不用关闭终端。
+
+```
+channel 3: open failed: administratively prohibited: Connection denied
+channel 4: open failed: connect failed: channelOpen too offen type=direct-tcpip
+channel 3: open failed: connect failed: channelOpen too offen type=direct-tcpip
+channel 3: open failed: administratively prohibited: Connection denied
+```
+
+sshd 的配置 `AllowTcpForwarding yes`

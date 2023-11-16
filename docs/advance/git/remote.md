@@ -217,6 +217,27 @@ git push origin :main
 
 ## 1.4. pull = fetch + merge
 
+
+The local branch `master`, which exists only in your local Git repo, is in what you do most of your actual development work. Similarly, there is also a branch called `master` which exists on the remote. Now, for the confusion, there is a _third_ branch called `origin/master`. This is a _local_ branch, which exists on your local repo. It exists mainly to serve as a proxy for the true remote `master` branch. Whenever you sync with the remote `master` branch, locally you are actually using `origin/master`.
+
+Doing `git pull origin master` is actually identical to this (assuming you are using the merge strategy by default):
+
+```
+git fetch origin master
+git merge origin/master
+```
+
+The first step, `git fetch origin`, updates the local tracking branch `origin/master` with the latest changes, such that it mirrors the true `master` branch on the remote. Then, it does a merge into your local `master` branch using `origin/master`. 
+
+So, keeping in mind that `origin/master` is the actual branch which tracks the true remote `master` branch, we can tell Git to use `origin/master` as the tracking branch via:
+
+```
+# from local master branch
+git --set-upstream-to origin/master
+```
+
+Note that if you create or checkout `master` locally, Git typically would create `origin/master` as the default tracking branch behind the scenes. So, in practice, you probably won't have to use `--set-upstream-to` very often.
+
 ### 1.4.1. pull
 
 基本用法：``git pull <remote repository> <remote branch>:<local branch>``。

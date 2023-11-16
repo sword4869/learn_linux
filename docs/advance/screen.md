@@ -41,9 +41,11 @@ PS：在screen外大`screen`进入screen窗口内
 
 #### 1.4.1.2. 显示
 - 当前screen窗口列表：`screen -ls`
-- 当前会话窗口列表：`^a → "`
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20200703222759427.png)
-这个`9982`就是yourScreenId
+  
+  ![在这里插入图片描述](https://img-blog.csdnimg.cn/20200703222759427.png)
+  
+  这个`9982`就是yourScreenId
+- 当前会话窗口列表：`^a → *`
 #### 1.4.1.3. 切换
 - 后台运行screen窗口：`^a → d`或`screen -d yourScreenId`
 - 回到screen窗口：`screen -r yourScreenId`
