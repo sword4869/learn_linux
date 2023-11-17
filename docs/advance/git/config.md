@@ -58,8 +58,19 @@ git config --global user.email 'xxxxx@xx.com'
 1. clash打开 "允许局域网链接入Clash"
 
 2. 查ip
-   使用WSL的ip `172.23.208.1` (在windows下查看，而不是在linux下查看的`172.23.208.218`)，而不是windows的ip`192.168.3.96`
+   
+   使用WSL的ip `172.23.208.1` (在windows下查看wsl的ip）
 
+    ```bash
+    windows C:> ipconfig
+    以太网适配器 vEthernet (WSL):
+
+      连接特定的 DNS 后缀 . . . . . . . :
+      本地链接 IPv6 地址. . . . . . . . : fe80::8022:9324:43f6:274e%30
+      IPv4 地址 . . . . . . . . . . . . : 172.23.208.1
+      子网掩码  . . . . . . . . . . . . : 255.255.240.0
+    ```
+   注意：既不是在linux下查看的`172.23.208.218`)，也不是在windows下查看windows的ip`192.168.3.96`
     ```bash
     windows C:> ipconfig
     无线局域网适配器 WLAN:
@@ -70,14 +81,6 @@ git config --global user.email 'xxxxx@xx.com'
       子网掩码  . . . . . . . . . . . . : 255.255.255.0
       默认网关. . . . . . . . . . . . . : 192.168.3.1
 
-    以太网适配器 vEthernet (WSL):
-
-      连接特定的 DNS 后缀 . . . . . . . :
-      本地链接 IPv6 地址. . . . . . . . : fe80::8022:9324:43f6:274e%30
-      IPv4 地址 . . . . . . . . . . . . : 172.23.208.1
-      子网掩码  . . . . . . . . . . . . : 255.255.240.0
-    ```
-    ```bash
     wsl$ ifconfig
     eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
             inet 172.23.208.218  netmask 255.255.240.0  broadcast 172.23.223.255
@@ -141,7 +144,7 @@ git config --global user.email 'xxxxx@xx.com'
     alias proxytest="curl -vv http://google.com && curl -vv https://google.com"
     ```
 5. git proxy
-    虽然可以直接跳过步骤3，`git config --global http://172.23.208.1:7890`。但是步骤3可以明显知道是代理的问题，还是git的问题。
+
     ```bash
     git config --global http.proxy $http_proxy
     git config --global https.proxy $https_proxy
