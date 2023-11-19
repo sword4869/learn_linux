@@ -5,8 +5,6 @@
   - [4.1. 退出pdb](#41-退出pdb)
   - [4.2. breakpoint](#42-breakpoint)
   - [4.3. 打印变量值](#43-打印变量值)
-- [5. mingw \& mingw-w64](#5-mingw--mingw-w64)
-- [6. cmake](#6-cmake)
 
 
 ---
@@ -232,45 +230,3 @@ fs             0x0                 0
 gs             0x0                 0
 ```
 
-## 5. mingw & mingw-w64
-
-MinGW和MinGW-W64都是用于Windows平台的轻量级GNU工具链，用于开发和编译C和C++程序。
-
-MinGW（Minimalist GNU for Windows）是一个32位的GNU工具链，它提供了一套基于GNU的开发环境，包括GCC编译器和一些GNU库，可以用来编译Windows下的C和C++程序。但MinGW只支持32位程序的编译。
-
-MinGW-W64是一个64位的GNU工具链，是MinGW的升级版，原本它是MinGW的分支，后来成为独立发展的项目，它支持同时编译32位和64位程序。它包括了一系列的GNU库和工具，例如GCC、Binutils、**GDB**等，还支持一些实用工具和库，如OpenMP、MPI等。
-
-总的来说，MinGW-W64可以看作是MinGW的升级版，它支持更多的编译选项和更多的库，可以编译出更加高效和安全的程序。
-
-另外，MinGW-W64原本是从MinGW项目fork出来的独立的项目。MinGW 早已停止更新，内置的GCC最高版本为4.8.1，而MinGW-W64目前仍在维护，它也是GCC官网所推荐的。
-
-[msys2](https://www.msys2.org/)
-
-```
-pacman -S --needed base-devel mingw-w64-ucrt-x86_64-toolchain
-```
-Add the path to your MinGW-w64 `msys64/ucrt64/bin` folder to the Windows PATH environment variable.
-```
-gcc --version
-g++ --version
-gdb --version
-```
-
-https://files.1f0.de/mingw/
-
-https://github.com/niXman/mingw-builds-binaries/releases
-
-[sourceforge, 太老了8.1.0](https://sourceforge.net/projects/mingw-w64/files/)
-
-## 6. cmake
-
-https://cmake.org/download/
-
-环境变量：`D:\Applications\cmake\bin`
-
-```
-(base) PS C:\Users\lab> cmake --version
-cmake version 3.28.0-rc3
-
-CMake suite maintained and supported by Kitware (kitware.com/cmake).
-```
