@@ -75,6 +75,7 @@ D盘，存可以转移系统的东西。
 - tabby
 - simpletex
 - zotero
+- IDM
 
 > 其他配置的
 
