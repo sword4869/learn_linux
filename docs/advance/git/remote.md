@@ -189,9 +189,10 @@ git push origin :main
 2. 回退
 
      - soft指的是：保留当前工作区，以便重新提交，比如我们这次是修改后重新提交
-     - hard，会撤销相应工作区的修改，一定要谨慎使用
+     - hard，会撤销相应工作区的修改，一定要谨慎使用。一般用于指定某个版本的内容，不考虑自己的修改。
     ```bash
     $ git reset --soft 2eee0e26d2d5fd00ec462df47752223952f6bf4e
+    # git reset --hard 2eee0e26d2d5fd00ec462df47752223952f6bf4e
 
     # 验证
     $ git log
