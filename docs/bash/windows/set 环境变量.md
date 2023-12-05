@@ -1,4 +1,5 @@
 - [1. 查看和设置](#1-查看和设置)
+- [2. 变量](#2-变量)
 
 
 ---
@@ -85,4 +86,12 @@ windir=C:\Windows
 WSLENV=WT_SESSION:WT_PROFILE_ID:
 WT_PROFILE_ID={0caa0dad-35be-5f56-a8ff-afceeeaa6101}
 WT_SESSION=b843a758-fb70-4284-aceb-f2b70a921aea
+```
+
+## 2. 变量
+
+```bash
+(base) PS C:\Users\lab> $sdf=1
+(base) PS C:\Users\lab> $sdf
+1
 ```
