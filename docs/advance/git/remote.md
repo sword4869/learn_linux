@@ -14,6 +14,9 @@
     - [1.4.1. pull](#141-pull)
     - [1.4.2. fetch](#142-fetch)
     - [1.4.3. 远程分支](#143-远程分支)
+  - [1.5. fork仓库拉取原仓库更新](#15-fork仓库拉取原仓库更新)
+    - [1.5.1. merge法](#151-merge法)
+    - [1.5.2. reset法](#152-reset法)
 
 # 1. remote
 ## 1.1. show names of remote repository
@@ -249,6 +252,8 @@ Note that if you create or checkout `master` locally, Git typically would create
 `git pull = git fetch + git merge`。上面的pull操作`git pull origin master`用fetch表示为：
 
 ```bash
+git pull origin master:master
+
 git fetch origin master
 git merge origin/master
 ```
@@ -312,3 +317,22 @@ $ git merge origin/master
 
     使用这种方式会在本地仓库新建分支xxx，并自动切换到新建的分支xxx。然后远程分支xxx的代码也拉取到了本地分支xxx中。采用这种方法建立的本地分支会和远程分支建立映射关系。
 
+## 1.5. fork仓库拉取原仓库更新
+### 1.5.1. merge法
+```bash
+git remote add upstream git@github.com:facebookresearch/pytorch3d.git
+git pull upstream main:main
+```
+
+### 1.5.2. reset法
+![Alt text](../../../images/image-17.png)
+```bash
+git remote add upstream git@github.com:facebookresearch/pytorch3d.git
+# 回退到 main 一致的结点
+git reset --soft 3b4f8a49
+git pull upstream main:main
+# 强制更新
+git add .
+git commit -m 'fetch upstream'
+git push -f 
+```
