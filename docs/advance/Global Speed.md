@@ -349,21 +349,44 @@
                 "shiftKey": false,
                 "metaKey": false,
                 "code": "Numpad4"
-            }
+            },
+            "global": false
+        },
+        {
+            "id": "4836484337",
+            "command": "seek",
+            "enabled": true,
+            "greedy": true,
+            "valueNumber": 10
         },
         {
             "id": "4796129561",
             "command": "seek",
             "enabled": true,
             "greedy": true,
-            "valueNumber": 10,
-            "spacing": 1,
+            "valueNumber": -10,
+            "spacing": 0,
             "key": {
                 "ctrlKey": false,
                 "altKey": false,
                 "shiftKey": false,
                 "metaKey": false,
-                "code": "Numpad6"
+                "code": "Comma"
+            }
+        },
+        {
+            "id": "4985684471",
+            "command": "seek",
+            "enabled": true,
+            "greedy": true,
+            "valueNumber": 10,
+            "spacing": 2,
+            "key": {
+                "ctrlKey": false,
+                "altKey": false,
+                "shiftKey": false,
+                "metaKey": false,
+                "code": "Period"
             }
         },
         {
