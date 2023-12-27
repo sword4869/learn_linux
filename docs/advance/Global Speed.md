@@ -93,6 +93,7 @@
             ]
         },
         "elementFx": {
+            "enabled": true,
             "filters": [
                 {
                     "name": "sepia",
@@ -160,13 +161,12 @@
                     "name": "rotateZ",
                     "value": 0
                 }
-            ],
-            "enabled": true
+            ]
         },
         "enabled": true,
+        "enabledLatestViaPopup": false,
         "lastSpeed": 1.5,
-        "speed": 1,
-        "enabledLatestViaPopup": false
+        "speed": 1
     },
     "darkTheme": false,
     "firstUse": 1677379755416,
@@ -205,7 +205,7 @@
             "id": "3835827752",
             "key": {
                 "altKey": false,
-                "code": "KeyS",
+                "code": "KeyH",
                 "ctrlKey": false,
                 "metaKey": false,
                 "shiftKey": false
@@ -298,11 +298,11 @@
             "greedy": true,
             "id": "611714901",
             "key": {
-                "ctrlKey": false,
                 "altKey": false,
-                "shiftKey": false,
+                "code": "KeyQ",
+                "ctrlKey": false,
                 "metaKey": false,
-                "code": "KeyQ"
+                "shiftKey": false
             },
             "spacing": 2,
             "valueState": "toggle"
@@ -319,7 +319,8 @@
                 "metaKey": false,
                 "shiftKey": false
             },
-            "valueNumber": -2
+            "valueNumber": -2,
+            "global": false
         },
         {
             "command": "seek",
@@ -333,8 +334,37 @@
                 "metaKey": false,
                 "shiftKey": false
             },
-            "spacing": 1,
+            "spacing": 0,
             "valueNumber": 2
+        },
+        {
+            "id": "181110515",
+            "command": "seek",
+            "enabled": true,
+            "greedy": true,
+            "valueNumber": 10,
+            "key": {
+                "ctrlKey": false,
+                "altKey": false,
+                "shiftKey": false,
+                "metaKey": false,
+                "code": "Numpad4"
+            }
+        },
+        {
+            "id": "4796129561",
+            "command": "seek",
+            "enabled": true,
+            "greedy": true,
+            "valueNumber": 10,
+            "spacing": 1,
+            "key": {
+                "ctrlKey": false,
+                "altKey": false,
+                "shiftKey": false,
+                "metaKey": false,
+                "code": "Numpad6"
+            }
         },
         {
             "command": "seek",
@@ -363,18 +393,18 @@
                 "metaKey": false,
                 "shiftKey": true
             },
-            "spacing": 0,
+            "spacing": 2,
             "valueBool3": true,
             "valueNumber": 0.041
         },
         {
-            "id": "7431959112",
             "command": "tabCapture",
             "enabled": true,
-            "greedy": true,
-            "valueState": "toggle",
             "global": true,
-            "globalKey": "commandC"
+            "globalKey": "commandC",
+            "greedy": true,
+            "id": "7431959112",
+            "valueState": "toggle"
         },
         {
             "adjustMode": 2,
@@ -427,33 +457,33 @@
             "valueState": "toggle"
         },
         {
-            "id": "3415036260",
             "command": "PiP",
             "enabled": true,
             "greedy": true,
-            "valueState": "toggle",
+            "id": "3415036260",
             "key": {
-                "ctrlKey": false,
                 "altKey": false,
-                "shiftKey": false,
+                "code": "KeyG",
+                "ctrlKey": false,
                 "metaKey": false,
-                "code": "KeyG"
-            }
+                "shiftKey": false
+            },
+            "valueState": "toggle"
         },
         {
-            "id": "1686684168",
             "command": "fullscreen",
             "enabled": true,
             "greedy": true,
+            "id": "1686684168",
             "key": {
-                "ctrlKey": false,
                 "altKey": false,
-                "shiftKey": false,
+                "code": "KeyF",
+                "ctrlKey": false,
                 "metaKey": false,
-                "code": "KeyF"
+                "shiftKey": false
             },
-            "valueBool": true,
-            "spacing": 1
+            "spacing": 1,
+            "valueBool": true
         },
         {
             "command": "setMark",
@@ -495,7 +525,7 @@
         {
             "adjustMode": 3,
             "command": "adjustFilter",
-            "cycleIncrement": 129,
+            "cycleIncrement": 133,
             "enabled": true,
             "filterOption": "brightness",
             "filterTarget": "element",
