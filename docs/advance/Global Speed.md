@@ -342,7 +342,7 @@
             "command": "seek",
             "enabled": true,
             "greedy": true,
-            "valueNumber": 10,
+            "valueNumber": -10,
             "key": {
                 "ctrlKey": false,
                 "altKey": false,
