@@ -165,8 +165,8 @@
         },
         "enabled": true,
         "enabledLatestViaPopup": false,
-        "lastSpeed": 1.5,
-        "speed": 1
+        "lastSpeed": 4,
+        "speed": 2
     },
     "darkTheme": false,
     "firstUse": 1677379755416,
@@ -310,6 +310,7 @@
         {
             "command": "seek",
             "enabled": true,
+            "global": false,
             "greedy": true,
             "id": "8985060270",
             "key": {
@@ -319,8 +320,7 @@
                 "metaKey": false,
                 "shiftKey": false
             },
-            "valueNumber": -2,
-            "global": false
+            "valueNumber": -2
         },
         {
             "command": "seek",
@@ -338,56 +338,63 @@
             "valueNumber": 2
         },
         {
+            "command": "seek",
+            "enabled": true,
+            "global": false,
+            "greedy": true,
             "id": "181110515",
-            "command": "seek",
-            "enabled": true,
-            "greedy": true,
-            "valueNumber": -10,
             "key": {
-                "ctrlKey": false,
                 "altKey": false,
-                "shiftKey": false,
+                "code": "Numpad4",
+                "ctrlKey": false,
                 "metaKey": false,
-                "code": "Numpad4"
+                "shiftKey": false
             },
-            "global": false
+            "valueNumber": -10
         },
         {
+            "command": "seek",
+            "enabled": true,
+            "greedy": true,
             "id": "4836484337",
-            "command": "seek",
-            "enabled": true,
-            "greedy": true,
-            "valueNumber": 10
-        },
-        {
-            "id": "4796129561",
-            "command": "seek",
-            "enabled": true,
-            "greedy": true,
-            "valueNumber": -10,
-            "spacing": 0,
-            "key": {
-                "ctrlKey": false,
-                "altKey": false,
-                "shiftKey": false,
-                "metaKey": false,
-                "code": "Comma"
-            }
-        },
-        {
-            "id": "4985684471",
-            "command": "seek",
-            "enabled": true,
-            "greedy": true,
             "valueNumber": 10,
-            "spacing": 2,
             "key": {
                 "ctrlKey": false,
                 "altKey": false,
                 "shiftKey": false,
                 "metaKey": false,
-                "code": "Period"
+                "code": "Numpad6"
             }
+        },
+        {
+            "command": "seek",
+            "enabled": true,
+            "greedy": true,
+            "id": "4796129561",
+            "key": {
+                "altKey": false,
+                "code": "Comma",
+                "ctrlKey": false,
+                "metaKey": false,
+                "shiftKey": false
+            },
+            "spacing": 0,
+            "valueNumber": -10
+        },
+        {
+            "command": "seek",
+            "enabled": true,
+            "greedy": true,
+            "id": "4985684471",
+            "key": {
+                "altKey": false,
+                "code": "Period",
+                "ctrlKey": false,
+                "metaKey": false,
+                "shiftKey": false
+            },
+            "spacing": 2,
+            "valueNumber": 10
         },
         {
             "command": "seek",
