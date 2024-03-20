@@ -1,0 +1,4 @@
+import{_ as e,W as t,X as i,$ as s}from"./framework-586fce15.js";const a={},r=s(`<hr><h1 id="writing-pull-requests" tabindex="-1"><a class="header-anchor" href="#writing-pull-requests" aria-hidden="true">#</a> Writing pull requests</h1><p>A good PR(Pull request) description summarizes what change is being made and why it’s being made.</p><p>Here are some good examples:</p><div class="language-text line-numbers-mode" data-ext="text"><pre class="language-text"><code>- Support custom srcset attributes in NgOptimizedImage
+- Default image config to 75% image quality
+- Add explicit selectors for all built-in ControlValueAccessors
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div>`,5),n=[r];function l(d,c){return t(),i("div",null,n)}const u=e(a,[["render",l],["__file","writing pull request.html.vue"]]);export{u as default};

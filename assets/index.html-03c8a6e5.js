@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-041085b2","path":"/advance/wsl2/","title":"Wsl2","lang":"en-US","frontmatter":{"title":"Wsl2","article":false,"feed":false,"sitemap":false},"headers":[],"git":{},"readingTime":{"minutes":0.03,"words":9},"filePathRelative":null}');export{e as data};

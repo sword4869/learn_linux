@@ -1,0 +1,1 @@
+const t=JSON.parse('{"key":"v-5bfa59f4","path":"/bash/7-arguments/arguments.html","title":"script arguments","lang":"en-US","frontmatter":{},"headers":[],"git":{},"readingTime":{"minutes":0.29,"words":87},"filePathRelative":"bash/7-arguments/arguments.md"}');export{t as data};

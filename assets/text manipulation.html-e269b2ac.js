@@ -1,0 +1,1 @@
+const t=JSON.parse('{"key":"v-4f65bd40","path":"/basic/text%20manipulation.html","title":"","lang":"en-US","frontmatter":{},"headers":[],"git":{},"readingTime":{"minutes":0.25,"words":75},"filePathRelative":"basic/text manipulation.md"}');export{t as data};

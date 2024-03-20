@@ -1,0 +1,6 @@
+import{_ as s,W as n,X as e,$ as a}from"./framework-586fce15.js";const t="/learn_linux/assets/429388c4f8295f86195913505f2beec24f79a226e9a32eedcc281cb39eef5adc-429388c4.png",c="/learn_linux/assets/cd440f4b5b54109de6845816bcaabc9bbc9da18a9895d298ed566caf2c3f8169-cd440f4b.png",i={},d=a(`<div class="language-bash line-numbers-mode" data-ext="sh"><pre class="language-bash"><code><span class="token comment"># installation</span>
+$ <span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> nethogs
+
+<span class="token comment"># use</span>
+$ <span class="token function">sudo</span> nethogs
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p><img src="`+t+'" alt="图 1"></p><h2 id="best-desktop-application" tabindex="-1"><a class="header-anchor" href="#best-desktop-application" aria-hidden="true">#</a> Best Desktop Application</h2><p><img src="'+c+'" alt="图 3"></p>',4),l=[d];function o(p,r){return n(),e("div",null,l)}const u=s(i,[["render",o],["__file","instant_net_speed.html.vue"]]);export{u as default};

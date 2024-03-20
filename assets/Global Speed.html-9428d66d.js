@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-11b79fec","path":"/advance/Global%20Speed.html","title":"","lang":"en-US","frontmatter":{},"headers":[],"git":{},"readingTime":{"minutes":3.36,"words":1009},"filePathRelative":"advance/Global Speed.md"}');export{e as data};

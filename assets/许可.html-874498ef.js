@@ -1,0 +1,1 @@
+import{_ as t,W as _,X as c,Y as e}from"./framework-586fce15.js";const o={},s=e("p",null,"署名、分发、修改。",-1),n=e("p",null,"GPL最严格：开源代码。修改版本也必须用GPL。 Apache，MIT：保留原作者。 BSD：不用保留原作者。",-1),l=[s,n];function a(r,d){return _(),c("div",null,l)}const f=t(o,[["render",a],["__file","许可.html.vue"]]);export{f as default};

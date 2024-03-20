@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-78fd9eee","path":"/advance/vscode/windows/git%20bash.html","title":"Windows Terminal 配置 Git bash 为默认终端","lang":"en-US","frontmatter":{},"headers":[],"git":{},"readingTime":{"minutes":0.52,"words":155},"filePathRelative":"advance/vscode/windows/git bash.md"}');export{e as data};
