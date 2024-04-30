@@ -1,19 +1,19 @@
-- [1. List image](#1-list-image)
-  - [1.1. list](#11-list)
-  - [1.2. Specify list](#12-specify-list)
-- [2. Remove image](#2-remove-image)
-  - [2.1. remove](#21-remove)
-  - [2.2. dangling image](#22-dangling-image)
-- [3. Create](#3-create)
-  - [3.1. Get remote sources](#31-get-remote-sources)
-  - [3.2. Commit](#32-commit)
-  - [3.3. Dockerfile](#33-dockerfile)
-- [4. Push to Registry](#4-push-to-registry)
-- [5. History](#5-history)
+- [List image](#list-image)
+  - [list](#list)
+  - [Specify list](#specify-list)
+- [Remove image](#remove-image)
+  - [remove](#remove)
+  - [dangling image](#dangling-image)
+- [Create](#create)
+  - [Get remote sources](#get-remote-sources)
+  - [Commit](#commit)
+  - [Dockerfile](#dockerfile)
+- [Push to Registry](#push-to-registry)
+- [History](#history)
 ---
-# 1. List image
+# List image
 
-## 1.1. list
+## list
 
 `ls/list`
 ```bash
@@ -31,7 +31,7 @@ python                   3.8-slim-buster   9f9436d44487   2 months ago   114MB
   默认 Tag 是`latest`，且可以不显示。
   比如，`ubuntu`就是`library/ubuntu:latest`。
 
-## 1.2. Specify list
+## Specify list
 
 > according name
 ```bash
@@ -64,40 +64,34 @@ e983e5d89352
 
 This is used to pass the result to remove command.
 
-# 2. Remove image
+# Remove image
 
 要删除镜像，就得先把和它的容器都删完了，然后才能删镜像。这是因为Layer filesystem，最下层是镜像，所以删除镜像就有容器依赖丢失问题。
 
-## 2.1. remove
-
-> according id
+## remove
 
 ```bash
 $ docker image list
 REPOSITORY               TAG               IMAGE ID       CREATED        SIZE
 kalilinux/kali-rolling   latest            cd70c686e299   2 days ago     126MB
 
-# short id
-$ docker image rm cd7
-# long id
-$ docker image rm cd70c686e299
-```
 
-> according name
-```bash
-$ docker image rm ubuntu:18.04
+# short id, long id, name
+$ docker image rm cd7 cd70c686e299 ubuntu:18.04
+# 简写 rmi
+$ docker rmi cd7
 ```
 
 
-## 2.2. dangling image
+## dangling image
 
 quick remove all dangling images.
 ```bash
 $ docker image prune
 ```
 
-# 3. Create
-## 3.1. Get remote sources
+# Create
+## Get remote sources
 
 When you use the `docker pull` or `docker run` commands, the required images are pulled from your configured registry.
 
@@ -108,7 +102,7 @@ $ docker pull ubuntu:18.04
 $ docker run ubuntu:18.04
 ```
 
-## 3.2. Commit
+## Commit
 
 ```bash
 # docker commit <container name> <image name>
@@ -120,17 +114,17 @@ $ docker commit webserver nginx:v2
 
 所以，不要使用 docker commit 定制镜像，定制镜像应该使用 Dockerfile 来完成。
 
-## 3.3. Dockerfile
+## Dockerfile
 [the_dockerfile.md](./2-image/the_dockerfile.md)
 
-# 4. Push to Registry
+# Push to Registry
 
 ```bash
 $ docker image push
 ```
 your image is pushed to your configured registry.
 
-# 5. History
+# History
 ```bash
 $ docker image history python-docker-dev
 IMAGE          CREATED        CREATED BY                                      SIZE      COMMENT

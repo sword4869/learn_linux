@@ -1,3 +1,11 @@
+- [vmware tools](#vmware-tools)
+- [nat](#nat)
+  - [主机ping不通vmware](#主机ping不通vmware)
+  - [暴露端口](#暴露端口)
+- [桥接](#桥接)
+
+
+---
 ## vmware tools
 
 ```bash
@@ -8,11 +16,15 @@
 
 ## nat
 
-1. 虚拟机通过虚拟机网络适配器wmnet8 来联网，它的ip是`xxx.xxx.xxx.1`。所以虚拟机ip、虚拟机网关都要不是这个。
-2. subip和mask是虚拟机ip的可选范围，虚拟机网关也在这个范围里，默认是`xxx.xxx.xxx.2`
+1. vwmnet8 是主机和虚拟机通信的，它的ip是`xxx.xxx.xxx.1`。而虚拟机网关`xxx.xxx.xxx.2` 是虚拟机内部通信的网关。
+2. subip和mask是虚拟机ip的可选范围。subip、mash、vmnet8、虚拟机网关，都是在这个范围内。
 3. 登录虚拟机，设置ip为固定ip`xxx.xxx.xxx.3`，重启虚拟机网络。
-4. 可以ping通www.baidu.com, 虚拟机网关2, 主机ip。不能vmnet8的1
+4. 虚拟机：可以 ping 通 www.baidu.com, 虚拟机网关, 主机ip（防火墙开着也行）。不能vmnet8。
+5. 主机：**可以ping 通虚拟机ip**、vmnet8，ping不通虚拟机网关。
 
+
+
+![alt text](../../images/image-20.png)
 
 ```
 以太网适配器 VMware Network Adapter VMnet8:
@@ -23,25 +35,26 @@ IPv4 地址 . . . . . . . . . . . . : 192.168.137.1
 子网掩码  . . . . . . . . . . . . : 255.255.255.0
 默认网关. . . . . . . . . . . . . :
 ```
-![alt text](../../images/image-20.png)
+
+![alt text](../../images/image-22.png)
 
 ![alt text](../../images/image-21.png)
 
 
-```
+```bash
 # 应用完后，重启后才变化
-$ service network restart
+$ systemctl restart network
 $ ifconfig 
 ..... xxx.xxx.xxx.3
 ```
 
-```
+```bash
 # 可以非图形化设置网关
 # sudo vim /etc/sysconfig/network-scripts/ifcfg-ens33 
 TYPE=Ethernet
 PROXY_METHOD=none
 BROWSER_ONLY=no
-BOOTPROTO=none      # none，用固定
+BOOTPROTO=none      # none，用固定ip
 DEFROUTE=yes
 IPV4_FAILURE_FATAL=no
 IPV6INIT=yes
@@ -57,7 +70,7 @@ IPV6_PRIVACY=no
 IPADDR=192.168.137.3    # ip
 PREFIX=24
 GATEWAY=192.168.137.2   # 网关
-DNS1=8.8.8.8
+DNS1=8.8.8.8            # 也可以同网关
 ```
 
 ```bash
@@ -82,5 +95,46 @@ rtt min/avg/max/mdev = 0.417/0.417/0.417/0.000 ms
 [root@localhost miaoruntu]# ping www.baidu.com
 PING www.a.shifen.com (183.2.172.185) 56(84) bytes of data.
 64 bytes from 183.2.172.185 (183.2.172.185): icmp_seq=1 ttl=128 time=49.6 ms
-
 ```
+
+### 主机ping不通vmware
+
+问题：主机ping不通vmware，但反过来可以。
+
+结果一查主机的ipconfig，vmnet8的地址是169.254.188.191。怪不得，都不在同一个网段。
+
+解决：
+1. 打开虚拟机的虚拟网络编辑器，在这里修改vmnet（不去网络配置器里设置ipv4，那屌用没有，可以通过ipconfig验证）。
+2. 先删除vmnet8，移除后**点击应用**（不点应用的话，移除再添加后才应用，结果是ip没变）
+3. 再添加网络，分配到vmnet8上，配置为nat模式，修改为192.168.137.3。点击应用。
+4. 可以通过ipconfig验证。
+
+### 暴露端口
+
+【一台主机和自身上的虚拟机】
+
+虚拟机所在的主机是可以ping通虚拟机ip、直接连接虚拟机的端口的。这里谈的是局域网的主机之间。
+
+【两台主机靠局域网连接】
+
+先保证测试主机2上自己可以ping通虚拟机端口的服务，否则证明自己设置有问题。
+1. 主机1，虚拟机所在的主机2
+2. 取消主机2的防火墙，测试主机1可以ping通主机2.
+
+    ![alt text](../../images/image-23.png)
+3. nat设置添加“端口映射”。主机端口，填写宿主机对外开放的端口；虚拟机IP；PORT，填写虚拟机PORT。
+4. 这时就可以在主机1上访问：`主机2的ip: 主机端口`，来访问虚拟机内的端口服务。
+
+## 桥接
+
+局域网：两台主机在手机的wifi下，而不是一个主机打开自身WLAN热点，让另一台连接。
+
+https://www.cnblogs.com/sunlinsong/p/13814473.html
+
+1. 桥接
+2. 进入虚拟机修改网络配置：网关为局域网的.
+
+- ping：三者互相皆可。
+- **虚拟机的端口直接暴露**，主机1直接访问。不用nat那样一个个的配置！👌
+
+就是不知道为什么刚开始，端口连自身主机都不行，还在研究中突然通了。。。。

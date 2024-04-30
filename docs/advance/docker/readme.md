@@ -5,6 +5,10 @@
 ```bash
 systemctl start docker
 ```
+```bash
+# 开机自启
+systemctl enable docker
+```
 
 # glossary
 3 components:

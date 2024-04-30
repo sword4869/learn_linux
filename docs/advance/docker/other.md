@@ -1,3 +1,9 @@
+# info
+
+```bash
+docker info：显示 Docker 系统信息
+docker version：显示 Docker 版本信息
+```
 # storage
 
 ```bash

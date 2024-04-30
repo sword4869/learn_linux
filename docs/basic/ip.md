@@ -9,6 +9,7 @@
     - [1.4.1. dig](#141-dig)
     - [1.4.2. alter](#142-alter)
   - [1.5. hosts](#15-hosts)
+    - [firewall](#firewall)
 
 ---
 
@@ -180,4 +181,12 @@ This can be useful forhijacking a TCP connection on your local area network to d
 ```bash
 # press TAB, not spacebar.
 $ echo "127.0.0.1   HOSTNAME" >> /etc/hosts
+```
+
+### firewall
+
+`firewalld`
+
+```bash
+systemctl status|... firewalld
 ```

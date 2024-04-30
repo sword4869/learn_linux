@@ -1,6 +1,10 @@
 systemctl 逐渐取代了 service
 
 ```bash
+service network restart → systemctl restart network
+```
+
+```bash
 service 服务名 [start | stop | restart | reload | status]
 ```
 
