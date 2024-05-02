@@ -1,3 +1,5 @@
+
+## docker
 1、卸载系统之前可能安装的 docker（防止冲突）
 卸载系统之前可能安装的 docker（防止版本不一致，发生冲突）
 ```bash
@@ -23,5 +25,17 @@ sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/dock
 
 安装 docker，以及 docker-cli
 ```bash
-sudo yum install docker-ce docker-ce-cli containerd.io
+sudo yum install -y docker-ce docker-ce-cli containerd.io
+```
+
+## docker-compose
+
+```bash
+sudo curl -L https://github.com/docker/compose/releases/download/v2.21.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+
+sudo chmod +x /usr/local/bin/docker-compose
+
+$ docker-compose --version
+ 
+docker-compose version 1.16.1, build 1719ceb
 ```

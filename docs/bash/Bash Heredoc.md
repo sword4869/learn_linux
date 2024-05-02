@@ -36,13 +36,13 @@ DELIMITER
 ### 1.2.1. bash example
 ```bash
 $ sudo apt update && \
-    sudo apt upgrade
+> sudo apt upgrade
 ```
 ```bash
 $ bash << EOF
-sudo apt update
-sudo apt upgrade
-EOF
+> sudo apt update
+> sudo apt upgrade
+> EOF
 ```
 ### 1.2.2. cat example
 
@@ -53,57 +53,49 @@ Heredoc is most often used in combination with the `cat`
 In the following example, we are passing two lines of text containing an environment variable and a command to `cat` using a here document.
 
 ```bash
-cat << EOF
-The current working directory is: $PWD
-You are logged in as: $(whoami)
-EOF
-```
-
-As you can see from the output below, both the variable and the command output are substituted:
-
-```bash
+$ cat << EOF
+> The current working directory is: $PWD
+> You are logged in as: $(whoami)
+> EOF
 The current working directory is: /home/linuxize
 You are logged in as: linuxize
 ```
+
+As you can see from the output below, both the variable and the command output are substituted:
 ### 1.2.3. quotes example
 
 Let’s see what will happen if we enclose the delimiter in single or double quotes.
 
 ```bash
-cat << "EOF"
+$ cat << "EOF"
+> The current working directory is: $PWD
+> You are logged in as: $(whoami)
+> EOF
 The current working directory is: $PWD
 You are logged in as: $(whoami)
-EOF
 ```
 You can notice that when the delimiter is quoted no parameter expansion and command substitution is done by the shell.
 
-```bash
-The current working directory is: $PWD
-You are logged in as: $(whoami)
-```
 ### 1.2.4. indent example
 If you are using a heredoc inside a statement or loop, use the `<<-` redirection operation that allows you to indent your code.
 
 ```bash
-cat <<- EOF
+$ cat <<- EOF
+>     Line with a leading tab.
+> EOF
     Line with a leading tab.
-EOF
 ```
-
-```bash
-Line with a leading tab.
-```
-!!!warning
-This doesn't work in my PC. Is this systax or my PC wrong?
-
 ### 1.2.5. redirect example
 Instead of displaying the output on the screen you can redirect it to a file using the `>`, `>>` operators.
 
 ```bash
-cat << EOF > file.txt
-The current working directory is: $PWD
-You are logged in as: $(whoami)
-EOF
+$ cat << EOF > file.txt
+> The current working directory is: $PWD
+> You are logged in as: $(whoami)
+> EOF
+$ cat file.txt
+The current working directory is: /root
+You are logged in as: root
 ```
 
 If the file.txt doesn’t exist it will be created. When using `>` the file will be overwritten, while the `>>` will append the output to the file.
@@ -113,24 +105,23 @@ If the file.txt doesn’t exist it will be created. When using `>` the file will
 The heredoc input can also be piped. In the following example the `sed` command will replace all instances of the `l` character with `e`:
 
 ```bash
-cat <<'EOF' |  sed 's/l/e/g'
-Hello
-World
-EOF
-```
-
-```bash
+$ cat <<'EOF' |  sed 's/l/e/g'
+> Hello
+> World
+> EOF
 Heeeo
 Wored
 ```
-
 To write the piped data to a file:
 
 ```bash
-cat <<'EOF' |  sed 's/l/e/g' > file.txt
-Hello
-World
-EOF
+$ cat <<'EOF' |  sed 's/l/e/g' > file.txt
+> Hello
+> World
+> EOF
+$ cat file.txt
+Heeeo
+Wored
 ```
 
 ### 1.2.7. SSH example
@@ -140,13 +131,10 @@ Using Heredoc is one of the most convenient and easiest ways to execute multiple
 When using unquoted delimiter make sure you escape all variables, commands and special characters otherwise they will be interpolated locally:
 
 ```bash
-ssh -T user@host.com << EOF
-echo "The current local working directory is: $PWD"
-echo "The current remote working directory is: \$PWD"
-EOF
-```
-
-```bash
+$ ssh -T user@host.com << EOF
+> echo "The current local working directory is: $PWD"
+> echo "The current remote working directory is: \$PWD"
+> EOF
 The current local working directory is: /home/linuxize
 The current remote working directory is: /home/user
 ```

@@ -1,0 +1,45 @@
+version: "3.2"
+
+services:
+  mysql:
+    build:
+      context: .
+      dockerfile: ./mysql-5.7-Dockerfile
+    container_name: mysql
+    ports:
+      - "3306:3306"
+    environment:
+      - TZ=Asia/Shanghai
+      - MYSQL_ROOT_PASSWORD=123
+      - MYSQL_DATABASE=nacos      # 初始化时创建库
+    volumes:
+      - "./mysql/conf:/etc/mysql/conf.d"
+      - "./mysql/data:/var/lib/mysql"
+      - "./mysql/log:/var/lib/log"
+    restart: always
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "-h", "localhost", "-uroot", "-p123", "ping"]    # 要加-p123，网上的不加密码自然报错 Access denied for user ‘root‘@‘localhost
+      interval: 5s
+      timeout: 10s
+      retries: 10
+  nacos:
+    image: nacos/nacos-server:v2.1.0-slim
+    container_name: nacos
+    environment:
+      - PREFER_HOST_MODE=hostname
+      - MODE=standalone
+      - SPRING_DATASOURCE_PLATFORM=mysql
+      - MYSQL_SERVICE_HOST=mysql
+      - MYSQL_SERVICE_PORT=3306   # 默认就是这个，不写也行
+      - MYSQL_SERVICE_USER=root
+      - MYSQL_SERVICE_PASSWORD=123
+      - MYSQL_SERVICE_DB_NAME=nacos
+      - MYSQL_SERVICE_DB_PARAM=characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useUnicode=true&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true    # serverTimezone, mysql也是 Asia/Shanghai。有人是UTC，因为它mysql默认时区UTC
+      - JVM_XMS=512m    # 默认1g
+      - JVM_XMX=512m    # 默认1g
+    ports:
+      - "8848:8848"
+    restart: always
+    depends_on:   # 依赖，决定启动顺序
+      mysql:
+        condition: service_healthy

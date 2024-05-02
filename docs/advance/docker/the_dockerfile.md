@@ -125,7 +125,7 @@ EOF
     { "features": { "buildkit": true } }
 
     $ sudo service restart docker
-    ````
+    ```
 
 
 
@@ -139,6 +139,7 @@ RUN apt-get update && apt-get install -y \
         package-baz \
         package-foo
 ```
+
 将 `apt-get update` 放在一条单独的 RUN 声明中会导致缓存问题以及后续的 `apt-get install` 安装老版本。
 
 比如，假设你有一个 Dockerfile 文件：
