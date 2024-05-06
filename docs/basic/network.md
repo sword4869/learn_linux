@@ -1,3 +1,8 @@
+- [下载](#下载)
+  - [curl](#curl)
+    - [网页和保存文件](#网页和保存文件)
+    - [保存到文件的名字](#保存到文件的名字)
+  - [wget](#wget)
 - [1. ip](#1-ip)
   - [1.1. change IP, mask, broadcast](#11-change-ip-mask-broadcast)
   - [1.2. change MAC](#12-change-mac)
@@ -9,9 +14,68 @@
     - [1.4.1. dig](#141-dig)
     - [1.4.2. alter](#142-alter)
   - [1.5. hosts](#15-hosts)
-    - [firewall](#firewall)
+- [firewall](#firewall)
 
 ---
+
+```bash
+yum install -y net-tools
+```
+# 下载
+
+网页和下载东西两者都可以。
+## curl
+
+### 网页和保存文件
+`-L` 重定向，
+```bash
+# 结果却是网页
+$ curl http://cn.wordpress.org/wordpress-3.1-zh_CN.zip
+$ cat wordpress-3.1-zh_CN.zip
+<html>
+<head><title>301 Moved Permanently</title></head>
+<body>
+<center><h1>301 Moved Permanently</h1></center>
+<hr><center>nginx</center>
+</body>
+</html>
+
+# 重定向才是东西
+$ curl -L http://cn.wordpress.org/wordpress-3.1-zh_CN.zip
+```
+
+PS：`curl -fsSL` 
+
+-f（或 --fail）：如果服务器返回错误码（例如 404），则 curl 将停止下载文件并返回错误。
+
+-s（或 --silent）：禁止 curl 输出进度和错误信息，只显示下载结果。
+
+-S（或 --show-error）：即使禁用了 -s 选项，也会显示错误信息。
+
+-L（或 --location）：跟随重定向，如果服务器返回 3xx 错误码，则 curl 会自动跳转到新的 URL。
+
+综合起来，curl -fsSL 表示使用 curl 命令下载文件时，不显示进度和错误信息，如果下载失败则立即停止，并自动跟随重定向。这通常是下载文件的一种安静、安全、稳定的方式。
+### 保存到文件的名字
+```bash
+# 自定义文件名。结果是example.html
+#  -o, --output FILE   Write output to <file> instead of stdout
+curl -o example.html https://www.example.com
+
+# 使用远程服务器上的名字作为文件名。结果是bar.html
+#  -O, --remote-name   Write output to a file named as the remote file
+curl -O https://www.example.com
+```
+## wget
+
+```bash
+wget http://cn.wordpress.org/wordpress-3.1-zh_CN.zip 
+
+# -c断点续传 
+wget -c http://cn.wordpress.org/wordpress-3.1-zh_CN.zip 
+
+# -O下载并以不同的文件名保存 
+wget -O 1.zip http://cn.wordpress.org/wordpress-3.1-zh_CN.zip
+```
 
 # 1. ip
 通过`ifconfig`查看
@@ -183,10 +247,12 @@ This can be useful forhijacking a TCP connection on your local area network to d
 $ echo "127.0.0.1   HOSTNAME" >> /etc/hosts
 ```
 
-### firewall
+# firewall
 
 `firewalld`
 
 ```bash
 systemctl status|... firewalld
 ```
+
+https://www.cnblogs.com/zhoulujun/p/12099874.html
