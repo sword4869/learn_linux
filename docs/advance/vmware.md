@@ -54,7 +54,7 @@ $ ifconfig
 TYPE=Ethernet
 PROXY_METHOD=none
 BROWSER_ONLY=no
-BOOTPROTO=none      # none，用固定ip
+BOOTPROTO=none      # none，用固定ip; dhcp，动态
 DEFROUTE=yes
 IPV4_FAILURE_FATAL=no
 IPV6INIT=yes

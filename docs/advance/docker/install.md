@@ -33,6 +33,8 @@ sudo yum install -y docker-ce docker-ce-cli containerd.io
 ```bash
 sudo curl -L https://github.com/docker/compose/releases/download/v2.21.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
 
+wget -c https://github.com/docker/compose/releases/download/v2.21.0/docker-compose-`uname -s`-`uname -m` -O /usr/local/bin/docker-compose
+
 sudo chmod +x /usr/local/bin/docker-compose
 
 $ docker-compose --version

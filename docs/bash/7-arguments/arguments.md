@@ -41,7 +41,7 @@ Note that `args=('$@')` is error.
 
 ```bash
 $ ./args.sh hello 1
-2
+2           # 2个参数
 hello 1
 hello 1
 ```
