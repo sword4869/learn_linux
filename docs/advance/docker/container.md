@@ -307,7 +307,7 @@ docker run --name nacos1 \
 ```bash
 docker network ls： 列出 Docker 网络
 docker network rm [network] ：删除
-docker network create --driver [network]：创建一个新的 Docker 网络
+docker network create [network]：创建一个新的 Docker 网络
 docker network disconnect [network] [container]：将容器从指定的 Docker 网络中断开连接 
 docker network connect [network] [container]：将容器连接到指定的 Docker 网络
 ```

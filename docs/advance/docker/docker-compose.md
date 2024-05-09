@@ -142,19 +142,25 @@ networks:
 ### network
 
 不写这个，也会创建默认网络。
-```yml
-    # 网络
-    networks:   
-      - new
-networks:
-  new:
-    name: tjxt
-```
 ```bash
 [root@localhost mydata]# docker-compose up -d
 [+] Running 2/2
  ✔ Network mydata_default    Created                                      0.2s
  ✔ Container mydata-mysql-1  Started                                      0.0s
+```
+docker-compose中定义的网络，在外边使用docker network ls命令并不能找到它们。
+
+使用已存在的网络(docker network create)
+```yml
+# 未测试
+networks:
+  default:
+    external:
+      name: my-pre-existing-network
+# 未测试
+networks:
+ demo:
+  external: true
 ```
 
 ### links不知道
