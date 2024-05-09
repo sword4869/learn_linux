@@ -1,4 +1,5 @@
 - [vmware tools](#vmware-tools)
+- [共享文件夹](#共享文件夹)
 - [nat](#nat)
   - [主机ping不通vmware](#主机ping不通vmware)
   - [暴露端口](#暴露端口)
@@ -13,6 +14,16 @@
 -f : 强制安装
 -d : 自动回答问题与建议的答案。
 ```
+
+为什么有些别人复制给我们的虚拟机，不能设置vmware tools？
+
+## 共享文件夹
+
+前提：必须安装 vmware tools
+
+图形化界面，可以直接拖动，就不用共享文件夹了？
+
+https://zhuanlan.zhihu.com/p/43920548
 
 ## nat
 
