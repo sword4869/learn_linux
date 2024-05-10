@@ -356,6 +356,33 @@ ca6146074a333b59f2ea9d40b70122310148b760a661ce445c49ec5658e89bce   elasticsearch
 87a556e98a6c8b77439e1cc06f2553f2622977a2c82c4d618a5f6e357ea56a8d   rabbitmq:3.8.34                            "docker-entrypoint.sh rabbitmq-server"                                                20 months ago       Up 37 minutes       4369/tcp, 0.0.0.0:5672->5672/tcp, 5671/tcp, 15691-15692/tcp, 25672/tcp, 0.0.0.0:15672->15672/tcp   rabbitmq
 ```
 
+> format
+
+```
+.ID               容器ID
+.Image            镜像ID
+.Command          Quoted command
+.CreatedAt        创建容器的时间点.
+.RunningFor       从容器创建到现在过去的时间.
+.Ports            暴露的端口.
+.Status           容器状态.
+.Size             容器占用硬盘大小.
+.Names            容器名称.
+.Labels           容器所有的标签.
+.Label            指定label的值 例如'{{.Label “com.docker.swarm.cpu”}}’
+.Mounts           挂载到这个容器的数据卷名称
+```
+
+```bash
+[root@host ~]# docker ps -a --format "table {{.Image}}\t{{.Names}}\t{{.Status}}"
+IMAGE                               NAMES         STATUS
+nginx                               nginx         Up 39 minutes
+nacos/nacos-server:v2.1.0-slim      nacos         Up 39 minutes
+mysql                               mysql         Up 39 minutes
+```
+
+
+tj-user tj-trade tj-search tj-message tj-media tj-pay tj-gateway tj-exam tj-course tj-auth tj-data 
 ## Start|Stop|Restart
 ```bash
 $ docker [container] start|stop|restart <container name>
