@@ -55,6 +55,7 @@ D盘，存可以转移系统的东西。
     
     ![Alt text](../../images/image-4.png)
 - 7z
+- 屏幕亮度调节：monitorian 软件商店里的
 
 ### 2.3. 可以转移系统的
 
