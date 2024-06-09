@@ -3,6 +3,7 @@
   - [2.1. 不想转移系统的](#21-不想转移系统的)
   - [2.2. 不能转移系统的](#22-不能转移系统的)
   - [2.3. 可以转移系统的](#23-可以转移系统的)
+- [typora](#typora)
 
 
 ---
@@ -86,3 +87,17 @@ D盘，存可以转移系统的东西。
 - cmake: 环境变量 `D:\Applications\cmake\bin`
 - msys2: 环境变量 `D:\Applications\msys2\ucrt64\bin`
 - scrcpy: 环境变量 ``
+
+## typora
+
+下载最新正版
+
+`D:\MySoftware\Typora\resources\page-dist\static\js\LicenseIndex.180dd4c7.c77b6991.chunk.js`
+
+`e.hasActivated="true"==e.hasActivated`
+
+替换为
+
+`e.hasActivated="true"=="true"`
+
+[搭建图床picgo + github + typora](https://blog.csdn.net/xdnxl/article/details/129466060)
