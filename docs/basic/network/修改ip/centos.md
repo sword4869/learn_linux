@@ -35,3 +35,30 @@ $ ifconfig
 ..... xxx.xxx.xxx.3
 ```
 
+
+
+# 重启网络失败 Job for network.service failed
+
+```bash
+Restarting network (via systemctl): Job for network.service failed because the control process exited with error code.
+See “systemctl status network.service” and “journalctl -xe” for details.
+```
+
+原因：
+
+在CentOS系统上，目前有NetworkManager和network两种网络管理工具。如果两种都配置会引起冲突，而且NetworkManager在网络断开的时候，会清理路由，如果一些自定义的路由，没有加入到NetworkManager的配置文件中，路由就被清理掉，网络连接后需要自定义添加上去。
+
+解决方法：
+
+1.将networkmanager服务停了
+
+```bash
+systemctl stop NetworkManager
+systemctl disable NetworkManager
+```
+
+2.重启网卡，就ok了
+
+```bash
+systemctl restart network
+```
