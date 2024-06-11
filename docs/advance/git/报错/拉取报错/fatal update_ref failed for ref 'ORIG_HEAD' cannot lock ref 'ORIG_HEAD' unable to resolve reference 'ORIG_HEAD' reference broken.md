@@ -1,0 +1,1 @@
+删除`.git/ORIG_HEAD`文件，重新pull
