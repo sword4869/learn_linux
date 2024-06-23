@@ -23,7 +23,7 @@ docker需要wsl，而wsl需要安一个OS，所以其实docker就是在wsl的OS�
 
 
 ​    
-    ![](../../../images1/CPU-visualization.jpg)
+​    ![](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202406231933766.jpg)
 3. Hypervisor enabled at Windows startup
    
    - Open **cmd** (console prompt) window as an administrator. PS: not powershell.
