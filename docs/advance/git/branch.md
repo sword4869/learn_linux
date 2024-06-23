@@ -94,4 +94,4 @@ Rules:
 
 使用 `git diff`查看冲突之处。会用 `-`、`+`和红绿颜色标识。
 
-![Alt text](../../../images/image.png)
+![Alt text](../../../images1/image.png)

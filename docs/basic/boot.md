@@ -16,7 +16,7 @@
 # 1. boot
 ## 1.1. secure boot
 没关长这样。
-![picture 1](../../images/ce9a6a44586a0e3caf8796a36dcc643ebac724caa375ac630b5786eb1cd43405.png)  
+![picture 1](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202406231919290.png)  
 
 
 ## 1.2. 分区
@@ -53,16 +53,16 @@ Under the **MBR** partitioning scheme, there are three different types of partit
 
 主分区以外的分区称为扩展分区，在扩展分区中可以建立若干个逻辑分区。
 
-  
+
 Picture 2 shows **four primary** partitions(includes swap). If you observe closely, you will see that the first primary partition is sda1 and the last sda4. Unlike hard drives, partition numbers start from 1, not 0 (zero). Any disk space that’s not allocated to the primary partitions is listed as Free or free space. But while it may be free, it is, however, unusable. And that is because as far as the system is concerned, that free space does not exist.
 
-![picture 2](../../images/3b1190fad39d1590f65e8445f534d9c5f444a3e2aebcc3ce2ded3919131d8663.png)  
+![picture 2](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202406231919291.png)  
 
 So if you attempt to create another partition using the free space, the installer will throw up the type of error message. The error message will always say, “not enough free space,” even when you know that there is space available. This is because **number limit of primary partitions**.
 
 You can see that there are **three primary** partitions – sda1, sda2 and sda3. The fourth partition is **an extended partition**, which makes it possible to create more (logical) partitions – sda5, sda6 and sda7.
 
-![picture 3](../../images/81bf1793a13de35d198c64f9e8ac57dbd482fac59371cb6758f7615fbf1b2c59.png)  
+![picture 3](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202406231919292.png)  
 
 Theoretically, there is no limit to the number of logical partitions that you can create.
 

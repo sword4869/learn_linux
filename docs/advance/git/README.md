@@ -29,7 +29,7 @@ windows:
 [软件国内源，下得快](https://registry.npmmirror.com/binary.html?path=git-for-windows/)
 
 
-![1664849831679287.png](../../../images/1664849831679287.png)
+![1664849831679287.png](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202406231908734.png)
 
 ## 1.2. 本地提交
 
@@ -43,7 +43,7 @@ $ git init
 ```
 你会发现在文件夹下面多里一个名为`.git`的文件夹。
 
-![16648498319128447.png](../../../images/16648498319128447.png)
+![16648498319128447.png](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202406231908735.png)
 
 ### 1.2.2. 查看工作区的文件
 
@@ -85,11 +85,11 @@ PS：为什么要提交？这个文件夹里不是有吗？
 $ git commit -m "备注信息"
 ```
 
-![1664849832160575.png](../../../images/1664849832160575.png)
+![1664849832160575.png](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202406231908736.png)
 
 可以使用 `git log`来查看提交记录。
 
-![16648498324312801.png](../../../images/16648498324312801.png)
+![16648498324312801.png](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202406231908737.png)
 
 ```bash
 # 补充上一次提交，而不是新开一个提交。
@@ -160,15 +160,15 @@ ssh-keygen -t rsa -C 'your email'
 
 接着按3个回车就行
 
-![16648498327265737.png](../../../images/16648498327265737.png)
+![16648498327265737.png](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202406231908738.png)
 
 在文件夹`~/.ssh`下，可以看到公钥 `id_rsa`（私有秘钥）和 `id_rsa.pub`（公有密钥）。
 
-![16648498330310729.png](../../../images/16648498330310729.png)
+![16648498330310729.png](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202406231908739.png)
 
 打开 `id_rsa.pub`（公有密钥），复制里面的内容。
 
-![16648498334588249.png](../../../images/16648498334588249.png)
+![16648498334588249.png](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202406231908740.png)
 
 标题随便起，只是用于区分而已，如同图片中的 `Foast`。
 将复制的公钥内容粘贴在公钥中，确定就ok。
@@ -179,7 +179,7 @@ ssh-keygen -t rsa -C 'your email'
 
 git只是个提交工具，将本地仓库的代码提交到远程仓库中。**所以你得先在网站上创建一个远程仓库**，这让git知道提交到哪里。
 
-![16648498338327637.png](../../../images/16648498338327637.png)
+![16648498338327637.png](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202406231908741.png)
 
 这个链接就是提交到的远程仓库。
 
@@ -216,9 +216,9 @@ git clone git@gitee.com:xxx.git
 
 例：不用特地创建一个文件夹了，clone下来默认直接以远程仓库名为名创建一个文件夹。
 
-![166484983399699.png](../../../images/166484983399699.png)
+![166484983399699.png](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202406231908742.png)
 
-![1664849834114752.png](../../../images/1664849834114752.png)
+![1664849834114752.png](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202406231908743.png)
 
 
 

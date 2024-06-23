@@ -165,7 +165,7 @@ networks:
 
 ### links不知道
 
-![alt text](../../../images/image-25.png)
+![alt text](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202406231906861.png)
 
 ### 使用现成镜像和构建镜像
 

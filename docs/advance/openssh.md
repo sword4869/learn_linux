@@ -143,7 +143,7 @@ Are you sure you want to continue connecting (yes/no)?
     # client上传公钥到 server ，被放到 server 的~/.ssh/authorized_keys中
     # 方法1
     $ ssh-copy-id coco@192.168.112.130
-
+    
     # 方法2
     $ scp ~/.ssh/id_rsa.pub coco@192.168.112.130:~/.ssh/authorized_keys
     # 或者在server上 $ cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
@@ -346,7 +346,7 @@ $ kill 1873
 
 `/etc/init.d/ssh`
 
-![1664798068676714.png](../../images/1664798068676714.png)
+![1664798068676714.png](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202406231915823.png)
 
 这个其实就是个脚本，将上面`sshd`的功能包装了一下，把一些命令按照用途分成了几个功能，省得你多写字。一般我们都是通过这个来启动sshdserver，而不是敲复杂的`sshd xxx`命令。
 ```bash
@@ -406,7 +406,7 @@ $ kill 987 1505
 
 ### 1.5.1. client
 OpenSSH 已添加至Windows 10：`C:\Windows\System32\OpenSSH`。
-![picture 1](../../images/d4efb12e05ef5a4744ee03a538ceb05dc1d3c70f78e9724ae7e47c55821f2121.png)  
+![picture 1](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202406231915824.png)  
 
 
 创建`C:\Users\xxx\.ssh\config`文件.
@@ -416,16 +416,16 @@ OpenSSH 已添加至Windows 10：`C:\Windows\System32\OpenSSH`。
 > 其他
 
 `ssh-keygen`生成的密钥、本机充当client的登陆文件`config`、`known_hosts`都在windows在`C:\Users\xxx\.ssh`下
-![1664798068926048.png](../../images/1664798068926048.png)
+![1664798068926048.png](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202406231915825.png)
 
 ### 1.5.2. server
 > 安装
 
 默认没装, 去windows设置的【应用】【可选功能】【添加功能】【OpenSSH 服务器】
-![picture 2](../../images/444fd343fd651f54565918fe657fb22e15301a2998f520346d13ff811920b944.png)  
+![picture 2](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202406231915826.png)  
 
 会多出服务器的程序
-![16647980687963946.png](../../images/16647980687963946.png)
+![16647980687963946.png](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202406231915827.png)
 
 `cat > sshd_config_default`创建空后缀的空文件, `sshd_config_default`是本机充当server的配置文件。
 
@@ -534,10 +534,10 @@ and the repository exists.
     ```
     
     如果出现了意外情况，那么只能手动[查找域名](https://myssl.com/dns_check.html)
-    ![图 1](../../images/60515af40b9545a46d53bae92874c8480908e834472ea2fff65813f2fd87c079.png)  
+    ![图 1](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202406231915828.png)  
     ```bash
     $ ping 140.82.113.4
-
+    
     正在 Ping 140.82.113.4 具有 32 字节的数据:
     来自 140.82.113.4 的回复: 字节=32 时间=278ms TTL=43
     来自 140.82.113.4 的回复: 字节=32 时间=296ms TTL=43
@@ -584,7 +584,7 @@ and the repository exists.
     ```bash
     # Y
     set-ExecutionPolicy RemoteSigned
-
+    
     # 为RemoteSigned表示成功
     get-executionpolicy
     ```
@@ -653,7 +653,7 @@ ssh2             7222/tcp
 
 <https://zhuanlan.zhihu.com/p/148825449>
 
-![图 1](../../images/e6f15ad886dcf097609bbe06dc6a715dd131335ded01daa0fab1e86645a6b68e.png)  
+![图 1](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202406231915829.png)  
 
 本地是 *Host_A* ，远程是 *Host_B* ， *Host_B* 能连其内网 *Host_C* 的端口，现在想让 *Host_A* 可以访问内网C的端口。
 

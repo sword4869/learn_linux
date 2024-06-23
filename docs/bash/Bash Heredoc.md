@@ -19,7 +19,7 @@ In Bash and other shells like Zsh, a Here document (Heredoc) is a type of redire
 
 The syntax of writing HereDoc takes the following form:
 
-```
+```bash
 [COMMAND] <<[-] 'DELIMITER'
   HERE-DOCUMENT
 DELIMITER

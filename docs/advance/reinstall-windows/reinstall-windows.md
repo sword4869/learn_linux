@@ -46,14 +46,14 @@ D盘，存可以转移系统的东西。
 - 安装字体：[./shell美化/oh-my-posh/Noto Mono Nerd Font Complete.ttf](<../shell美化/oh-my-posh/Noto Mono Nerd Font Complete.ttf>)
 - visual studio
 
-  ![Alt text](../../../images/image-3.png)
+  ![Alt text](../../../images1/image-3.png)
 
 
 - Tim（只是迁移数据，然后软件重启，还是默认的c盘存储，垃圾！）
 
-    ![Alt text](../../../images/image-5.png)
+    ![Alt text](../../../images1/image-5.png)
     
-    ![Alt text](../../../images/image-4.png)
+    ![Alt text](../../../images1/image-4.png)
 - 7z
 - 屏幕亮度调节：monitorian 软件商店里的
 
@@ -61,13 +61,13 @@ D盘，存可以转移系统的东西。
 
 - 微信
 
-  ![Alt text](../../../images/image-6.png)
+  ![Alt text](../../../images1/image-6.png)
 
 - 百度云
 - clash
 - Ditto
 
-    ![Alt text](../../../images/image-7.png)
+    ![Alt text](../../../images1/image-7.png)
 - Everything
 - FolderSizeExplorer
 - 格式工厂

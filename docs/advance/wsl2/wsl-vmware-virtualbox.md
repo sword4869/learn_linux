@@ -12,18 +12,18 @@ docker需要wsl，而wsl需要安一个OS，所以其实docker就是在wsl的OS�
 
     运行 `C:\Windows\System32\OptionalFeatures.exe`. 
     
-      
-    ![](../../../images/4a840cbb72829492975ef2a5a6477224e8af10f8761112dc26def708ee5ff812.png)
+    
+    ![](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202406231914788.png)
     
     勾选 `Windows Subsystem for Linux（适用于Linux的Windows子系统）` 和 `Virtual Machine Platform（虚拟机平台）`
-     
     
-    ![](../../../images/878e6b3028e60cbb3ffbbe2f3240f66640009008da31d353bfbc4047723ffc6e.png)
+    
+    ![](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202406231914789.png)
 2. Virtualization enabled in the BIOS
 
 
-    
-    ![](../../../images/CPU-visualization.jpg)
+​    
+    ![](../../../images1/CPU-visualization.jpg)
 3. Hypervisor enabled at Windows startup
    
    - Open **cmd** (console prompt) window as an administrator. PS: not powershell.
@@ -40,11 +40,13 @@ docker需要wsl，而wsl需要安一个OS，所以其实docker就是在wsl的OS�
     Turn Off `Hyper-V`.
 
       
-![](../../../images/df79b61a8389708ea0e80745c97000a6c4833926331f52e3a89b707dd13e9456.png)
+
+![](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202406231914790.png)
 2. Virtualization enabled in the BIOS
 
     
-![](../../../images/CPU-visualization.jpg)
+
+![](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202406231914791.jpg)
 3. Hypervisor disabled at Windows startup
    
    - Open **cmd** (console prompt) window as an administrator. PS: not powershell.

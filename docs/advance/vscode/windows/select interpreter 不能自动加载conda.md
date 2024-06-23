@@ -6,4 +6,4 @@
 
 虽然不知道具体哪个，但结果是成功了。
 
-![Alt text](../../../../images/image-8.png)
+![Alt text](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202406231912943.png)

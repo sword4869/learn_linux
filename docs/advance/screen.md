@@ -34,7 +34,8 @@ PS：在screen外大`screen`进入screen窗口内
 
 ### 1.4.1. screen内的命令
 `^`表示同时按住`Ctrl`
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20200326190911583.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3NhbmRhbHBob240ODY5,size_16,color_FFFFFF,t_70)
+![在这里插入图片描述](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202406231915949.png)
+
 #### 1.4.1.1. 创建
 - screen进入后自动创建一个会话窗口`0`
 - `^a → c`：创建一个会话窗口，数字增加1
@@ -42,7 +43,7 @@ PS：在screen外大`screen`进入screen窗口内
 #### 1.4.1.2. 显示
 - 当前screen窗口列表：`screen -ls`
   
-  ![在这里插入图片描述](https://img-blog.csdnimg.cn/20200703222759427.png)
+  ![在这里插入图片描述](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202406231915383.png)
   
   这个`9982`就是yourScreenId
 - 当前会话窗口列表：`^a → *`

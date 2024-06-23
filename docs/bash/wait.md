@@ -47,7 +47,7 @@ echo $(date +%T)
 wait
 echo $(date +%T)
 ```
-![图 2](../../images/60e5b8f979678b151806f122b282b994354806674c5bb5cde11866e15e4e3d95.png)  
+![图 2](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202406231918193.png)  
 
 ### 3.2. PID
 
@@ -67,4 +67,4 @@ wait $!
 echo "Process 2 ended at time $(date +%T) with exit status $?"
 ```
 
-![图 1](../../images/04f4744f4539b085f7064bcf050c16bd043fcc629dd23f3558df7b943c0f2890.png)  
+![图 1](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202406231918194.png)  

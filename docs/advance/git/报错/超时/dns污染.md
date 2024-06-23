@@ -44,7 +44,7 @@
 
    如果出现了意外情况，那么只能手动[查找域名](https://myssl.com/dns_check.html)
 
-   ![图 1](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202406110821278.png)  
+   ![图 1](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202406231907927.png)  
 
    ```bash
    $ ping 140.82.113.4

@@ -154,15 +154,15 @@ $ git push origin master:master2
     ```
 
 3. 将老分支重命名为`hold240128`，将新分支`new`重命名`main`.
-    
-    ![Alt text](../../../images/image-1.png)
+   
+    ![Alt text](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202406231908687.png)
 
-    ![Alt text](../../../images/image-19.png)
+    ![Alt text](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202406231908688.png)
 
 
 4. 管理默认分支，将默认分支设置为孤儿分支
 
-    ![Alt text](../../../images/image-18.png)
+    ![Alt text](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202406231908689.png)
 
 5. （可选）删除hold分支
 
@@ -181,19 +181,19 @@ $ git push origin master:master2
     commit 13c1a52e0624f172cfa8612ad27e90a030735f2f (HEAD -> main, origin/main, origin/HEAD)
     Author: sword4869 <xxx@qq.com>
     Date:   Tue Nov 7 18:41:35 2023 +0800
-
+    
         add GPU number and lazy load img to GPU       ### 这次提交，想要被撤回
-
+    
     commit 2eee0e26d2d5fd00ec462df47752223952f6bf4e
     Author: Bernhard Kerbl <kerbl@icg.tugraz.at>
     Date:   Wed Nov 1 13:10:29 2023 +0100
-
+    
         Bumped sibr viewers                           ### 那么就回退到这里
-
+    
     commit f11001b46c5c73a0a7d553353c898efd68412abe
     Author: bkerbl <bkerbl@ad.inria.fr>
     Date:   Mon Oct 23 16:02:30 2023 +0200
-
+    
         Random background flag added
     ```
 2. 回退
@@ -203,19 +203,19 @@ $ git push origin master:master2
     ```bash
     $ git reset --soft 2eee0e26d2d5fd00ec462df47752223952f6bf4e
     # git reset --hard 2eee0e26d2d5fd00ec462df47752223952f6bf4e
-
+    
     # 验证
     $ git log
     commit 2eee0e26d2d5fd00ec462df47752223952f6bf4e (HEAD -> main)
     Author: Bernhard Kerbl <kerbl@icg.tugraz.at>
     Date:   Wed Nov 1 13:10:29 2023 +0100
-
+    
         Bumped sibr viewers
-
+    
     commit f11001b46c5c73a0a7d553353c898efd68412abe
     Author: bkerbl <bkerbl@ad.inria.fr>
     Date:   Mon Oct 23 16:02:30 2023 +0200
-
+    
         Random background flag added
     ```
 3. 强制推送
@@ -332,7 +332,7 @@ git pull upstream main:main
 ```
 
 ### 1.5.2. reset法
-![Alt text](../../../images/image-17.png)
+![Alt text](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202406231908690.png)
 ```bash
 git remote add upstream git@github.com:facebookresearch/pytorch3d.git
 # 回退到 main 一致的结点
