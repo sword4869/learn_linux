@@ -26,18 +26,31 @@
 
 ​	**rwx对应421**
 
+# 说一说常用的 Linux 命令
+
+文件、文件目录 rm, mkdir, chmod, tar
+
+路径 cd,pwd,ls
+
+查看文件 cat, vim, less,more
+
+查找文件 find, locate, which, type -p, whereis
+
+网络 ping, ifconfig, ipaddr
+
+远程 sftp, ssh, scp
+
+进程 ps, top, kill, df
+
+服务 service , systemctl 
+
+
+
 # 下面哪个Linux命令不能用于查看文件内容?
 
-cat主要有三大功能：
-	一次显示整个文件。`cat filename`
-	从键盘创建一个文件。`cat > filename`
-	将几个文件合并为一个文件： `cat file1 file2 > file`
-
-​	PS: 不能编辑已有文件!
+cat 显示整个
 
 less和more：分页显示文本文件
-
-​	less比more更加完善
 
 vim：可以打开文件进行查看或者编辑。
 
@@ -45,32 +58,25 @@ vim：可以打开文件进行查看或者编辑。
 
 find 路径 -name加文件名
 
-locate所有文件
+locate 所有文件
 
-which**可执行文件**
+which **可执行文件**
 
-type -p相当于which
+type -p 相当于which  **可执行文件**
 
-whereis可以搜索**可执行文件**、联机帮助文件、源代码文件
+whereis **可执行文件**
 
 # 有一个日志文件Test.txt，其中每行的内容是服务器的mac地址，下面哪个命令可以找到次数最多的前5个mac和出现的次数
 
+```bash
 sort Test.txt | uniq -c | sort -rn | head -n 5
 
 cat Test.txt | sort | uniq -c | sort -rn | head -n 5
-
-
-sort为排序输出；
-
-cat为逆序输出；
-
-uniq为去重；
+```
 
 sort -rn为按照数字降序排序；
 
-head -n 5为输出前5行；
 
-top -n 5为显示更新5次后退出；
 
 # 使用 shell 命令 将某个文件夹下的所有txt 文件全部找到，并删除
 
