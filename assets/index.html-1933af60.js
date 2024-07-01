@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-f8de6c82","path":"/advance/shell%E7%BE%8E%E5%8C%96/","title":"Shell美化","lang":"en-US","frontmatter":{"title":"Shell美化","article":false,"feed":false,"sitemap":false},"headers":[],"git":{},"readingTime":{"minutes":0.03,"words":9},"filePathRelative":null}');export{e as data};

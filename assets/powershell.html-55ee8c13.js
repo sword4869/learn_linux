@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-45329b98","path":"/advance/win10/powershell.html","title":"","lang":"en-US","frontmatter":{},"headers":[],"git":{},"readingTime":{"minutes":0.16,"words":48},"filePathRelative":"advance/win10/powershell.md"}');export{e as data};

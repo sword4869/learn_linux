@@ -1,0 +1,1 @@
+const a=JSON.parse('{"key":"v-61770042","path":"/bash/3-scanf-print/","title":"scanf","lang":"en-US","frontmatter":{},"headers":[],"git":{},"readingTime":{"minutes":0.13,"words":38},"filePathRelative":"bash/3-scanf-print/readme.md"}');export{a as data};

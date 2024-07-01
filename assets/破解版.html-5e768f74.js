@@ -1,0 +1,1 @@
+const a=JSON.parse('{"key":"v-ef9da17c","path":"/advance/reinstall-windows/typora/%E7%A0%B4%E8%A7%A3%E7%89%88.html","title":"typora","lang":"en-US","frontmatter":{},"headers":[],"git":{},"readingTime":{"minutes":0.08,"words":25},"filePathRelative":"advance/reinstall-windows/typora/破解版.md"}');export{a as data};

@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-2baf84ea","path":"/basic/service/service%20%E5%92%8C%20systemctl.html","title":"","lang":"en-US","frontmatter":{},"headers":[],"git":{},"readingTime":{"minutes":0.09,"words":28},"filePathRelative":"basic/service/service 和 systemctl.md"}');export{e as data};

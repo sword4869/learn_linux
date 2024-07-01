@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-0ed51805","path":"/advance/docker/execise/02-dababase/","title":"02 Dababase","lang":"en-US","frontmatter":{"title":"02 Dababase","article":false,"feed":false,"sitemap":false},"headers":[],"git":{},"readingTime":{"minutes":0.03,"words":9},"filePathRelative":null}');export{e as data};

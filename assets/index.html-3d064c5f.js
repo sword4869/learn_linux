@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-19fbcb3a","path":"/advance/docker/execise/01-easy/python_print_hello/","title":"How to run in local host(not Docker)","lang":"en-US","frontmatter":{},"headers":[],"git":{},"readingTime":{"minutes":0.13,"words":39},"filePathRelative":"advance/docker/execise/01-easy/python_print_hello/readme.md"}');export{e as data};
