@@ -9,39 +9,44 @@ cd /d "%~dp0"
 echo Administrator privileges have been obtained
 
 :: 自动切换
-netsh interface show interface "以太网" 
-@REM netsh interface show interface "以太网" | find "管理状态: 已禁用" >nul && (
-netsh interface show interface "以太网" | find "Administrative state: Disabled" >nul && (
-  echo * Enabling Local connection
-  netsh interface set interface name="以太网" admin=enabled
-  netsh interface set interface name="WLAN" admin=disabled
-) || (
-  echo * Enabling Wireless connection
-  netsh interface set interface name="以太网" admin=disabled
-  netsh interface set interface name="WLAN" admin=enabled
+@REM netsh interface show interface "以太网" 
+@REM @REM netsh interface show interface "以太网" | find "管理状态: 已禁用" >nul && (
+@REM netsh interface show interface "以太网" | find "Administrative state: Disabled" >nul && (
+@REM   echo * Enabling Local connection
+@REM   netsh interface set interface name="以太网" admin=enabled
+@REM   netsh interface set interface name="WLAN" admin=disabled
+@REM ) || (
+@REM   echo * Enabling Wireless connection
+@REM   netsh interface set interface name="以太网" admin=disabled
+@REM   netsh interface set interface name="WLAN" admin=enabled
+@REM )
+@REM netsh interface show interface
+@REM pause
+@REM exit
+
+:: 手动切换
+echo * Switching between local and wireless network, please enter a character
+netsh interface show interface
+echo.
+set /p input= 以太网(1) or WLAN(2) or 手机(3): 
+if "%input%"=="1" (
+    echo * 以太网
+    echo.
+    netsh interface set interface name="以太网" admin=enabled
+    netsh interface set interface name="WLAN" admin=disabled
+) else if "%input%"=="2" (
+    echo * WLAN
+    echo.
+    netsh interface set interface name="WLAN" admin=enabled
+    netsh interface set interface name="以太网" admin=disabled
+) else if "%input%"=="3" (
+    echo * Phone
+    echo.
+    netsh interface set interface name="以太网 2" admin=enabled
+    netsh interface set interface name="以太网" admin=disabled
+    netsh interface set interface name="WLAN" admin=disabled
 )
+
 netsh interface show interface
 pause
 exit
-
-:: 手动切换
-@REM echo * Switching between local and wireless network, please enter a character
-@REM netsh interface show interface
-@REM echo.
-@REM set /p input= Local (L) Wireless (W): 
-@REM if "%input%"=="L" goto Y 
-@REM if "%input%"=="W" goto N 
-
-@REM :Y
-@REM echo * Enabling Local connection
-@REM netsh interface set interface name="WLAN" admin=disabled
-@REM netsh interface set interface name="以太网" admin=enabled
-@REM pause 
-@REM exit 
-
-@REM :N
-@REM echo * Enabling Wireless connection
-@REM netsh interface set interface name="以太网" admin=disabled
-@REM netsh interface set interface name="WLAN" admin=enabled
-@REM pause
-@REM exit
