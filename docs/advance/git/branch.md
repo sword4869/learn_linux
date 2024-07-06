@@ -1,14 +1,6 @@
-- [1. branch](#1-branch)
-  - [1.1. add list remove](#11-add-list-remove)
-  - [1.2. switch branch](#12-switch-branch)
-  - [1.3. rename a branch](#13-rename-a-branch)
-  - [1.4. merge](#14-merge)
+# branch
 
-# 1. branch
-
-## 1.1. add list remove
-
-add a branch
+## add a branch
 
 ```bash
 # git branch <branch>
@@ -18,17 +10,36 @@ $ git branch orange
 创建分支的效果相当于虚拟机的快照。
 PS：注意是对当前的 **commit到本地仓库中的** 的文件进行镜像。
 
-> show branch
-
-```bash
-$ git branch
-* main
-  orange
-```
+## show branch
 
 `git branch`列出的分支前带 `*`号的表示当前分支。
 
-> remove branch
+- 默认显示本地分支
+- -v 显示详细信息
+- -a 显示本地和远程
+- -r 只显示远程。所以去掉了r
+
+但是并不会显示fetch下来的分支。
+
+```bash
+PS D:\code_my\learn_python> git branch
+* main
+PS D:\code_my\learn_python> git branch -v
+* main 35a169c [behind 1] 1
+PS D:\code_my\learn_python> git branch -a
+* main
+  remotes/origin/HEAD -> origin/main
+  remotes/origin/gh-pages
+  remotes/origin/main
+PS D:\code_my\learn_python> git branch -r
+  origin/HEAD -> origin/main
+  origin/gh-pages
+  origin/main
+```
+
+
+
+## remove branch
 
 ```bash
 # 同当前分支一样，即merge过的，那么就不会error
@@ -38,7 +49,7 @@ $ git branch -d <branch>
 $ git branch -D <branch>
 ```
 
-## 1.2. switch branch
+## switch branch
 
 ```bash
 $ git checkout orange
@@ -57,7 +68,7 @@ PS: 切换分支要求你工作区和暂存区没有东西。
 $ git checkout -b <branch>
 ```
 
-## 1.3. rename a branch
+## rename a branch
 
 ```bash
 $ git branch -M main
@@ -76,22 +87,25 @@ Reset <branchname> to <startpoint>, even if <branchname> exists already. Without
 
 i.e. 想要重命名已存在的分支，重命名是 `-m`，而修改已存在需要 `--force`，`-M = -m -f`。
 
-## 1.4. merge
+## merge
 
 ```bash
 $ git merge <other branch>
 ```
 
-git的主要工作流程就是，大家提交不同的分支，然后将其融合到主分支上，一起维护一个主分支。
+**当前分支吞噬指定分支**：当前分支融合别的分支被后，别的分支消失，只剩下当前分支。
 
-所以，merge的意思不是当前分支被别的分支融合，而是当前分支吞噬别的分支（别的分支被当前分支融合后，别的分支消失，只剩下当前分支）。
+Rules: 将目标分支上的修改应用到当前分支上
 
-Rules:
+- 当前分支中有，某分支中没有的：则**删除**当前分支中的。
 
-- 某分支中有的，当前分支中没有：则添加到当前分支。
-- √某分支中没有的，当前分支中有：则**删除**当前分支中的。
-- 某分支中有的，当前分支中没有：如无不同，则无事。如有不同，则冲突。
+- 当前分支中没有，某分支中有的：则添加到当前分支。
+- 当前分支和某分支中的共同文件：如无不同，则无事。如有不同，则冲突。
 
 使用 `git diff`查看冲突之处。会用 `-`、`+`和红绿颜色标识。
 
 ![Alt text](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202406231931649.png)
+
+场景：
+
+​	大家提交不同的分支dev1、dev2，然后main分支将其融合。

@@ -1,4 +1,4 @@
-[搭建图床picgo + github + typora](https://blog.csdn.net/xdnxl/article/details/129466060)
+## [搭建图床picgo + github + typora](https://blog.csdn.net/xdnxl/article/details/129466060)
 
 ![image-20240612224247596](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202406171553828.png)
 
@@ -13,3 +13,7 @@ https://cdn.jsdelivr.net/gh/sword4869/pic1@main
 
 
 ![image-20240617155052207](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202406171550309.png)
+
+## 禁用快捷键
+
+![image-20240705231224025](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202407052312074.png)

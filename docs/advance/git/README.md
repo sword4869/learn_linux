@@ -1,22 +1,6 @@
-- [1. basic](#1-basic)
-  - [1.1. 安装](#11-安装)
-  - [1.2. 本地提交](#12-本地提交)
-    - [1.2.1. git init](#121-git-init)
-    - [1.2.2. 查看工作区的文件](#122-查看工作区的文件)
-    - [1.2.3. add到暂存区](#123-add到暂存区)
-    - [1.2.4. commit到本地仓库](#124-commit到本地仓库)
-    - [1.2.5. 删除文件](#125-删除文件)
-  - [1.3. 远程仓库](#13-远程仓库)
-    - [1.3.1. github \& git](#131-github--git)
-      - [1.3.1.1. git config](#1311-git-config)
-      - [1.3.1.2. ssh](#1312-ssh)
-    - [1.3.2. 将本地写好的东西提交到空的远程仓库](#132-将本地写好的东西提交到空的远程仓库)
-    - [1.3.3. 将本地写好的东西提交到有东西的远程仓库](#133-将本地写好的东西提交到有东西的远程仓库)
----
+# basic
 
-# 1. basic
-
-## 1.1. 安装
+## 安装
 
 
 linux：
@@ -28,12 +12,20 @@ windows:
 
 [软件国内源，下得快](https://registry.npmmirror.com/binary.html?path=git-for-windows/)
 
+## 区
+
+工作区：未add
+
+暂存区stage：已add
+
+本地仓库：已提交commit
+
 
 ![1664849831679287.png](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202406231908734.png)
 
-## 1.2. 本地提交
+## 本地提交
 
-### 1.2.1. git init
+### git init
 
 怎么让这个普通的文件夹，变成git的仓库呢？
 用这个命令生成一个 `.git`配置来允许git来管理它，所有 Git 需要的数据和资源都存放在这个目录中。
@@ -45,36 +37,31 @@ $ git init
 
 ![16648498319128447.png](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202406231908735.png)
 
-### 1.2.2. 查看工作区的文件
+### 查看文件情况
 
 ```bash
 $ git status
 
-Untracked files:
-
-Changes not staged for commit:
+# 已追踪的文件
+Changes to be committed			# 已add，未commit
+Changes not staged for commit:	# 还没add
+# 未追踪的新文件 (还没add)
+Untracked files:		
 ```
 
-这条命令显示还没有提交到缓存区的工作区的文件，用来查看是否还有文件未提交。
 
-### 1.2.3. add到暂存区
+
+### 工作区-暂存区
 
 ```bash
-$ git add 'click3.py'
+# 添加：全部改动 `git add -A`或 `git add .`
+$ git add click3.py
+
+# 删除
+$ git restore --staged click3.py
 ```
 
-注：使用 `git add -A`或 `git add . `（`.`是说本目录下的全部文件）可以提交当前仓库的所有改动。
-
-对应 `git rm --cached xxx`取消放入暂存区。
-
-```bash
-$ git status
-
-
-Changes to be committed:
-```
-
-### 1.2.4. commit到本地仓库
+### 暂存区-本地仓库
 
 将缓存区里的文件都commit到本地仓库 `.git`中。
 
@@ -96,7 +83,7 @@ $ git commit -m "备注信息"
 $ git commit -am 'xxx'
 ```
 
-### 1.2.5. 删除文件
+### 删除文件
 
 如果只是简单地从工作目录中手工删除 `rm xxx`文件，运行 `git status` 时就会在 `Changes not staged for commit`的提示。**因为你没有告诉git你的变动**，git本地仓库中还保留着该文件。
 
@@ -128,10 +115,10 @@ git rm --cached xxx
 rm xxx
 ```
 
-## 1.3. 远程仓库
+## 远程仓库
 
-### 1.3.1. github & git
-#### 1.3.1.1. git config
+### github & git
+#### git config
 
 `github`，你会有两个关键的信息要填写，一个是你的账号名字，一个是你的邮箱。
 
@@ -151,7 +138,7 @@ $ git config --global user.name
 Scott Chacon
 ```
 
-#### 1.3.1.2. ssh
+#### ssh
 
 ```bash
 # -C 是表示comment，可有可无
@@ -173,7 +160,7 @@ ssh-keygen -t rsa -C 'your email'
 标题随便起，只是用于区分而已，如同图片中的 `Foast`。
 将复制的公钥内容粘贴在公钥中，确定就ok。
 
-### 1.3.2. 将本地写好的东西提交到空的远程仓库
+### 将本地写好的东西提交到空的远程仓库
 
 > 先在网站创建
 
@@ -197,7 +184,7 @@ git push -u origin main
 
 之后每次就可以直接 `git push`
 
-### 1.3.3. 将本地写好的东西提交到有东西的远程仓库
+### 将本地写好的东西提交到有东西的远程仓库
 
 > git clone
 

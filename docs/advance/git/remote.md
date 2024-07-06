@@ -1,25 +1,6 @@
-- [1. remote](#1-remote)
-  - [1.1. show names of remote repository](#11-show-names-of-remote-repository)
-  - [1.2. add and remove](#12-add-and-remove)
-    - [1.2.1. add a remote repository](#121-add-a-remote-repository)
-    - [1.2.2. remove a remote repository](#122-remove-a-remote-repository)
-  - [1.3. push](#13-push)
-    - [1.3.1. 推送](#131-推送)
-    - [1.3.2. 删除](#132-删除)
-    - [1.3.3. 默认](#133-默认)
-    - [1.3.4. 强制更新（合并冲突的问题）](#134-强制更新合并冲突的问题)
-    - [1.3.5. Github清除历史记录](#135-github清除历史记录)
-    - [1.3.6. 撤销远程提交](#136-撤销远程提交)
-  - [1.4. pull = fetch + merge](#14-pull--fetch--merge)
-    - [1.4.1. pull](#141-pull)
-    - [1.4.2. fetch](#142-fetch)
-    - [1.4.3. 远程分支](#143-远程分支)
-  - [1.5. fork仓库拉取原仓库更新](#15-fork仓库拉取原仓库更新)
-    - [1.5.1. merge法](#151-merge法)
-    - [1.5.2. reset法](#152-reset法)
+# remote
 
-# 1. remote
-## 1.1. show names of remote repository
+## show names of remote repository
 
 ```bash
 $ git remote
@@ -33,24 +14,24 @@ origin  https://gitee.com/sandalphon/weather_predict.git (push)
 $ git remote
 fatal: not a git repository (or any of the parent directories): .git
 ```
-## 1.2. add and remove
+## add and remove
 
-### 1.2.1. add a remote repository
+### add a remote repository
 
 ```bash
 # git remote add <remote repository name> <remote repository url>
 $ git remote add origin https://gitee.com/sandalphon/weather_predict.git
 ```
 
-### 1.2.2. remove a remote repository
+### remove a remote repository
 
 ```bash
 $ git remote remove origin
 ```
 
-## 1.3. push
+## push
 
-### 1.3.1. 推送
+### 推送
 
 1. 【分支同名】
 
@@ -69,7 +50,7 @@ $ git push origin master
 # git push <remote repository name> <local branch name>:<remote branch name>
 $ git push origin master:main
 ```
-### 1.3.2. 删除
+### 删除
 3. 【删除远程仓库的某远程分支】
 
 ```bash
@@ -85,7 +66,7 @@ git push origin :master
 # 等同于
 git push origin --delete master
 ```
-###  1.3.3. 默认
+###  默认
 - 【默认 the current branch】
 
 ```bash
@@ -111,7 +92,7 @@ $ git push
 
 只有当默认指定 `远程仓库`后，才能使用！
 
-### 1.3.4. 强制更新（合并冲突的问题）
+### 强制更新（合并冲突的问题）
 
 - 使用此命令告诉 git 允许不相关历史合并
 
@@ -137,7 +118,7 @@ $ git push origin master
 $ git push origin master:master2
 ```
 
-### 1.3.5. Github清除历史记录
+### Github清除历史记录
 
 1. 孤儿分支
   
@@ -172,7 +153,7 @@ $ git push origin master:master2
 
 5. 有兴趣再重命名一下分支
 
-### 1.3.6. 撤销远程提交
+### 撤销远程提交
 本地回退+强制推送
 
 1. 查找需要回退至的版本号 `2eee0e26d2d5fd00ec462df47752223952f6bf4e`
@@ -226,68 +207,55 @@ $ git push origin master:master2
     + 13c1a52...2eee0e2 main -> main (forced update)
     ```
 
-## 1.4. pull = fetch + merge
-
-
-The local branch `master`, which exists only in your local Git repo, is in what you do most of your actual development work. Similarly, there is also a branch called `master` which exists on the remote. Now, for the confusion, there is a _third_ branch called `origin/master`. This is a _local_ branch, which exists on your local repo. It exists mainly to serve as a proxy for the true remote `master` branch. Whenever you sync with the remote `master` branch, locally you are actually using `origin/master`.
-
-Doing `git pull origin master` is actually identical to this (assuming you are using the merge strategy by default):
-
-```
-git fetch origin master
-git merge origin/master
-```
-
-The first step, `git fetch origin`, updates the local tracking branch `origin/master` with the latest changes, such that it mirrors the true `master` branch on the remote. Then, it does a merge into your local `master` branch using `origin/master`. 
-
-So, keeping in mind that `origin/master` is the actual branch which tracks the true remote `master` branch, we can tell Git to use `origin/master` as the tracking branch via:
-
-```
-# from local master branch
-git --set-upstream-to origin/master
-```
-
-Note that if you create or checkout `master` locally, Git typically would create `origin/master` as the default tracking branch behind the scenes. So, in practice, you probably won't have to use `--set-upstream-to` very often.
-
-### 1.4.1. pull
+## pull = fetch + merge
 
 基本用法：``git pull <remote repository> <remote branch>:<local branch>``。
 
-- 例如执行下面语句：`git pull origin master:brantest`，将远程主机origin的master分支拉取过来，与本地的brantest分支合并。
-- 后面的冒号可以省略：`git pull origin master`。表示将远程origin主机的master分支拉取过来和本地的**当前分支**进行合并。
-
-`git pull = git fetch + git merge`。上面的pull操作`git pull origin master`用fetch表示为：
-
 ```bash
-git pull origin master:master
+# 将远程主机origin的master分支拉取过来，与本地的brantest分支合并。
+$ git pull origin master:brantest
 
-git fetch origin master
-git merge origin/master
+# 分支都是master可省略
+$ git pull origin master
 ```
 
-相比起来git fetch更安全一些，因为在merge前，我们可以查看更新情况，然后再决定是否合并。
 
 
-### 1.4.2. fetch
+## fetch + merge
 
-结果是在本地仓库创建一个本地分支 `<remote repository>/<remote branch>`。但并不会在 `git branch`中显示。
-e.g.
+fetch：将远程拉取到本地，创建一个本地分支 `<remote repository>/<remote branch>`。但并不会在 `git branch`中显示。
+
+merge：让当前分支融合 `<remote repository>/<remote branch>`
 
 ```bash
 # git fetch <remote repository> <remote branch>
 $ git fetch origin master
- * branch            master     -> FETCH_HEAD
-   d48f66c..ee96b01  master     -> origin/master
+From github.com:sword4869/learn_python
+ * branch            main       -> FETCH_HEAD
+ 
+# 切换到想要被更新的本地分支
+$ git checkout main
 
-# 但并不会在`git branch`中显示。
-$ git branch
-* master
+# 默认就是融合 origin/master。git merge origin/master
+$ git merge
+```
+相比起来git fetch更安全一些，因为在merge前，我们可以查看更新情况，然后再决定是否合并。
 
+```bash
+$ git fetch origin master
+$ git checkout main
+
+# 查看区别，再决定合并
 $ git diff
 
-$ git merge origin/master
+$ git merge
 ```
-### 1.4.3. 远程分支
+
+
+
+
+
+### 远程分支
 
 - 当本地没有其他分支的代码仓库时
 
@@ -324,14 +292,14 @@ $ git merge origin/master
 
     使用这种方式会在本地仓库新建分支xxx，并自动切换到新建的分支xxx。然后远程分支xxx的代码也拉取到了本地分支xxx中。采用这种方法建立的本地分支会和远程分支建立映射关系。
 
-## 1.5. fork仓库拉取原仓库更新
-### 1.5.1. merge法
+## fork仓库拉取原仓库更新
+### merge法
 ```bash
 git remote add upstream git@github.com:facebookresearch/pytorch3d.git
 git pull upstream main:main
 ```
 
-### 1.5.2. reset法
+### reset法
 ![Alt text](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202406231908690.png)
 ```bash
 git remote add upstream git@github.com:facebookresearch/pytorch3d.git
