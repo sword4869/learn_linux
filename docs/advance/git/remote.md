@@ -118,40 +118,7 @@ $ git push origin master
 $ git push origin master:master2
 ```
 
-### Github清除历史记录
 
-1. 孤儿分支
-  
-    ```bash
-    git checkout --orphan new
-    git add .
-    git commit -m 'init'
-    ```
-
-2. push 孤儿分支
-
-    ```bash
-    git push origin new
-    ```
-
-3. 将老分支重命名为`hold240128`，将新分支`new`重命名`main`.
-   
-    ![Alt text](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202406231908687.png)
-
-    ![Alt text](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202406231908688.png)
-
-
-4. 管理默认分支，将默认分支设置为孤儿分支
-
-    ![Alt text](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202406231908689.png)
-
-5. （可选）删除hold分支
-
-    ```bash
-    git push origin :hold240128
-    ```
-
-5. 有兴趣再重命名一下分支
 
 ### 撤销远程提交
 本地回退+强制推送
