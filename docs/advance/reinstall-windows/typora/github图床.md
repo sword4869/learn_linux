@@ -17,3 +17,17 @@ https://cdn.jsdelivr.net/gh/sword4869/pic1@main
 ## 禁用快捷键
 
 ![image-20240705231224025](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202407052312074.png)
+
+## 一键上传当前文档的所有图片
+
+![image-20240706200544477](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202407062005524.png)
+
+```json
+"keyBinding": {
+    // for example: 
+    // "Always on Top": "Ctrl+Shift+P"
+    // All other options are the menu items 'text label' displayed from each typora menu
+    "Upload All Local Images": "Ctrl+Shift+/"
+},
+```
+
