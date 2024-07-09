@@ -1,16 +1,6 @@
 # basic
 
-## 安装
 
-
-linux：
-
-```bash
-sudo apt install git
-```
-windows:
-
-[软件国内源，下得快](https://registry.npmmirror.com/binary.html?path=git-for-windows/)
 
 ## 区
 
