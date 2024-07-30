@@ -1,36 +1,5 @@
-- [1. openssh](#1-openssh)
-  - [1.1. 前言](#11-前言)
-  - [1.2. Usage](#12-usage)
-    - [1.2.1. scp传文件](#121-scp传文件)
-  - [1.3. 两种认证机制](#13-两种认证机制)
-    - [1.3.1. 密码认证](#131-密码认证)
-    - [1.3.2. 密钥认证](#132-密钥认证)
-  - [1.4. linux](#14-linux)
-    - [1.4.1. 安装](#141-安装)
-    - [1.4.2. ssh client](#142-ssh-client)
-    - [1.4.3. Client便捷登录别人](#143-client便捷登录别人)
-    - [1.4.4. Server定义允许谁进来](#144-server定义允许谁进来)
-    - [1.4.5. Server Start](#145-server-start)
-      - [1.4.5.1. service 启动](#1451-service-启动)
-      - [1.4.5.2. 脚本启动](#1452-脚本启动)
-      - [1.4.5.3. 原生启动](#1453-原生启动)
-  - [1.5. windows](#15-windows)
-    - [1.5.1. client](#151-client)
-    - [1.5.2. server](#152-server)
-    - [1.5.3. sshpass解决输密码](#153-sshpass解决输密码)
-  - [1.6. 登陆问题](#16-登陆问题)
-    - [1.6.1. WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!](#161-warning-remote-host-identification-has-changed)
-    - [1.6.2. WARNING: UNPROTECTED PRIVATE KEY FILE!](#162-warning-unprotected-private-key-file)
-    - [1.6.3. github](#163-github)
-    - [1.6.4. 使用 SSH 连接报 Bad owner or permissions on C:\\Users\\Administrator/.ssh/config 错误问题解决](#164-使用-ssh-连接报-bad-owner-or-permissions-on-cusersadministratorsshconfig-错误问题解决)
-    - [1.6.5. No matching host key type found. Their offer: ssh-rsa](#165-no-matching-host-key-type-found-their-offer-ssh-rsa)
-  - [1.7. 其他ssh实例](#17-其他ssh实例)
-  - [1.8. 端口转发](#18-端口转发)
----
-
-
-# 1. openssh
-## 1.1. 前言
+# openssh
+## 前言
 
 与`telnet`、 `rlogin`、`FTP`明文传输不同，SSH可以对所有传输的数据进行加密，能够防止 DNS 欺骗和 IP 欺骗。
 
@@ -44,8 +13,8 @@
 
 
 
-## 1.2. Usage
-### 1.2.1. scp传文件
+## Usage
+### scp传文件
 
 ```bash
 usage: scp [-346BCpqrv] [-c cipher] [-F ssh_config] [-i identity_file]
@@ -64,11 +33,11 @@ $ scp usersomeone@192.168.135.83:~/wikiart.tar.gz .
 # directory
 $ scp -r usersomeone@192.168.135.83:~/Downloads .
 ```
-## 1.3. 两种认证机制
+## 两种认证机制
 
 一种是用户密码的方式，另一种是密钥验证的方式
 
-### 1.3.1. 密码认证
+### 密码认证
 过程：
 1. client向server发起登录请求，client 收到返回的 server公钥
 2. client输入密码，密码经client获得的server公钥加密后发送到server
@@ -88,7 +57,7 @@ Are you sure you want to continue connecting (yes/no)?
 
 这是第一步server发来的公钥的公钥指纹（公钥的摘要），**让用户自行核对**。因为有一种攻击方式，骇客冒充服务器端，所以你需要手动核对这个公钥指纹是不是真的。
 
-### 1.3.2. 密钥认证
+### 密钥认证
 过程：
 1. client发起密钥连接请求，并上传 client公钥。
 2. server收到 client公钥后，在可信列表文件`~/.ssh/authorized_keys`中查询此公钥，若无此client则断开连接，否则发送一串随机问询码（问询码用此client公钥加密处理）
@@ -158,9 +127,9 @@ Are you sure you want to continue connecting (yes/no)?
     
     server 查client公钥也是`~/.ssh/authorized_keys`是根据server要登陆的`~`，比如`ssh co@192.168.1.100`是`/home/co/.ssh/authorized_keys`，`ssh root@192.168.1.100`是`/root/.ssh/authorized_keys`。
 
-## 1.4. linux
+## linux
 
-### 1.4.1. 安装
+### 安装
 
 
 Linux：默认有client, 但没有server
@@ -182,7 +151,7 @@ Configuration：
   - `/etc/ssh/sshd_config`：sshd 配置文件。
   - `~/.ssh/authorized_keys`： 可信client列表。
 
-### 1.4.2. ssh client
+### ssh client
 
 ```bash
 usage: ssh [-46AaCfGgKkMNnqsTtVvXxYy] [-B bind_interface]
@@ -202,7 +171,7 @@ ssh -p 2222 coco@192.168.112.130
 
 `command`：一次性执行后退出远程登陆返回本机，而不是持久挂载shell。如`ssh coco@192.168.112.130 ls`。
 
-### 1.4.3. Client便捷登录别人
+### Client便捷登录别人
 
 这个用于将经常登录的帐号记录下来, 像快捷方式一样便捷使用.
 
@@ -241,7 +210,7 @@ PreferredAuthentications keyboard-interactive,password,publickey
 # 只允许使用密钥
 PreferredAuthentications publickey
 ```
-### 1.4.4. Server定义允许谁进来
+### Server定义允许谁进来
 
 > sshd 配置文件
 
@@ -313,9 +282,9 @@ sudo /etc/init.d/ssh reload
 ```
 
 
-### 1.4.5. Server Start
+### Server Start
 
-#### 1.4.5.1. service 启动
+#### service 启动
 
 启动
 ```bash
@@ -342,7 +311,7 @@ $ kill 1873
 ```
 
 
-#### 1.4.5.2. 脚本启动
+#### 脚本启动
 
 `/etc/init.d/ssh`
 
@@ -366,7 +335,7 @@ sudo /etc/init.d/ssh start
 sudo /etc/init.d/ssh status
 ```
 
-#### 1.4.5.3. 原生启动
+#### 原生启动
 
 ```bash
 usage: sshd [-46DdeiqTt] [-C connection_spec] [-c host_cert_file]
@@ -402,9 +371,9 @@ $ kill 987 1505
 - 直接启动sshd程序后，`sudo service status`看不到启动，只能用`ps -e | grep ssh`确认是否启动。
 - 直接启动sshd程序后，`sudo service stop`关不掉，只能`kill`
 - 直接启动sshd程序后，如果没有kill，那么`sudo service ssh start`就会因为矛盾而启动失败。
-## 1.5. windows
+## windows
 
-### 1.5.1. client
+### client
 OpenSSH 已添加至Windows 10：`C:\Windows\System32\OpenSSH`。
 ![picture 1](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202406231915824.png)  
 
@@ -418,7 +387,7 @@ OpenSSH 已添加至Windows 10：`C:\Windows\System32\OpenSSH`。
 `ssh-keygen`生成的密钥、本机充当client的登陆文件`config`、`known_hosts`都在windows在`C:\Users\xxx\.ssh`下
 ![1664798068926048.png](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202406231915825.png)
 
-### 1.5.2. server
+### server
 > 安装
 
 默认没装, 去windows设置的【应用】【可选功能】【添加功能】【OpenSSH 服务器】
@@ -447,7 +416,7 @@ net stop sshd
 net start sshd
 ```
 
-### 1.5.3. sshpass解决输密码
+### sshpass解决输密码
 
 ```bash
 sudo apt install sshpass
@@ -461,12 +430,12 @@ source ~/.bashrc
 hpc
 ```
 
-## 1.6. 登陆问题
-### 1.6.1. WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!
+## 登陆问题
+### WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!
 
 这里要登陆的 server 变化了，因为你 client 本地存有以前记住的 server 的 hostname，所以发现不匹配后的问题。解决办法就是删除**client**中的 `~/.ssh/known_hosts` 的对应的服务器ip的记录。
 
-### 1.6.2. WARNING: UNPROTECTED PRIVATE KEY FILE!
+### WARNING: UNPROTECTED PRIVATE KEY FILE!
 ```bash
 $ /usr/sbin/sshd -h /home/sword/.ssh/id_rsa
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -483,7 +452,7 @@ sshd: no hostkeys available -- exiting.
 # 调整私钥的文件权限
 $ chmod 0600 /home/sword/.ssh/id_rsa
 ```
-### 1.6.3. github
+### github
 
 都是一个问题：
 > - ssh: connect to host github.com port 22: Connection refused
@@ -551,7 +520,7 @@ and the repository exists.
 
 
 
-### 1.6.4. 使用 SSH 连接报 Bad owner or permissions on C:\\Users\\Administrator/.ssh/config 错误问题解决
+### 使用 SSH 连接报 Bad owner or permissions on C:\\Users\\Administrator/.ssh/config 错误问题解决
 
 > 问题描述
 
@@ -591,7 +560,7 @@ and the repository exists.
     右击powershell脚本文件，选中解除锁定，并应用
     ![](https://img-blog.csdnimg.cn/20210706173551640.png)
 
-### 1.6.5. No matching host key type found. Their offer: ssh-rsa
+### No matching host key type found. Their offer: ssh-rsa
 
 openssh觉得ssh-rsa加密方式不安全, 直接从8.8开始默认不允许这种密钥用于登陆
 
@@ -611,7 +580,7 @@ Host hpc3
     HostName xxx.com
 ```
 
-## 1.7. 其他ssh实例
+## 其他ssh实例
 【win10client ssh 自己的虚拟机linux服务器】
 
 虚拟机网络使用桥接模式，虚拟机充当服务器`sudo /etc/init.d/ssh start`，查看虚拟机的ip`ifconfig`看到`192.168.1.107`，win10直接cmd下`ssh coco@192.168.1.107`。
@@ -649,7 +618,7 @@ ssh2             7222/tcp
 ```
 `reboot`后，就可以`ssh -p 7222 root@localhost`(ipad连自己)。
 
-## 1.8. 端口转发
+## 端口转发
 
 <https://zhuanlan.zhihu.com/p/148825449>
 
