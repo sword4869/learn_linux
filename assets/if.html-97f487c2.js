@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-5bac8504","path":"/bash/5-if/if.html","title":"if","lang":"en-US","frontmatter":{},"headers":[],"git":{},"readingTime":{"minutes":0.14,"words":43},"filePathRelative":"bash/5-if/if.md"}');export{e as data};

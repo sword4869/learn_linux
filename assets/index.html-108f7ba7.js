@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-b38752d2","path":"/advance/reinstall-windows/","title":"Reinstall Windows","lang":"en-US","frontmatter":{"title":"Reinstall Windows","article":false,"feed":false,"sitemap":false},"headers":[],"git":{},"readingTime":{"minutes":0.03,"words":9},"filePathRelative":null}');export{e as data};

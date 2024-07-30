@@ -1,0 +1,1 @@
+const t=JSON.parse('{"key":"v-649df383","path":"/basic/network/%E4%BF%AE%E6%94%B9ip/ubuntu.html","title":"","lang":"en-US","frontmatter":{},"headers":[],"git":{},"readingTime":{"minutes":0.2,"words":60},"filePathRelative":"basic/network/修改ip/ubuntu.md"}');export{t as data};

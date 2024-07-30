@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-144f0344","path":"/bash/number/","title":"","lang":"en-US","frontmatter":{},"headers":[],"git":{},"readingTime":{"minutes":0.22,"words":67},"filePathRelative":"bash/number/readme.md"}');export{e as data};

@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-cfb06314","path":"/bash/windows/%E4%B9%B1%E7%A0%81.html","title":"ANSI","lang":"en-US","frontmatter":{},"headers":[],"git":{},"readingTime":{"minutes":0.05,"words":14},"filePathRelative":"bash/windows/乱码.md"}');export{e as data};

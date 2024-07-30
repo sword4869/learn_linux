@@ -1,0 +1,38 @@
+import{_ as n,W as e,X as i,Z as l,a0 as t,a1 as c,Y as a,E as r,$ as o}from"./framework-9a5142fa.js";const d={},p=a('<ul><li><a href="#1-bash-script">1. bash script</a><ul><li><a href="#11-basic">1.1. Basic</a><ul><li><a href="#111-interpreter">1.1.1. Interpreter</a></li><li><a href="#112-permission-to-execute">1.1.2. Permission to execute</a></li><li><a href="#113-run">1.1.3. Run</a></li></ul></li><li><a href="#12-usecase">1.2. Usecase</a></li><li><a href="#13-quotes">1.3. quotes</a></li><li><a href="#14-%E6%89%A7%E8%A1%8C%E5%91%BD%E4%BB%A4">1.4. 执行命令</a></li><li><a href="#15-alias">1.5. alias</a></li></ul></li></ul><hr><h1 id="_1-bash-script" tabindex="-1"><a class="header-anchor" href="#_1-bash-script" aria-hidden="true">#</a> 1. bash script</h1><h2 id="_1-1-basic" tabindex="-1"><a class="header-anchor" href="#_1-1-basic" aria-hidden="true">#</a> 1.1. Basic</h2><h3 id="_1-1-1-interpreter" tabindex="-1"><a class="header-anchor" href="#_1-1-1-interpreter" aria-hidden="true">#</a> 1.1.1. Interpreter</h3><p>The shebang <code>#!</code>: a combination of a bash mark and an exclamation mark.</p><p><code>#! /bin/bash</code>, <code>#! python3</code></p><h3 id="_1-1-2-permission-to-execute" tabindex="-1"><a class="header-anchor" href="#_1-1-2-permission-to-execute" aria-hidden="true">#</a> 1.1.2. Permission to execute</h3>',8),u=a(`<h3 id="_1-1-3-run" tabindex="-1"><a class="header-anchor" href="#_1-1-3-run" aria-hidden="true">#</a> 1.1.3. Run</h3><p><code>./</code> : it’s good practice to use the <code>./</code> when executing files as this localizes the file execution to the current directory. There may be another file with the same name on your system.</p><h2 id="_1-2-usecase" tabindex="-1"><a class="header-anchor" href="#_1-2-usecase" aria-hidden="true">#</a> 1.2. Usecase</h2><p><code>echo</code>: submit a message to standard output.</p><p><code>read</code>: place whatever they input into a variable.</p><div class="language-bash line-numbers-mode" data-ext="sh"><pre class="language-bash"><code><span class="token shebang important">#! /bin/bash</span>
+<span class="token builtin class-name">read</span> name
+<span class="token builtin class-name">echo</span> <span class="token string">&quot;Hello&quot;</span> <span class="token variable">$name</span> <span class="token string">&quot;to Bash Script&quot;</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="_1-3-quotes" tabindex="-1"><a class="header-anchor" href="#_1-3-quotes" aria-hidden="true">#</a> 1.3. quotes</h2><div class="language-bash line-numbers-mode" data-ext="sh"><pre class="language-bash"><code>$ <span class="token builtin class-name">echo</span> os
+os
+$ <span class="token builtin class-name">echo</span> <span class="token string">&quot;os&quot;</span>
+os
+$ <span class="token builtin class-name">echo</span> <span class="token string">&quot;&#39;os&#39;&quot;</span>
+<span class="token string">&#39;os&#39;</span>
+$ <span class="token builtin class-name">echo</span> <span class="token string">&#39;&quot;os&quot;&#39;</span>
+<span class="token string">&quot;os&quot;</span>
+$ <span class="token assign-left variable">id</span><span class="token operator">=</span><span class="token number">123</span>
+$ <span class="token builtin class-name">echo</span> <span class="token string">&#39;&quot;&#39;</span><span class="token variable">$id</span><span class="token string">&#39;&quot;&#39;</span>
+<span class="token string">&quot;123&quot;</span>
+$ <span class="token builtin class-name">echo</span> <span class="token string">&quot;&#39;&quot;</span><span class="token variable">$id</span><span class="token string">&quot;&#39;&quot;</span>
+<span class="token string">&#39;123&#39;</span>
+$ <span class="token builtin class-name">echo</span> <span class="token string">&#39;&quot;!!&#39;</span> <span class="token variable">$id</span>---<span class="token string">&#39;&quot;&#39;</span>
+<span class="token string">&quot;!! 123---&quot;</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="_1-4-执行命令" tabindex="-1"><a class="header-anchor" href="#_1-4-执行命令" aria-hidden="true">#</a> 1.4. 执行命令</h2><div class="language-bash line-numbers-mode" data-ext="sh"><pre class="language-bash"><code>$ <span class="token assign-left variable">id1</span><span class="token operator">=</span><span class="token variable"><span class="token variable">\`</span><span class="token function">id</span> <span class="token parameter variable">-u</span> <span class="token parameter variable">-n</span><span class="token variable">\`</span></span>
+$ <span class="token builtin class-name">echo</span> <span class="token variable">$id1</span>
+
+$ <span class="token assign-left variable">id2</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span><span class="token function">id</span> <span class="token parameter variable">-u</span> <span class="token parameter variable">-n</span><span class="token variable">)</span></span>
+$ <span class="token builtin class-name">echo</span> <span class="token variable">$id2</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="_1-5-alias" tabindex="-1"><a class="header-anchor" href="#_1-5-alias" aria-hidden="true">#</a> 1.5. alias</h2><div class="language-bash line-numbers-mode" data-ext="sh"><pre class="language-bash"><code>$ <span class="token assign-left variable">hhh</span><span class="token operator">=</span><span class="token string">&#39;ls&#39;</span>
+$ hhh
+hhh: <span class="token builtin class-name">command</span> not found
+$ <span class="token builtin class-name">echo</span> <span class="token variable">$hhh</span>
+<span class="token function">ls</span>
+$ <span class="token variable">$hhh</span>
+cache.db  clash  config.yaml  Country.mmdb
+
+$ <span class="token builtin class-name">alias</span> <span class="token assign-left variable">jjj</span><span class="token operator">=</span><span class="token string">&#39;ls&#39;</span>
+$ jjj
+docs  images  node_modules  package.json  yarn.lock
+$ <span class="token builtin class-name">echo</span> <span class="token variable">$jjj</span>
+
+$ <span class="token variable">$jjj</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div>`,12);function h(b,v){const s=r("RouterLink");return e(),i("div",null,[p,l("p",null,[t(s,{to:"/bash/file%20permission.md/#%20change%20permission"},{default:c(()=>[o("chmod")]),_:1})]),u])}const k=n(d,[["render",h],["__file","bash script.html.vue"]]);export{k as default};

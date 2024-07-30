@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-1a4f17c6","path":"/basic/service/%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8.html","title":"系统启动时自动启动服务","lang":"en-US","frontmatter":{},"headers":[],"git":{},"readingTime":{"minutes":0.1,"words":29},"filePathRelative":"basic/service/开机启动.md"}');export{e as data};

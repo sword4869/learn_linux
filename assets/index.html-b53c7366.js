@@ -1,0 +1,12 @@
+import{_ as a,W as s,X as e,Y as n}from"./framework-9a5142fa.js";const l={},i=n(`<h1 id="concatenate" tabindex="-1"><a class="header-anchor" href="#concatenate" aria-hidden="true">#</a> concatenate</h1><div class="language-bash line-numbers-mode" data-ext="sh"><pre class="language-bash"><code><span class="token assign-left variable">str1</span><span class="token operator">=</span><span class="token string">&quot;hello&quot;</span>
+<span class="token assign-left variable">str2</span><span class="token operator">=</span><span class="token string">&quot;world&quot;</span>
+<span class="token assign-left variable">str3</span><span class="token operator">=</span><span class="token variable">$str1</span><span class="token variable">$str2</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><div class="language-bash line-numbers-mode" data-ext="sh"><pre class="language-bash"><code>helloworld
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div></div></div><h1 id="lowercase-and-uppercase" tabindex="-1"><a class="header-anchor" href="#lowercase-and-uppercase" aria-hidden="true">#</a> lowercase and uppercase</h1><div class="language-bash line-numbers-mode" data-ext="sh"><pre class="language-bash"><code><span class="token assign-left variable">str4</span><span class="token operator">=</span><span class="token string">&quot;aBc&quot;</span>
+
+<span class="token comment"># one ^ is uppercase first character, two ^ is uppercase all</span>
+<span class="token builtin class-name">echo</span> <span class="token variable">\${str4<span class="token operator">^</span>}</span>
+<span class="token builtin class-name">echo</span> <span class="token variable">\${str4<span class="token operator">^^</span>}</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><div class="language-bash line-numbers-mode" data-ext="sh"><pre class="language-bash"><code>ABc
+ABC
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div></div></div>`,6),r=[i];function t(c,d){return s(),e("div",null,r)}const p=a(l,[["render",t],["__file","index.html.vue"]]);export{p as default};
