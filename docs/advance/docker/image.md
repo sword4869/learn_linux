@@ -1,19 +1,7 @@
-- [List image](#list-image)
-  - [list](#list)
-  - [Specify list](#specify-list)
-- [Remove image](#remove-image)
-  - [remove](#remove)
-  - [dangling image](#dangling-image)
-- [Create](#create)
-  - [Get remote sources](#get-remote-sources)
-  - [Commit](#commit)
-  - [Dockerfile](#dockerfile)
-- [Push to Registry](#push-to-registry)
-- [History](#history)
----
-# List image
+[toc]
+## List image
 
-## list
+### list
 
 `ls/list`
 ```bash
@@ -31,7 +19,7 @@ python                   3.8-slim-buster   9f9436d44487   2 months ago   114MB
   默认 Tag 是`latest`，且可以不显示。
   比如，`ubuntu`就是`library/ubuntu:latest`。
 
-## Specify list
+### Specify list
 
 > according name
 ```bash
@@ -64,11 +52,11 @@ e983e5d89352
 
 This is used to pass the result to remove command.
 
-# Remove image
+## Remove image
 
 要删除镜像，就得先把和它的容器都删完了，然后才能删镜像。这是因为Layer filesystem，最下层是镜像，所以删除镜像就有容器依赖丢失问题。
 
-## remove
+### remove
 
 ```bash
 $ docker image list
@@ -83,15 +71,15 @@ $ docker rmi cd7
 ```
 
 
-## dangling image
+### dangling image
 
 quick remove all dangling images.
 ```bash
 $ docker image prune
 ```
 
-# Create
-## Get remote sources
+## Create
+### Get remote sources
 
 When you use the `docker pull` or `docker run` commands, the required images are pulled from your configured registry.
 
@@ -102,7 +90,7 @@ $ docker pull ubuntu:18.04
 $ docker run ubuntu:18.04
 ```
 
-## Commit
+### Commit
 
 ```bash
 # docker commit <container name> <image name>
@@ -114,17 +102,17 @@ $ docker commit webserver nginx:v2
 
 所以，不要使用 docker commit 定制镜像，定制镜像应该使用 Dockerfile 来完成。
 
-## Dockerfile
+### Dockerfile
 [the_dockerfile.md](./2-image/the_dockerfile.md)
 
-# Push to Registry
+## Push to Registry
 
 ```bash
 $ docker image push
 ```
 your image is pushed to your configured registry.
 
-# History
+## History
 ```bash
 $ docker image history python-docker-dev
 IMAGE          CREATED        CREATED BY                                      SIZE      COMMENT
@@ -148,3 +136,23 @@ e983e5d89352   2 months ago   CMD ["python3" "-m" "flask" "run" "--host=0.…   
 <missing>      3 months ago   /bin/sh -c #(nop)  CMD ["bash"]                 0B
 <missing>      3 months ago   /bin/sh -c #(nop) ADD file:c51141702f568a28a…   69.3MB
 ```
+
+## load tar
+
+
+
+```bash
+# -o 来指定输出文件的名称。
+$ docker save -o xxx.tar myimage:latest
+
+# 保存多个镜像到同一个文件中，使用 docker load 命令时会加载所有包含的镜像。
+$ docker save -o xxx.tar myimage:latest anotherimage:latest
+```
+
+
+
+```bash
+# -i 指定导入的文件路径
+$ docker load -i xxx.tar
+```
+

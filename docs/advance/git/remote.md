@@ -31,12 +31,13 @@ $ git remote remove origin
 
 ## push
 
+`git push <远程仓库> <本地分支>:<远程分支>`。本地分支→远程分支
+
 ### 推送
 
 1. 【分支同名】
 
 ```bash
-# git push <remote repository name> <local branch name>
 $ git push origin master
 ```
 
@@ -47,40 +48,30 @@ $ git push origin master
 2. 【分支异名】
 
 ```bash
-# git push <remote repository name> <local branch name>:<remote branch name>
 $ git push origin master:main
 ```
 ### 删除
-3. 【删除远程仓库的某远程分支】
+推送空本地分支，自然效果就是删除
 
 ```bash
-# git push <remote repository name> :<remote branch name>
 $ git push origin :main
 ```
 
-相当于推送空本地分支，自然效果就是删除。
-
 ```bash
-# 例如
-git push origin :master
 # 等同于
-git push origin --delete master
+git push origin --delete main
 ```
 ###  默认
-- 【默认 the current branch】
+- 【默认当前分支】
 
 ```bash
-# git push <remote repository name>
 $ git push origin
 ```
-
-默认当前分支。
 
 - 【默认化 remote repository】
 
 ```bash
-# git push -u <remote repository name> [<local branch name>]
-$ git push -u origin [master]
+$ git push -u origin
 ```
 
 将 `本地的分支`推送到 `远程仓库`，同时指定 `远程仓库`为 `默认的远程仓库`，后面就可以不加任何参数使用 `git push`了。
@@ -105,18 +96,12 @@ $ git push origin master
 
 - 强制将本地文件推送至远程
 
-  **这样会将远程仓库的master分支的历史文件都清掉**。从而不会产生因为合并冲突的问题.
-  PS：建议使用此命令前备份一个远程分支：先本地创建一个分支，拉去远程分支，再push一个新的分支，最后再push到那原来的分支。
+  **这样会将远程仓库的master分支的历史文件都清掉**，让远程都和本地推送的分支完全一样，从而不会产生因为合并冲突的问题.
+  PS：建议使用此命令前备份原远程分支到本地。
 
   ```bash
   $ git push origin master -f
   ```
-
-- push到一个新的远程分支。
-
-```bash
-$ git push origin master:master2
-```
 
 
 
@@ -146,8 +131,8 @@ $ git push origin master:master2
     ```
 2. 回退
 
-     - soft指的是：保留当前工作区，以便重新提交，比如我们这次是修改后重新提交
-     - hard，会撤销相应工作区的修改，一定要谨慎使用。一般用于指定某个版本的内容，不考虑自己的修改。
+     - soft：保留当前工作区，以便重新提交，比如我们这次是修改后重新提交
+     - hard：会撤销相应工作区的修改，一定要谨慎使用。一般用于指定某个版本的内容，不考虑自己的修改。
     ```bash
     $ git reset --soft 2eee0e26d2d5fd00ec462df47752223952f6bf4e
     # git reset --hard 2eee0e26d2d5fd00ec462df47752223952f6bf4e
@@ -176,7 +161,7 @@ $ git push origin master:master2
 
 ## pull = fetch + merge
 
-基本用法：``git pull <remote repository> <remote branch>:<local branch>``。
+基本用法：`git pull git push <远程仓库> <远程分支>:<本地分支>`。远程分支→本地分支
 
 ```bash
 # 将远程主机origin的master分支拉取过来，与本地的brantest分支合并。
@@ -185,8 +170,6 @@ $ git pull origin master:brantest
 # 分支都是master可省略
 $ git pull origin master
 ```
-
-
 
 ## fetch + merge
 
@@ -218,22 +201,15 @@ $ git diff
 $ git merge
 ```
 
-
-
-
-
 ### 远程分支
 
 - 当本地没有其他分支的代码仓库时
 
   ```bash
-  # 默认分支
-  git clone origin
-  # 指定分支
-  git clone -b 分支名 origin
+  
   ```
   执行上述命令后就将远程分支拉取到了本地。
-
+  
 - 当本地有其他分支的代码仓库时, 查看所有的远程分支
 
   ```bash

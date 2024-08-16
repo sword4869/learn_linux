@@ -1,26 +1,4 @@
-- [docker run: Create and Start](#docker-run-create-and-start)
-  - [基本](#基本)
-  - [-itd 交互和后台](#-itd-交互和后台)
-    - [-it交互](#-it交互)
-    - [启动时执行命令](#启动时执行命令)
-    - [-d 后台](#-d-后台)
-  - [--name 容器命名](#--name-容器命名)
-  - [-p 端口映射](#-p-端口映射)
-  - [-v 挂载Volume](#-v-挂载volume)
-  - [--gpus GPU](#--gpus-gpu)
-  - [--restart 自启动](#--restart-自启动)
-  - [--net 网络模式](#--net-网络模式)
-- [List](#list)
-- [Start|Stop|Restart](#startstoprestart)
-- [Operate a running container](#operate-a-running-container)
-- [Remove](#remove)
-  - [Automaically remove](#automaically-remove)
-  - [Manually remove exited](#manually-remove-exited)
-  - [Remove all exited](#remove-all-exited)
-- [自启动](#自启动)
-- [logs 日志](#logs-日志)
-
----
+[toc]
 
 - [ ] docker run 和 start的区别？run是创建并运行，第一次是这样，已经创建过就是只运行？两者都是保持创建时的参数？可以用start 代替run来启动已经创建过的容器吗？
 
@@ -205,6 +183,7 @@ docker run -p 6379:6379 --name redis \
 $ docker volume create myvolume     # 创建数据卷`myvolume`
 $ docker volume ls                  # 列出
 $ docker volume rm myvolume         # 删除
+$ docker volume inspect myvolume	# 查看volume在真实主机的文件位置
 ```
 ```bash
 $ docker run -v myvolume:/var/lib/mysql mysql
