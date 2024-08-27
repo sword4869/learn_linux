@@ -1,30 +1,20 @@
-- [1. boot](#1-boot)
-  - [1.1. secure boot](#11-secure-boot)
-  - [1.2. 分区](#12-分区)
-  - [1.3. UEFI,MBR,GPT,EFI:](#13-uefimbrgptefi)
-    - [1.3.1. 细节](#131-细节)
-    - [1.3.2. 分区例子](#132-分区例子)
-  - [1.4. double boot](#14-double-boot)
-    - [1.4.1. Make boot USB](#141-make-boot-usb)
-    - [1.4.2. Always install Windows first](#142-always-install-windows-first)
-    - [1.4.3. vanishing linux boot](#143-vanishing-linux-boot)
-    - [1.4.4. boot sequence](#144-boot-sequence)
-  - [1.5. 扩容](#15-扩容)
-  - [1.6. windows时间不一致](#16-windows时间不一致)
----
+[toc]
 
-# 1. boot
-## 1.1. secure boot
+## secure boot
 没关长这样。
 ![picture 1](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202406231919290.png)  
 
 
-## 1.2. 分区
-## 1.3. UEFI,MBR,GPT,EFI:
+## 分区
+## BIOS,UEFI; MBR,GPT(EFI):
 - 主板的引导启动方式。古老的是Legacy BIOS，现代的是UEFI
+
 - 硬盘分区表的布局。古老的是MBR（Master Boot Record），现代是GPT（Globally Unique Identifier (GUID) Partition Table）。EFI是GPT中的系统启动分区。
-- 如果用UEFI模式启动，就使用GPT格式的分区表。
-  如果用Legacy BIOS启动，就使用MBR格式的分区表。
+
+- 如果用Legacy BIOS启动，就使用MBR格式的分区表。
+  
+  如果用UEFI模式启动，就使用GPT格式的分区表。
+  
 - 使用MBR的分区表，则不需要创建`/boot`或`/efi`分区。而GPT需要。
 
 你可以通过`fdisk`来知道硬盘分区是gpt还是mbr.
@@ -36,7 +26,7 @@ Disklabel type: gpt
 
 或者 Under the Boot menu, look for PCI ROM Priority. You should see two options – EFI Compatible ROM and Legacy ROM. The latter indicates MBR.
 
-### 1.3.1. 细节
+### 细节
 > 交换分区
 
 相当于Windows中的“虚拟内存”.
@@ -51,10 +41,13 @@ Disklabel type: gpt
 
 Under the **MBR** partitioning scheme, there are three different types of partitions – **Primary, Extended, and Logical**. 
 
-主分区以外的分区称为扩展分区，在扩展分区中可以建立若干个逻辑分区。
+主分区 Primary 以外的分区称为扩展分区 Extended，在扩展分区中可以建立若干个逻辑分区 Logical。
 
+Picture 2 shows **four primary** partitions(includes swap). 
 
-Picture 2 shows **four primary** partitions(includes swap). If you observe closely, you will see that the first primary partition is sda1 and the last sda4. Unlike hard drives, partition numbers start from 1, not 0 (zero). Any disk space that’s not allocated to the primary partitions is listed as Free or free space. But while it may be free, it is, however, unusable. And that is because as far as the system is concerned, that free space does not exist.
+​	The first primary partition is sda1 and the last sda4. Unlike hard drives, partition numbers start from 1, not 0 (zero). 
+
+​	Any disk space that’s not allocated to the primary partitions is listed as Free or free space.
 
 ![picture 2](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202406231919291.png)  
 
@@ -72,12 +65,20 @@ Theoretically, there is no limit to the number of logical partitions that you ca
 
 If the disk from which you want to boot already has an EFI system partition, do not create another one, but use the existing partition instead.
 
-### 1.3.2. 分区例子
+### 分区例子
 > ubuntu默认分区规则：
 - 最少的分区：`/`分区和efi分区。
 - efi分区占500M，`/`分区占剩下的分区。
 
-> UEFI/GPT
+> BIOS/MBR
+
+
+|挂载点|boot flag|用于格式|大小|意思|
+|-|-|-|-|-|
+| `/`|yes|Ext4|剩下的200G|
+| `/swap`|no|交换空间(swap)|1倍到2倍的物理内存RAM大小|虚拟内存
+
+> UEFI/GPT: 需要创建`/boot`或`/efi`分区
 
 |挂载点|分区类型|用于格式|大小|意思|
 |-|-|-|-|-|
@@ -88,18 +89,8 @@ If the disk from which you want to boot already has an EFI system partition, do 
 | `/home`|逻辑分区|Ext4|剩下的500G|用户空间|
 
 By giving `/home` its own dedicated partition, you separate the user data from the rest of the operating system. The advantage is that you can wipe the operating system and replace it without affecting the user data.
-
-> BIOS/MBR
-
-
-|挂载点|boot flag|用于格式|大小|意思|
-|-|-|-|-|-|
-| `/`|yes|Ext4|剩下的200G|
-| `/swap`|no|交换空间(swap)|1倍到2倍的物理内存RAM大小|虚拟内存
-
-
-## 1.4. double boot
-### 1.4.1. Make boot USB
+## double boot
+### Make boot USB
 ```bash
 # 看看U盘挂载在哪里，如下 设备 /dev/sdb1 挂载在 /media/sword/ESD-USB
 $ lsblk
@@ -120,18 +111,14 @@ $ mkfs.ntfs /dev/sdb1
 $ dd if=ubuntu-16.0.3-desktop-amd64.iso of=/dev/sdb1 status=progress 
 ```
 
-### 1.4.2. Always install Windows first
+### Always install Windows first / vanishing linux boot
 Windows does not detect other operating systems and does not feature a boot menu. When you install it, it overwrites your boot sequence and your computer then boots straight into Windows.
 
 Linux Mint (and most Linux distributions) detects other operating systems and builds a menu from which you can choose which system to boot.
 
 For this reason, if you want to dual-boot or multi-boot with Windows, it is easier and recommended to install Windows first, before you install Linux Mint.
 
-
-
-### 1.4.3. vanishing linux boot
-
-The problem: It is ok when u install windows befor u install linux while the linux boot is vanishing when u install linux before u install windows.
+Otherwise,  the linux boot is vanishing when u install linux before u install windows.
 
 The resolution:
 
@@ -182,11 +169,11 @@ $ sudo update-grub2
 ```
 
 PS：<https://linuxmint-installation-guide.readthedocs.io/en/latest/multiboot.html> 这个没有试过。
-### 1.4.4. boot sequence
+### EFI boot order
 
 <https://linuxmint-installation-guide.readthedocs.io/en/latest/efi.html>
 
-## 1.5. 扩容
+## 扩容
 未经测试!!!
 
 
@@ -230,7 +217,7 @@ $ resize2fs /dev/sdb1
 但是数据还是只有sdb1里的了，sdb2的数据丢失了。
 
 
-## 1.6. windows时间不一致
+## windows时间不一致
 
 <https://zhuanlan.zhihu.com/p/492885761>
 

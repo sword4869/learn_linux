@@ -27,14 +27,38 @@ $ tar -cvf T.tar a.txt b.jpg
 
 This archive `.tar` file is bigger than the sum of the original files.
 
-!!! note 直接压缩
+压缩格式
 ```bash
 tar -czvf file.tar.gz xxx  # z压缩 tar.gz
 
 tar -cjvf file.tar.bz2 xxx # j压缩 tar.bz2
 
 tar -cZvf file.tar.Z xxx   # Z压缩 tar.Z
+
+### 都可以直接压缩
+tar -cvf file.tar.gz xxx  # z压缩 tar.gz
+
+tar -cvf file.tar.bz2 xxx # j压缩 tar.bz2
+
+tar -cvf file.tar.Z xxx   # Z压缩 tar.Z
 ```
+
+压缩路径
+
+```bash
+# 结果就是连带路径
+tar -cvf file.tar.gz home/lab/miniconda3/envs/point-avatar
+
+home/lab/miniconda3/envs/point-avatar/conda-meta/tzdata-2024a-h04d1e81_0.json
+home/lab/miniconda3/envs/point-avatar/conda-meta/lcms2-2.12-hddcbb42_0.json
+home/lab/miniconda3/envs/point-avatar/conda-meta/nvidiacub-1.10.0-0.json
+
+# 应该是进入再压缩
+cd home/lab/miniconda3/envs
+tar -cvf file.tar.gz point-avatar
+```
+
+
 
 
 ### 1.1.2. extract
@@ -44,7 +68,7 @@ $ tar -xvf T.tar
 $ tar -xvf T.tar -C ~/Desktop/newFolder
 ```
 - `-x`: denotes that **extract** files from the archive.
-- `-C`: 指定解压的输出目录
+- `-C`: 指定解压的输出目录。**要求目录存在**
 
 
 !!! note 直接解压
