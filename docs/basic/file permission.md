@@ -25,7 +25,12 @@ rwx(4, 2, 1)
 ```bash
 $ chmod 766 FILE
 $ chmod u+x,o-x FILE
+
+# `-R`: 递归子目录
+$ chmod -R 777 DIR
 ```
+
+
 
 see which user you're logged in
 ```bash

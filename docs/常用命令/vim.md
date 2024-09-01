@@ -1,20 +1,4 @@
-- [1. vim](#1-vim)
-	- [1.1. Mode:](#11-mode)
-	- [1.2. move the cursor](#12-move-the-cursor)
-	- [1.3. delete](#13-delete)
-		- [1.3.1. delete the charater](#131-delete-the-charater)
-	- [1.4. undo](#14-undo)
-	- [1.5. select](#15-select)
-	- [1.6. copy](#16-copy)
-	- [1.7. paste](#17-paste)
-	- [1.8. search](#18-search)
-	- [1.9. external command](#19-external-command)
-	- [1.10. window](#110-window)
-	- [1.11. save file](#111-save-file)
-	- [1.12. configuration file](#112-configuration-file)
-	- [1.13. other](#113-other)
-
----
+[toc]
 
 # 1. vim
 vim是vi的加强版(多了个字体颜色)，现在主要使用vim

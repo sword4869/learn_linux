@@ -1,14 +1,5 @@
-- [1. process](#1-process)
-  - [1.1. list processes](#11-list-processes)
-    - [1.1.1. all processes](#111-all-processes)
-    - [1.1.2. the greediest process](#112-the-greediest-process)
-  - [1.2. change process priority](#12-change-process-priority)
-  - [1.3. kill](#13-kill)
-    - [1.3.1. pid](#131-pid)
-    - [1.3.2. name](#132-name)
-  - [1.4. run in background](#14-run-in-background)
-  - [1.5. schedule a process](#15-schedule-a-process)
----
+[toc]
+
 # 1. process
 ## 1.1. list processes
 ### 1.1.1. all processes
@@ -94,18 +85,20 @@ $ kill -CONT 123
 $ killall -9 python3
 ```
 
-## 1.4. run in background
+## 后台作业
 
-All commands that run are executed from within that shell, even if they run from the graphical interface.
+ [fg bg jobs.md](..\常用命令\fg bg jobs.md) 
+
 ```bash
-# COMMAND & 
+# 后台
 $ vim config.txt &
+# 有哪些作业
+$ jobs
+# 前台
+$ fg %1
+# 再放到后台：先ctrl+z暂停，再bg执行
+$ bg
 ```
-Move a process running in the background to the foreground.
-```
-$ fg vim
-``` 
-
 ## 1.5. schedule a process
 
 - `at now+5minutes`: (no seconds), minutes, hours, days, weeks, months, years

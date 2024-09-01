@@ -12,6 +12,17 @@
 
 ---
 # 1. screen
+
+screen 创建窗口
+
+ctrl + a +d 切出当前窗口
+
+ctrl + a + k 杀死当前窗口
+
+screen -ls
+
+screen -r windowId
+
 ## 1.1. 安装
 ```bash
 sudo apt install screen
@@ -37,7 +48,7 @@ PS：在screen外大`screen`进入screen窗口内
 ![在这里插入图片描述](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202406231915949.png)
 
 #### 1.4.1.1. 创建
-- screen进入后自动创建一个会话窗口`0`
+- `screen`进入enter后自动创建一个会话窗口`0`
 - `^a → c`：创建一个会话窗口，数字增加1
 
 #### 1.4.1.2. 显示

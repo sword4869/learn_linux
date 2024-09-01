@@ -6,16 +6,27 @@
 
 
 ## 分区
-## BIOS,UEFI; MBR,GPT(EFI):
-- 主板的引导启动方式。古老的是Legacy BIOS，现代的是UEFI
+### 主板的引导启动方式 BIOS,UEFI
 
-- 硬盘分区表的布局。古老的是MBR（Master Boot Record），现代是GPT（Globally Unique Identifier (GUID) Partition Table）。EFI是GPT中的系统启动分区。
+古老的是Legacy BIOS，现代的是UEFI
+
+![image-20240827184318870](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202408271843937.png)
+
+![image-20240827184328341](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202408271843401.png)
+
+### 硬盘分区表的布局 MBR,GPT(EFI)
+
+- 古老的是MBR（Master Boot Record），现代是GPT（Globally Unique Identifier (GUID) Partition Table）。EFI是GPT中的系统启动分区。
 
 - 如果用Legacy BIOS启动，就使用MBR格式的分区表。
-  
+
   如果用UEFI模式启动，就使用GPT格式的分区表。
-  
+
+- MBR分区表，会限制主分区逻辑分区啥的；GPT分区表的好处就是分区可以随便你建。
+
 - 使用MBR的分区表，则不需要创建`/boot`或`/efi`分区。而GPT需要。
+
+
 
 你可以通过`fdisk`来知道硬盘分区是gpt还是mbr.
 
@@ -26,18 +37,9 @@ Disklabel type: gpt
 
 或者 Under the Boot menu, look for PCI ROM Priority. You should see two options – EFI Compatible ROM and Legacy ROM. The latter indicates MBR.
 
-### 细节
-> 交换分区
 
-相当于Windows中的“虚拟内存”.
 
-如果物理内存小于或等于512MB，建议分配交换分区的大小为物理内存容量的2倍；
-
-如果物理内存大于512MB，建议分配交换分区的大小等于物理内存容量；
-
-如果您的内存够大也可以不建立交换分区。
-
-> MBR分区
+> MBR分区的限制
 
 Under the **MBR** partitioning scheme, there are three different types of partitions – **Primary, Extended, and Logical**. 
 
@@ -61,11 +63,14 @@ Theoretically, there is no limit to the number of logical partitions that you ca
 
 硬盘可以没有扩展分区，但是一定要有主分区，在主分区中要有一个启动分区用来启动系统。
 
-> EFI分区
+### 制作启动盘
 
-If the disk from which you want to boot already has an EFI system partition, do not create another one, but use the existing partition instead.
+ [制作启动盘.md](制作启动盘.md) 
+
+一定要选择 GPT UEFI
 
 ### 分区例子
+
 > ubuntu默认分区规则：
 - 最少的分区：`/`分区和efi分区。
 - efi分区占500M，`/`分区占剩下的分区。
@@ -78,18 +83,36 @@ If the disk from which you want to boot already has an EFI system partition, do 
 | `/`|yes|Ext4|剩下的200G|
 | `/swap`|no|交换空间(swap)|1倍到2倍的物理内存RAM大小|虚拟内存
 
+交换分区：相当于Windows中的“虚拟内存”。如果物理内存小于或等于512MB，建议分配交换分区的大小为物理内存容量的2倍；如果物理内存大于512MB，建议分配交换分区的大小等于物理内存容量；如果您的内存够大也可以不建立交换分区。
+
 > UEFI/GPT: 需要创建`/boot`或`/efi`分区
 
 |挂载点|分区类型|用于格式|大小|意思|
 |-|-|-|-|-|
-| `/`|主分区|Ext4|200G|
-| `/swap`|逻辑分区|交换空间(swap)|1倍到2倍的物理内存RAM大小|虚拟内存
-| `/boot` or `/efi`|逻辑分区|Ext4|1G|启动|
+| `/`|主分区|Ext4|200G||
+| `/swap`|逻辑分区|交换空间(swap)|1倍到2倍的物理内存RAM大小|虚拟内存|
+| `/boot` or `/efi`|逻辑分区|Ext4 / efi|1G|启动|
 |`/tmp`|逻辑分区|Ext4|5G|临时文件缓存|
 | `/home`|逻辑分区|Ext4|剩下的500G|用户空间|
 
 By giving `/home` its own dedicated partition, you separate the user data from the rest of the operating system. The advantage is that you can wipe the operating system and replace it without affecting the user data.
+
+### 启动
+
+> 已有EFI分区就选中EFI分区，没有就新建
+
+已安装过一个EFI的win10，有一个EFI分区，可以看到标识为 Windows Boot Manager，
+
+没有的点击地下的＋ 新建一个EFI分区。
+
+
+
+> **安装启动引导器的设备**
+
+重要的步骤，这个一定不能选择默认的，要选择为你想要安装到的**EFI分区**
+
 ## double boot
+
 ### Make boot USB
 ```bash
 # 看看U盘挂载在哪里，如下 设备 /dev/sdb1 挂载在 /media/sword/ESD-USB

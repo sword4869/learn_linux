@@ -1,12 +1,4 @@
-- [1. compress](#1-compress)
-  - [1.1. Archive](#11-archive)
-    - [1.1.1. create](#111-create)
-    - [1.1.2. extract](#112-extract)
-    - [1.1.3. show content](#113-show-content)
-    - [1.1.4. Compress \& Decompress](#114-compress--decompress)
-    - [1.1.5. xz](#115-xz)
-  - [1.2. zip](#12-zip)
-  - [1.3. dd copy](#13-dd-copy)
+[toc]
 
 ---
 # 1. compress
@@ -17,12 +9,15 @@ If you want to compress some files, the first thing is to combine them into an a
 ### 1.1.1. create
 
 ```bash
-$ tar -cvf T.tar a.txt b.jpg
+# tar -cvf T.tar a.txt b.jpg: -可以省去
+$ tar cvf T.tar a.txt b.jpg
 ```
 - `-c`: create an archive from many files.
 - `-v`: verbose, this is optional.
 - `-f`: write to the following file. `T.tar`.
-- last option: read from files you want to compress. `a.txt b.jpg`
+- `-h`: 打包软链接指向的东西
+- `--exclude`: 排除某些文件或文件夹。多个，则用多个`--exclude`。
+- 最后写文件，注意必须写在选项参数后面: read from files you want to compress. `a.txt b.jpg`
 
 
 This archive `.tar` file is bigger than the sum of the original files.
@@ -149,6 +144,18 @@ $ unzip result.zip -d ~/Desktop
 # 列举压缩文件的内容
 $ unzip -l result.zip
 ```
+
+解压多个文件
+
+​	直接`unzip *.zip` 等价于`unzip data.zip invoices.zip pictures.zip`会报错
+
+```bash
+unzip '*.zip'
+unzip "*.zip"
+unzip \*.zip
+```
+
+
 
 
 ## 1.3. dd copy
