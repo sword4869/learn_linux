@@ -1,12 +1,8 @@
-- [1. 关闭](#1-关闭)
-- [2. 查看wsl版本](#2-查看wsl版本)
-- [3. 忘记了 Linux 分发版的密码](#3-忘记了-linux-分发版的密码)
-- [4. 默认用户](#4-默认用户)
-- [5. 卸载](#5-卸载)
+[toc]
 
 ---
 
-## 1. 关闭
+## 关闭
 
 ```bash
     --shutdown
@@ -14,7 +10,7 @@
 wsl --shutdown
 ```
 
-## 2. 查看wsl版本
+## 查看wsl版本
 
 ```bash
     --status
@@ -23,7 +19,7 @@ C:\Users\lab>wsl --status
 默认版本：2
 ```
 
-## 3. 忘记了 Linux 分发版的密码
+## 忘记了 Linux 分发版的密码
 
 ```powershell
     --list, -l [Options]
@@ -63,13 +59,13 @@ PS C:\WINDOWS\system32> wsl -d Ubuntu-20.04 -u root
 root@DESKTOP-KSTB1B7:/mnt/c/WINDOWS/system32# passwd <username>
 ```
 
-## 4. 默认用户
+## 默认用户
 
 ```bash
 Ubuntu config --default-user lab
 ```
 
-## 5. 卸载
+## 卸载
 
 ```bash
     --unregister <Distro>
