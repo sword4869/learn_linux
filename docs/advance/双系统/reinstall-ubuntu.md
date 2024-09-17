@@ -68,6 +68,12 @@ mint:
 ​	先在软件商店里找，桌面panel的applets的`Download and upload speed by cardsurf`
 
 
+
+[ubuntu20.04实时显示CPU、内存、网速_sudo apt-get install indicator-CSDN博客](https://blog.csdn.net/g313105910/article/details/118335404)
+
+[ubuntu查看实时网速_ubuntu查看网速-CSDN博客](https://blog.csdn.net/u012763794/article/details/108383717)
+
+
 ## 1.3. configuration
 ### 1.3.1. GPU
 
