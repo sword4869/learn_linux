@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-2c7b5be6","path":"/%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/ps.html","title":"","lang":"en-US","frontmatter":{},"headers":[],"git":{},"readingTime":{"minutes":0.29,"words":87},"filePathRelative":"常用命令/ps.md"}');export{e as data};

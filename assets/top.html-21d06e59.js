@@ -1,0 +1,1 @@
+const t=JSON.parse('{"key":"v-c775d918","path":"/%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/top.html","title":"","lang":"en-US","frontmatter":{},"headers":[],"git":{},"readingTime":{"minutes":0.1,"words":29},"filePathRelative":"常用命令/top.md"}');export{t as data};

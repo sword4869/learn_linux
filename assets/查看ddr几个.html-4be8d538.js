@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-094b06a2","path":"/advance/win10/%E6%9F%A5%E7%9C%8Bddr%E5%87%A0%E4%B8%AA.html","title":"","lang":"en-US","frontmatter":{},"headers":[],"git":{},"readingTime":{"minutes":0.11,"words":32},"filePathRelative":"advance/win10/查看ddr几个.md"}');export{e as data};

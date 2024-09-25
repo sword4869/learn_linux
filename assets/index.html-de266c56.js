@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-a6543946","path":"/advance/vscode/launch/","title":"Launch","lang":"en-US","frontmatter":{"title":"Launch","article":false,"feed":false,"sitemap":false},"headers":[],"git":{},"readingTime":{"minutes":0.03,"words":9},"filePathRelative":null}');export{e as data};

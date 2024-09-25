@@ -1,0 +1,1 @@
+const t=JSON.parse('{"key":"v-29ab8ba2","path":"/bash/1-start/start.html","title":"script and console","lang":"en-US","frontmatter":{},"headers":[],"git":{},"readingTime":{"minutes":0.35,"words":104},"filePathRelative":"bash/1-start/start.md"}');export{t as data};

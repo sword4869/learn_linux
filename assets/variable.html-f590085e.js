@@ -1,0 +1,1 @@
+const a=JSON.parse('{"key":"v-0863aa9b","path":"/bash/variable.html","title":"","lang":"en-US","frontmatter":{},"headers":[],"git":{},"readingTime":{"minutes":0.05,"words":16},"filePathRelative":"bash/variable.md"}');export{a as data};

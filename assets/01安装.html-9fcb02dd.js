@@ -1,0 +1,1 @@
+const a=JSON.parse('{"key":"v-74924102","path":"/advance/reinstall-windows/typora/01%E5%AE%89%E8%A3%85.html","title":"","lang":"en-US","frontmatter":{},"headers":[],"git":{},"readingTime":{"minutes":0.17,"words":51},"filePathRelative":"advance/reinstall-windows/typora/01安装.md"}');export{a as data};

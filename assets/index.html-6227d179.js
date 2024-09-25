@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-f007ccf6","path":"/advance/%E5%8F%8C%E7%B3%BB%E7%BB%9F/","title":"双系统","lang":"en-US","frontmatter":{"title":"双系统","article":false,"feed":false,"sitemap":false},"headers":[],"git":{},"readingTime":{"minutes":0.03,"words":9},"filePathRelative":null}');export{e as data};

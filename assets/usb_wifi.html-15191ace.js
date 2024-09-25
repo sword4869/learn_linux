@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-7cfbf3a2","path":"/advance/win10/usb_wifi.html","title":"","lang":"en-US","frontmatter":{},"headers":[],"git":{},"readingTime":{"minutes":0.17,"words":52},"filePathRelative":"advance/win10/usb_wifi.md"}');export{e as data};

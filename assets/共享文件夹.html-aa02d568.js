@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-79627b18","path":"/advance/vmware/%E5%85%B1%E4%BA%AB%E6%96%87%E4%BB%B6%E5%A4%B9.html","title":"","lang":"en-US","frontmatter":{},"headers":[{"level":2,"title":"共享文件夹","slug":"共享文件夹","link":"#共享文件夹","children":[]}],"git":{},"readingTime":{"minutes":0.12,"words":37},"filePathRelative":"advance/vmware/共享文件夹.md"}');export{e as data};

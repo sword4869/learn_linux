@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-10b712ed","path":"/bash/2-comment/","title":"2 Comment","lang":"en-US","frontmatter":{"title":"2 Comment","article":false,"feed":false,"sitemap":false},"headers":[],"git":{},"readingTime":{"minutes":0.03,"words":9},"filePathRelative":null}');export{e as data};

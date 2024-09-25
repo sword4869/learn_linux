@@ -1,0 +1,1 @@
+import{_ as s,W as t,X as _,Z as e}from"./framework-9a5142fa.js";const n={},o=e("p",null,"ps aux ：最常用的 BSD 风格选项组合，其中的 a表示所有关联到终端的进程，如果同时使用 x 则代表所有进程；u 表示列出进程的用户。",-1),c=e("p",null,"ps -elf ： unix标准风格组合，其中-e 代表列出所有进程，-l 代表长格式，-f 代表完整的格式",-1),l=[o,c];function a(r,p){return t(),_("div",null,l)}const f=s(n,[["render",a],["__file","ps.html.vue"]]);export{f as default};

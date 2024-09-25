@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-b8f23ee4","path":"/bash/windows/","title":"Windows","lang":"en-US","frontmatter":{"title":"Windows","article":false,"feed":false,"sitemap":false},"headers":[],"git":{},"readingTime":{"minutes":0.03,"words":9},"filePathRelative":null}');export{e as data};

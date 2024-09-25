@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-e1931704","path":"/basic/network/%E9%98%B2%E7%81%AB%E5%A2%99/firewall.html","title":"","lang":"en-US","frontmatter":{},"headers":[],"git":{},"readingTime":{"minutes":0.04,"words":11},"filePathRelative":"basic/network/防火墙/firewall.md"}');export{e as data};

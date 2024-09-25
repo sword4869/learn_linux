@@ -1,0 +1,1 @@
+import{_ as e,W as o,X as n,Z as t}from"./framework-9a5142fa.js";const s={},_=t("p",null,"windows：https://mobaxterm.mobatek.net/download-home-edition.html",-1),c=t("p",null,"ubuntu：https://www.asbru-cm.net/",-1),l=t("p",null,"​ 没有GUI文件传输，只有sftp命令行",-1),a=[_,c,l];function r(d,i){return o(),n("div",null,a)}const u=e(s,[["render",r],["__file","工具.html.vue"]]);export{u as default};

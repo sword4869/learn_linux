@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-d99d0122","path":"/basic/network/%E4%BF%AE%E6%94%B9ip/","title":"修改ip","lang":"en-US","frontmatter":{"title":"修改ip","article":false,"feed":false,"sitemap":false},"headers":[],"git":{},"readingTime":{"minutes":0.03,"words":9},"filePathRelative":null}');export{e as data};

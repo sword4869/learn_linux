@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-51001d74","path":"/advance/git/config.html","title":"1. config","lang":"en-US","frontmatter":{},"headers":[{"level":2,"title":"1.1. name & email","slug":"_1-1-name-email","link":"#_1-1-name-email","children":[]}],"git":{},"readingTime":{"minutes":0.13,"words":38},"filePathRelative":"advance/git/config.md"}');export{e as data};

@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-05cab066","path":"/bash/%E5%A4%9A%E8%A1%8C%E5%91%BD%E4%BB%A4.html","title":"","lang":"en-US","frontmatter":{},"headers":[],"git":{},"readingTime":{"minutes":0.04,"words":12},"filePathRelative":"bash/多行命令.md"}');export{e as data};

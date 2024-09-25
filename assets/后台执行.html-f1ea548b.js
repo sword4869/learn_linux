@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-0739b94d","path":"/basic/%E5%90%8E%E5%8F%B0%E6%89%A7%E8%A1%8C.html","title":"","lang":"en-US","frontmatter":{},"headers":[],"git":{},"readingTime":{"minutes":1,"words":301},"filePathRelative":"basic/后台执行.md"}');export{e as data};
