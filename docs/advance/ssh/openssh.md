@@ -1,4 +1,5 @@
-# openssh
+[toc]
+
 ## 前言
 
 与`telnet`、 `rlogin`、`FTP`明文传输不同，SSH可以对所有传输的数据进行加密，能够防止 DNS 欺骗和 IP 欺骗。
@@ -27,11 +28,12 @@ usage: scp [-346BCpqrv] [-c cipher] [-F ssh_config] [-i identity_file]
 ```
 
 ```bash
-# file
-$ scp usersomeone@192.168.135.83:~/wikiart.tar.gz .
+# 【source → target】考察的是这两个的顺序
+$ scp usersomeone@192.168.135.83:~/wikiart.tar.gz ~/wikiart.tar.gz		# 远→本：下载
+$ scp ~/wikiart.tar.gz usersomeone@192.168.135.83:~/wikiart.tar.gz 		# 本→远：上传
 
-# directory
-$ scp -r usersomeone@192.168.135.83:~/Downloads .
+# [-r] 递归文件夹 [-P port] 
+$ scp -r -P 2206 eone@192.168.135.83:~/Downloads .
 ```
 ## 两种认证机制
 

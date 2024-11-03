@@ -1,10 +1,30 @@
-# find 解析
+## find 解析
 
 `find path [options] [expression] `
 
 path 默认当前路径
 
 ​	查找指定路径及其内部的所有子目录。
+
+
+
+options
+
+​	-name  按照文件名，支持通配符
+
+​	-perm  按照文件权限来查找文件 
+
+​	-type  查找某一类型的文件 
+
+​		f(普通文件从`-`变成`f`),d(文件夹)
+​		b,c
+​		l,p,s
+
+​	-size选项 ,按文件的大小查找文件的
+
+​	-mtime -n +n  按照文件的更改时间来查找文件，-n表示文件更改时间距现在n天以内，+n表示文件更改时间距现在n天以前。 
+
+​	-newer file1 查找更改时间比文件file1新的文件。 
 
 
 
@@ -18,28 +38,6 @@ expression：默认-print
 
 
 
-options
-
-​	-name  按照文件名，支持通配符
-
-​	-perm  按照文件权限来查找文件 
-
-​	-type  查找某一类型的文件 
-
-​		f(普通文件从`-`变成`f`),d
-​		b,c
-​		l,p,s
-
-​	-size选项 ,按文件的大小查找文件的
-
-​	-mtime -n +n  按照文件的更改时间来查找文件，-n表示文件更改时间距现在n天以内，+n表示文件更改时间距现在n天以前。 
-
-​	-newer file1 查找更改时间比文件file1新的文件。 
-
-
-
-# 例子
-
 ## 指定名字
 
 当前目录下指定名字
@@ -47,13 +45,13 @@ options
 ```bash
 $ find /usr -type f -name "Bash"
 
-# 不区分大小写
+# 不区分大小写 -iname
 $ find /usr -type f -iname "Bash"
 /usr/share/menu/bash
 /usr/share/lintian/overrides/bash
 /usr/bin/bash
 
-# 逻辑或
+# 逻辑或 -o
 $ find -name *.log -o -name *yml
 ./logs/nacos/config.log
 ./logs/nacos/naming.log
@@ -117,12 +115,35 @@ find 递归删除
 ```bash
 find -type f -name "*.md" -exec rm -v {} \;
 find -type f -name "*.md" -exec rm -v {} +
+find -type f -name "*.md" | xargs rm -rf 
 ```
+
+`- excec`
 
 - `{}` 大括号充当匹配文件结果的占位符，因此 `rm-v {}` 将删除find命令找到的文件；
 - 结束 shell 执行的命令（exec之后的命令）
   - 第一种是`\;`。反斜杠 `\`是转义分号。
   - 第二种是`+`
+
+`xargs`
+
+```bash
+# 多行输入单行输出：
+$ cat test.txt
+a b c d e f g
+h i j k l m n
+o p q
+r s t
+u v w x y z
+$ cat test.txt | xargs
+a b c d e f g h i j k l m n o p q r s t u v w x y z
+
+# 假如你有一个文件包含了很多你希望下载的 URL，你能够使用 xargs下载所有链接
+cat url-list.txt | xargs wget -c
+
+# 查找所有的 jpg 文件，并且压缩它们：
+find . -type f -name "*.jpg" -print | xargs tar -czvf images.tar.gz
+```
 
 
 

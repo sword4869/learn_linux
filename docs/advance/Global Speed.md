@@ -19,7 +19,7 @@
             ]
         },
         "pitch": 0,
-        "volume": 1
+        "volume": 0.65
     },
     "backdropFx": {
         "filters": [
@@ -419,7 +419,7 @@
             "id": "830745400",
             "key": {
                 "altKey": false,
-                "code": "ArrowUp",
+                "code": "Numpad8",
                 "ctrlKey": false,
                 "metaKey": false,
                 "shiftKey": false
@@ -435,7 +435,7 @@
             "id": "8059316117",
             "key": {
                 "altKey": false,
-                "code": "ArrowDown",
+                "code": "Numpad2",
                 "ctrlKey": false,
                 "metaKey": false,
                 "shiftKey": false
@@ -530,7 +530,7 @@
         {
             "adjustMode": 3,
             "command": "fxFilter",
-            "cycleIncrement": 136,
+            "cycleIncrement": 1,
             "enabled": true,
             "filterOption": "brightness",
             "filterTarget": "element",
@@ -545,8 +545,8 @@
             ]
         }
     ],
-    "lastSpeed": 2.5,
-    "latestViaShortcut": false,
+    "lastSpeed": 2,
+    "latestViaShortcut": true,
     "rules": [
         {
             "condition": {
@@ -566,7 +566,7 @@
             "type": "SPEED"
         }
     ],
-    "speed": 1.5,
+    "speed": 1,
     "speedPresetRows": 4,
     "version": 12
 }
