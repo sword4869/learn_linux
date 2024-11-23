@@ -370,5 +370,3 @@ C:\Windows\system32>netsh interface set interface "WLAN" disabled
 
 C:\Windows\system32>netsh interface set interface "WLAN" disabled
 ```
-
-![image-20240716112849645](C:/Users/Roman.Zhang/AppData/Roaming/Typora/typora-user-images/image-20240716112849645.png)

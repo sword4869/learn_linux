@@ -41,12 +41,15 @@ $ scp -r -P 2206 eone@192.168.135.83:~/Downloads .
 
 ### 密码认证
 过程：
-1. client向server发起登录请求，client 收到返回的 server公钥
+1. client向server发起登录请求，client 收到返回的 **server公钥**
 2. client输入密码，密码经client获得的server公钥加密后发送到server
-3. server接收到加密密码后使用 server私钥解密，如果密码正确则登录成功
+3. server接收到加密密码后使用 **server私钥** 解密，如果密码正确则登录成功
 
 配置需求：
-- server要生成自己的私钥和公钥，client不需要配置
+
+（1）**server**要生成自己的私钥和公钥，client不需要配置
+
+（2）client就可以登录了
 
 ```bash
 # 以用户coco，登陆server
@@ -61,26 +64,21 @@ Are you sure you want to continue connecting (yes/no)?
 
 ### 密钥认证
 过程：
-1. client发起密钥连接请求，并上传 client公钥。
-2. server收到 client公钥后，在可信列表文件`~/.ssh/authorized_keys`中查询此公钥，若无此client则断开连接，否则发送一串随机问询码（问询码用此client公钥加密处理）
-3. client收到加密问询码后，使用client私钥解密出问询码再用通信session对问询码加密并传送给server
-4. server解密问询码并判定client身份安全与否，安全则建立连接
+1. client发起密钥连接请求，并上传 **client公钥**。
+2. server收到 client公钥后，在可信列表文件`~/.ssh/authorized_keys`中查询此公钥，若无此client则断开连接，否则发送一串用用此**client公钥**加密处理的随机问询码。
+3. client收到加密问询码后，使用**client私钥**解密出问询码再用通信session对问询码加密并传送给server
+4. server解密问询码并对比是否一致，一致则建立连接
 
-配置需求：
-- client配置自己的私钥和公钥
-- client将client公钥上传到server的可信列表文件中。
+看起来，server并不需要配置自己的公私密钥？答案是还要，虽然服务器生成公私密钥对是默认和推荐的做法，但理论上你可以选择不生成这些密钥。然而，这样做会有以下后果：
 
-登陆步骤：前两步是第一次配置才需要
+- **缺乏主机认证**：客户端无法验证服务器的身份，增加了中间人攻击的风险。
+- **用户体验**：每次连接时，客户端都会提示无法验证服务器的身份，导致用户体验不佳。
 
-> 密钥
+配置：
+1. client配置自己的私钥和公钥生成密钥对: 
 
-- 如果到时候client用密码认证，那么只需要server生成公私钥。
-
-
-> 配置
-
-1. 生成密钥对: `id_rsa`是私钥，`id_rsa.pub`是公钥（其实都是文本文件）
-
+    `id_rsa`是私钥，`id_rsa.pub`是公钥（其实都是文本文件）
+    
     ```bash
     $ ssh-keygen
     Generating public/private rsa key pair.
@@ -108,26 +106,23 @@ Are you sure you want to continue connecting (yes/no)?
     默认采取rsa，换成别的`[-t dsa | ecdsa | ed25519 | rsa]`, 比如dsa，就是`ssh-keygen -t dsa`.
 
 
-2. 录入server的可信列表中
+2. client将client公钥上传到server的可信列表文件 authorized_keys 中。
 
     ```bash
-    # client上传公钥到 server ，被放到 server 的~/.ssh/authorized_keys中
-    # 方法1
-    $ ssh-copy-id coco@192.168.112.130
+    # 方法1: ssh-copy-id 自动添加到~/.ssh/authorized_keys中。
+    # 配合 -i 指定位置，避免~歧义
+    $ ssh-copy-id -i /home/sword/.ssh/id_rsa.pub coco@192.168.112.130
     
-    # 方法2
-    $ scp ~/.ssh/id_rsa.pub coco@192.168.112.130:~/.ssh/authorized_keys
-    # 或者在server上 $ cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+    # 方法2：手动
+    client$ scp /home/sword/.ssh/id_rsa.pub coco@192.168.112.130:~
+    server$ cat /home/coco/id_rsa.pub >> /home/coco/.ssh/authorized_keys
     ```
-
+    
     PS: 
-    kali下普通用户的`~`是`/home/user`，root的`~`是`/root`。`~/.ssh`, 普通用户时在`/home/user/.ssh`中，root在`/root/.ssh`中。
-
-    client生成密钥对是client系统登陆的`~`；
     
-    公钥被上传到server也是server系统登陆的`~`；
+    server 查client公钥也是`~/.ssh/authorized_keys`是根据server要登陆的`~`，
     
-    server 查client公钥也是`~/.ssh/authorized_keys`是根据server要登陆的`~`，比如`ssh co@192.168.1.100`是`/home/co/.ssh/authorized_keys`，`ssh root@192.168.1.100`是`/root/.ssh/authorized_keys`。
+    比如`ssh coco@192.168.1.100`是`/home/coco/.ssh/authorized_keys`，`ssh root@192.168.1.100`是`/root/.ssh/authorized_keys`。
 
 ## linux
 
@@ -141,6 +136,7 @@ Linux：默认有client, 但没有server
 sudo apt install openssh-client
 # server
 sudo apt install openssh-server
+yum install openssh-server -y
 ```
 
 Configuration：
@@ -173,7 +169,7 @@ ssh -p 2222 coco@192.168.112.130
 
 `command`：一次性执行后退出远程登陆返回本机，而不是持久挂载shell。如`ssh coco@192.168.112.130 ls`。
 
-### Client便捷登录别人
+### client的配置: config / ssh_config
 
 这个用于将经常登录的帐号记录下来, 像快捷方式一样便捷使用.
 
@@ -195,24 +191,24 @@ Host co
   Port 7222
   # 私钥，选了这个就不能密码登陆
   IdentityFile ~/.ssh/id_rsa
+  # 默认允许三种方式
+  PreferredAuthentications keyboard-interactive,password,publickey
 ```
 
 ```bash
 $ ssh co
 ```
-注意：这里找co是在 `~/.ssh/config` 中找，当你（是client系统登陆的，而不是config中的User）是在普通用户时，在`/home/user/.ssh/config`找；当你是root时在`/root/.ssh/config`找。或者你可以指定位置， `ssh -F File destination`。
-这么就会出现一个问题，如果config创建在`/home/user/.ssh/config`时，而你用`sudo ssh co`，那么就会去`/root/.ssh/config`找，还非得你退出root权限。修改`/etc/ssh/ssh_config`的好处是，避免出现这种情况。
+这里找co是在 `~/.ssh/config` 中找，
+
+​	当你（是client系统登陆的，而不是config中的User）是在普通用户时，在`/home/user/.ssh/config`找；
+
+​	当你是root时在`/root/.ssh/config`找。或者你可以指定位置， `ssh -F File destination`。
 
 
-PS：限制只使用某种方式登陆 `PreferredAuthentications`
-```bash
-# 默认允许三种方式
-PreferredAuthentications keyboard-interactive,password,publickey
 
-# 只允许使用密钥
-PreferredAuthentications publickey
-```
-### Server定义允许谁进来
+注意：即时修改生效，不用重启ssh。
+
+### server的配置: sshd_config
 
 > sshd 配置文件
 
@@ -221,64 +217,84 @@ PreferredAuthentications publickey
 sudo vim /etc/ssh/sshd_config
 ```
 
+> 配置
+
+（1）端口
+
 ```bash
 #Port 22
-
-#HostKey /etc/ssh/ssh_host_rsa_key
-#HostKey /etc/ssh/ssh_host_ecdsa_key
-#HostKey /etc/ssh/ssh_host_ed25519_key
-
-#PermitRootLogin prohibit-password
-
-#PubkeyAuthentication yes
-
-#PasswordAuthentication yes
 ```
+**建议换成7222之类的**
+
+（2）服务器的密钥
+
 ```bash
-Port 7222
+HostKey /etc/ssh/ssh_host_rsa_key
+#HostKey /etc/ssh/ssh_host_dsa_key
+HostKey /etc/ssh/ssh_host_ecdsa_key
+HostKey /etc/ssh/ssh_host_ed25519_key
+```
+这个不一定有，用ls /etc/ssh看一下有没有。
 
-HostKey /home/sword/.ssh/id_rsa
+**如果没有，那么就要服务器生成** ssh-keygen。如果有，那么就保持不变。
 
-PermitRootLogin prohibit-password
+（3）直接root登陆
 
-PubkeyAuthnentication yes
+```bash
+#PermitRootLogin yes
+```
+- `yes`（都行）
+
+- `prohibit-password`（不能用密码登陆root账户，只能用公私钥登陆root），
+- `forced-commands-only`(只能`ssh destination command`的形式登陆root)，
+- `no`（禁止直接以root登陆，可以先登陆用户再sudo提升权限）
+
+**如果可以，建议no，这样就不知道登录用户名就无法破解，而root这个都有的用户名可以硬猜。**
+
+（4）认证方式
+
+```bash
+#PubkeyAuthentication yes
 
 PasswordAuthentication yes
 ```
 
-- `Port`端口：建议换成7222之类的
-- `HostKey`私钥：默认采用的是`/etc/ssh/ssh_host_ecdsa_key`, `/etc/ssh/ssh_host_ed25519_key`, `/etc/ssh/ssh_host_rsa_key`（碰到好几次系统初始化生成的这些都登不上，一定要自己用`ssh-keygen`生成`/home/sword/.ssh/id_rsa`下的。（`/etc/init.d/ssh`开启后是以`root`权限执行`/usr/sbin/sshd`的，所以注意`~`的问题，建议直接写成绝对路径。）
-- `PermitRootLogin`直接root登陆：
-  - `prohibit-password`（默认，不能用密码登陆root账户，只能用公私钥登陆root），
-  - `yes`（都行），
-  - `forced-commands-only`(只能`ssh destination command`的形式登陆root)，
-  - `no`（禁止直接以root登陆，可以先登陆用户再sudo提升权限）
-
 三种登陆选择：
+- 先密钥再密码（默认）：
+  ```bash
+  PasswordAuthentication yes
+  PubkeyAuthnentication yes
+  ```
+
+​	`HostKey`还要设定好。
+​	这样会先让你密钥登陆，不行的话再密码登陆。
+
 - 只用密码：
   ```bash
   PubkeyAuthnentication no
   PasswordAuthentication yes
   ```
   （`HostKey`就不用管了）。PS：`$ passwd`是你没设Linux当前用户的密码下才搞的，这密码不是ssh特定的。
-- 只用密钥：
+- **只用密钥**：
+  
   ```bash
   PubkeyAuthnentication yes
   PasswordAuthentication no
   ```
   `HostKey`还要设定好。
-- 先密钥再密码（默认）：
-  ```bash
-  PasswordAuthentication yes
-  PubkeyAuthnentication yes
-  ```
-  `HostKey`还要设定好。
-  这样会先让你密钥登陆，不行的话再密码登陆。
 
-配置完成后，要重新加载配置文件才生效：
+
+（5）可信客户端公钥列表
 
 ```bash
-sudo service ssh reload
+AuthorizedKeysFile      .ssh/authorized_keys
+```
+
+
+> 配置完成后，要重新加载配置文件才生效：
+
+```bash
+sudo service ssh reload		# ubuntu 是 ssh，centos是sshd
 
 sudo /etc/init.d/ssh reload
 ```
@@ -373,6 +389,8 @@ $ kill 987 1505
 - 直接启动sshd程序后，`sudo service status`看不到启动，只能用`ps -e | grep ssh`确认是否启动。
 - 直接启动sshd程序后，`sudo service stop`关不掉，只能`kill`
 - 直接启动sshd程序后，如果没有kill，那么`sudo service ssh start`就会因为矛盾而启动失败。
+
+
 ## windows
 
 ### client
@@ -418,169 +436,8 @@ net stop sshd
 net start sshd
 ```
 
-### sshpass解决输密码
-
-```bash
-sudo apt install sshpass
-sshpass -p PASSWORD ssh user@hostname
-```
-甚至可以起个别名
-```bash
-gedit ~/.bashrc
-alias hpc='sshpass -p PASSWORD ssh user@hostname'
-source ~/.bashrc
-hpc
-```
-
-## 登陆问题
-### WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!
-
-这里要登陆的 server 变化了，因为你 client 本地存有以前记住的 server 的 hostname，所以发现不匹配后的问题。解决办法就是删除**client**中的 `~/.ssh/known_hosts` 的对应的服务器ip的记录。
-
-### WARNING: UNPROTECTED PRIVATE KEY FILE!
-```bash
-$ /usr/sbin/sshd -h /home/sword/.ssh/id_rsa
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@         WARNING: UNPROTECTED PRIVATE KEY FILE!          @
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-Permissions 0644 for '/home/sword/.ssh/known_hosts' are too open.
-It is required that your private key files are NOT accessible by others.
-This private key will be ignored.
-Unable to load host key "/home/sword/.ssh/known_hosts": bad permissions
-Unable to load host key: /home/sword/.ssh/known_hosts
-sshd: no hostkeys available -- exiting.
-【这个情况是说/home/sword/.ssh/id_rsa的文件权限太开放，容易被骇客入侵，我们修改权限就行】
-
-# 调整私钥的文件权限
-$ chmod 0600 /home/sword/.ssh/id_rsa
-```
-### github
-
-都是一个问题：
-> - ssh: connect to host github.com port 22: Connection refused
->
-> - fatal: unable to access 'https://github.com/telesoho/vscode-markdown-paste-image.git/': SSL certificate problem: unable to get local issuer certificate
->
-> - Cloning into 'development_configurations'...
-git@ssh.github.com: Permission denied (publickey).
-fatal: Could not read from remote repository.
-Please make sure you have the correct access rights
-and the repository exists.
->
-> - git@ssh.github.com: Permission denied (publickey).
->
-> - ssh: connect to host github.com port 22: Connection timed out
-
-这都是梯子问题。
-
-1. 尝试git。https一般会屏蔽，git基本不会。
-
-    从`git clone https://github.com/telesoho/vscode-markdown-paste-image.git`
-    
-    变成`git clone git@github.com:telesoho/vscode-markdown-paste-image.git`
-
-2. 域名污染
-    ```bash
-    # 找不到 github.com
-    $ ssh -vT git@github.com
-    OpenSSH_8.9p1 Ubuntu-3ubuntu0.3, OpenSSL 3.0.2 15 Mar 2022
-    debug1: Reading configuration data /home/sword/.ssh/config
-    debug1: Reading configuration data /etc/ssh/ssh_config
-    debug1: /etc/ssh/ssh_config line 19: include /etc/ssh/ssh_config.d/*.conf matched no files
-    debug1: /etc/ssh/ssh_config line 21: Applying options for *
-    ssh: Could not resolve hostname github.com: Temporary failure in name resolution
-    ```
-    一般用 `ssh.github.com` 就可以找到
-    ```
-    # 替换 github.com 的 HostName 来找到
-    $ sudo vim /home/sword/.ssh/config
-    Host github.com
-        HostName ssh.github.com
-        PreferredAuthentications publickey
-        IdentityFile /home/sword/.ssh/id_rsa
-    ```
-    ```bash
-    $ ping ssh.github.com
-    Ping 请求找不到主机 ssh.github.com。请检查该名称，然后重试。
-    ```
-    
-    如果出现了意外情况，那么只能手动[查找域名](https://myssl.com/dns_check.html)
-    ![图 1](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202406231915828.png)  
-    ```bash
-    $ ping 140.82.113.4
-    
-    正在 Ping 140.82.113.4 具有 32 字节的数据:
-    来自 140.82.113.4 的回复: 字节=32 时间=278ms TTL=43
-    来自 140.82.113.4 的回复: 字节=32 时间=296ms TTL=43
-    来自 140.82.113.4 的回复: 字节=32 时间=309ms TTL=43
-    来自 140.82.113.4 的回复: 字节=32 时间=286ms TTL=43
-    ```
-    ```bash
-        HostName 140.82.113.4
-    ```
 
 
-
-
-### 使用 SSH 连接报 Bad owner or permissions on C:\\Users\\Administrator/.ssh/config 错误问题解决
-
-> 问题描述
-
-在 Windows 系统下的 VSCode 安装 Remote - SSH 扩展后，使用扩展配置 SSH 并进行远程连接，可能会发生 Bad owner or permissions on C:\Users\Administrator/.ssh/config 错误，造成无法进行 SSH 远程连接的问题。
-
-原因是由于使用 Remote - SSH 扩展所依赖的 Remote - SSH: Editing Configuration Files 扩展编辑了 C:\Users\Administrator.ssh\config 文件后，此文件的权限发生了改变
-
-而把此配置文件删除后，使用 PowerShell 即可正常进行远程连接。但 VSCode 的 SSH 连接又依赖此配置文件，所以就产生了冲突，要么只有 PowerShell 能用，要么就都不能用。
-
-> 解决办法
-
-1. 在 GitHub 上下载 openssh-portable 项目，其 Git 命令如下：
-
-    ```bash
-    git clone https://github.com/PowerShell/openssh-portable.git
-    ```
-
-2. 下载完成后进入 openssh-portable 项目中的 `contrib\win32\openssh` 目录
-    ```bash
-    cd openssh-portable/contrib/win32/openssh
-    ```
-
-3. 在此目录中以管理员权限打开powershell，执行以下命令：
-
-    ```bash
-    ./FixUserFilePermissions.ps1 -Confirm:$false
-    ```
-
-    PS: 执行powershell脚本出错：未对文件进行数字签名：以管理员权限打开powershell
-    ```bash
-    # Y
-    set-ExecutionPolicy RemoteSigned
-    
-    # 为RemoteSigned表示成功
-    get-executionpolicy
-    ```
-    右击powershell脚本文件，选中解除锁定，并应用
-    ![](https://img-blog.csdnimg.cn/20210706173551640.png)
-
-### No matching host key type found. Their offer: ssh-rsa
-
-openssh觉得ssh-rsa加密方式不安全, 直接从8.8开始默认不允许这种密钥用于登陆
-
-临时性方案（命令行增加参数 `-oHostKeyAlgorithms=+ssh-rsa`）
-
-持久化方案（配置文件持久化）: 将需要连接的服务器IP加入到host，可以用 `*` 对所有主机生效
-```bash
-sudo vim ~/.ssh/config
-
-
-Host *
-    PubkeyAcceptedKeyTypes +ssh-rsa
-    HostKeyAlgorithms +ssh-rsa
-
-Host hpc3
-    User hpc21
-    HostName xxx.com
-```
 
 ## 其他ssh实例
 【win10client ssh 自己的虚拟机linux服务器】
