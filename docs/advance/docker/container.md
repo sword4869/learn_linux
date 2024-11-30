@@ -1,7 +1,5 @@
 [toc]
 
-- [ ] docker run 和 start的区别？run是创建并运行，第一次是这样，已经创建过就是只运行？两者都是保持创建时的参数？可以用start 代替run来启动已经创建过的容器吗？
-
 ## docker run: Create and Start
 
 ### 基本
@@ -10,9 +8,7 @@
 # 使用指定镜像来创建一个容器
 $ docker [container] run <image name>
 ```
-注意1：这个名字不是创建出来的容器的名字，而是镜像的名字。实际上容器的名字是随机分配的。
-
-注意2：创建出来的容器都是不同的个体，都是一个新的容器，而不是覆盖老的容器。尤其是你哪怕指定同样的名字，也不能覆盖，而是报错，提示你想要重用就得删除原来的容器。
+注意：此时没有指定名字，那么实际上容器的名字是随机分配的。因为名字不同，所以创建出来的容器都是一个新的容器。
 
 
 When you run this command, the following happens:
@@ -93,7 +89,7 @@ $ docker run -it python:3.8-slim-buster bash
 ```
 
 
-#### 启动时执行命令
+#### 🚀启动时执行命令
 
 上面的指定终端其实就是启动时执行命令.
 
@@ -140,6 +136,8 @@ $ docker container ls -l
 # docker run --name <container name> <image name>
 $ docker run --name my_ubuntu ubuntu
 ```
+如果指定了名字，那么再次运行相同的命令，也不会覆盖老的容器，而是**报错**，想要重用就得**删除原来的容器**。
+
 ### -p 端口映射
 
 ```bash
@@ -151,7 +149,9 @@ $ docker container ls -l
 CONTAINER ID   IMAGE                    COMMAND                  CREATED          STATUS          PORTS                  NAMES
 8094c7cb8aa7   docker/getting-started   "/docker-entrypoint.…"   25 seconds ago   Up 24 seconds   0.0.0.0:8000->80/tcp   hopeful_faraday
 ```
-`-p/--publish [host]:[container]`: map port 8000 of the host to port 80 in the container。`0.0.0.0:8000->80/tcp`表示container使用tcp将80映射到主机的`localhost:8000`端口。现在在主机浏览器输入`http://localhost:8000`就能进入前端。
+`-p/--publish [本地]:[容器]`
+
+`0.0.0.0:8000->80/tcp`表示container使用tcp将80映射到主机的`localhost:8000`端口。现在在主机浏览器输入`http://localhost:8000`就能进入前端。
 
 ```bash
 $ docker run -d -P docker/getting-started        
@@ -281,14 +281,16 @@ docker run --name nacos1 \
 
 ### --net 网络模式
 
-`bridge`, `host`, `container`, `none`
+网络的作用：同一个网路中的容器可以通过名称互相访问，而不需要知道对方的 IP 地址（无需担心容器重启后 IP 地址发生变化）。
+
+默认桥接`bridge`, 主机`host`, `container`, `none`
 
 ```bash
-docker network ls： 列出 Docker 网络
-docker network rm [network] ：删除
-docker network create [network]：创建一个新的 Docker 网络
-docker network disconnect [network] [container]：将容器从指定的 Docker 网络中断开连接 
-docker network connect [network] [container]：将容器连接到指定的 Docker 网络
+docker network ls									列出 Docker 网络
+docker network rm [network]							删除
+docker network create [network]						创建一个新的 Docker 网络
+docker network disconnect [network] [container]		将容器从指定的 Docker 网络中断开连接 
+docker network connect [network] [container]		将容器连接到指定的 Docker 网络
 ```
 
 ```bash
@@ -436,3 +438,17 @@ $ docker [container] logs -f -t my_ubuntu
 - `-f` : 跟踪日志输出
 
 - `-t` : 显示时间戳
+
+## cp
+
+需要容器正在运行
+
+```bash
+$ docker [container] cp <A> <B>
+```
+容器的文件写法是`容器名:路径`
+
+```bash
+# 将容器的脚本拷贝到本地
+docker cp rmqnamesrv:/home/rocketmq/rocketmq-5.1.0/bin/runserver.sh  ./bin
+```

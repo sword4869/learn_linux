@@ -10,7 +10,7 @@ yum install -y net-tools
 TYPE=Ethernet
 PROXY_METHOD=none
 BROWSER_ONLY=no
-BOOTPROTO=none      # none，用固定ip; dhcp，动态
+BOOTPROTO=none      	# >>>>>>>>> none，用固定ip; dhcp，动态
 DEFROUTE=yes
 IPV4_FAILURE_FATAL=no
 IPV6INIT=yes
@@ -21,12 +21,12 @@ IPV6_ADDR_GEN_MODE=stable-privacy
 NAME=ens33
 UUID=28711c7c-1216-454e-a454-b7c9a08e71e6
 DEVICE=ens33
-ONBOOT=yes          # yes,开机启动
+ONBOOT=yes          	# yes,开机启动
 IPV6_PRIVACY=no
-IPADDR=192.168.137.3    # ip
+IPADDR=192.168.137.3    # >>>>>>>>> ip
 PREFIX=24
-GATEWAY=192.168.137.2   # 网关
-DNS1=8.8.8.8            # DNS也可以同网关，委托给网关获取DNS
+GATEWAY=192.168.137.2   # >>>>>>>>> 网关
+DNS1=8.8.8.8            # >>>>>>>>> DNS也可以同网关，委托给网关获取DNS
 ```
 ```bash
 # 应用完后，重启后才变化
@@ -37,7 +37,7 @@ $ ifconfig
 
 
 
-# 重启网络失败 Job for network.service failed
+## 问题：重启网络失败 Job for network.service failed
 
 ```bash
 Restarting network (via systemctl): Job for network.service failed because the control process exited with error code.

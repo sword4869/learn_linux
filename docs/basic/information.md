@@ -1,26 +1,57 @@
-see which user you're logged in, and what the hostname of device.
+## usename
+
 ```bash
 $ whoami
 user1
+```
+## 内核版本
 
-$ hostname
-DESKTOP-KSTB1B7
+```bash
+$ uname 
+Linux
 
-# 内核版本
 $ uname -r
 5.15.0-48-generic
 
-$ echo $(. /etc/os-release;echo $ID $VERSION_ID)
-ubuntu 22.04
+$ uname -n
+LAPTOP-KB4DNMO0
 
+$ uname -a
+Linux LAPTOP-KB4DNMO0 5.15.167.4-microsoft-standard-WSL2 #1 SMP Tue Nov 5 00:21:55 UTC 2024 x86_64 x86_64 x86_64 GNU/Linux
 ```
 ```bash
+$ cat /etc/os-release 
+PRETTY_NAME="Ubuntu 22.04.3 LTS"
+NAME="Ubuntu"
+VERSION_ID="22.04"
+VERSION="22.04.3 LTS (Jammy Jellyfish)"
+VERSION_CODENAME=jammy
+ID=ubuntu
+ID_LIKE=debian
+HOME_URL="https://www.ubuntu.com/"
+SUPPORT_URL="https://help.ubuntu.com/"
+BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
+PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
+UBUNTU_CODENAME=jammy
+
+$ echo $(. /etc/os-release;echo $ID $VERSION_ID)
+ubuntu 22.04
+```
+## hostname
+
+```bash
+# cat /etc/hostname
+$ hostname
+DESKTOP-KSTB1B7
+
 # 永久修改
 $ sudo echo "PermanentHostname" > /etc/hostname
 
 # 临时修改
 $ sudo hostname "TemporaryHostname"
 ```
+
+## cpu
 
 ```bash
 # 显示CPU信息
@@ -56,18 +87,7 @@ address sizes   : 48 bits physical, 48 bits virtual
 power management:
 ```
 ```bash
-$ cat /etc/os-release 
-PRETTY_NAME="Kali GNU/Linux Rolling"
-NAME="Kali GNU/Linux"
-ID=kali
-VERSION="2022.2"
-VERSION_ID="2022.2"
-VERSION_CODENAME="kali-rolling"
-ID_LIKE=debian
-ANSI_COLOR="1;31"
-HOME_URL="https://www.kali.org/"
-SUPPORT_URL="https://forums.kali.org/"
-BUG_REPORT_URL="https://bugs.kali.org/"
+
 ```
 代替上述，显示更全的信息
 ```bash

@@ -140,6 +140,7 @@ $ zip -r result.zip file1 folder2
 
 
 $ unzip result.zip
+# -d 解压位置
 $ unzip result.zip -d ~/Desktop
 # 列举压缩文件的内容
 $ unzip -l result.zip

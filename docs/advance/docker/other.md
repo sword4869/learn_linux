@@ -20,10 +20,5 @@ Build Cache     60        0         396.5MB   396.5MB
 
 (但主机ssh容器好像不行, 容器ssh外部服务器也不行).
 
-# cp
 
-```bash
-# cp <A> to <B>
-$ docker container cp <A> <B>
-```
-`<>`: container `2df:~`, host `~`
+

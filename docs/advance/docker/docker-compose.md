@@ -1,21 +1,4 @@
-- [Compose 使用步骤](#compose-使用步骤)
-- [docker-compose命令](#docker-compose命令)
-  - [docker-compose.yml的意义](#docker-composeyml的意义)
-  - [前台后台](#前台后台)
-  - [所有容器和指定容器](#所有容器和指定容器)
-  - [重新build镜像](#重新build镜像)
-  - [列出](#列出)
-  - [启动](#启动)
-  - [停止删除](#停止删除)
-- [docker-compose.yml](#docker-composeyml)
-  - [基本](#基本)
-  - [network](#network)
-  - [links不知道](#links不知道)
-  - [使用现成镜像和构建镜像](#使用现成镜像和构建镜像)
-  - [GPU](#gpu)
-
-
----
+[toc]
 
 ## Compose 使用步骤
 

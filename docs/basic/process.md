@@ -1,13 +1,15 @@
 [toc]
 
-# 1. process
-## 1.1. list processes
-### 1.1.1. all processes
+## list processes
+### all processes
 
 `ps` without any options lists the processes started by the **currently logged-in user**. 
 
 ```bash
-$ pss
+$ ps
+    PID TTY          TIME CMD
+    384 pts/2    00:00:00 bash
+  26293 pts/2    00:00:00 ps
 ```
 
 It is insufficient to see the processes run **by other users and by the system in the background**. `ps axu` can do this.
@@ -16,7 +18,7 @@ It is insufficient to see the processes run **by other users and by the system i
 $ ps axu
 ```
 
-### 1.1.2. the greediest process
+### the greediest process
 ```bash
 $ top
   PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND
@@ -24,7 +26,7 @@ $ top
     8 root      20   0     896     84     20 S   0.0   0.0   0:00.00 init
 ```
 
-## 1.2. change process priority
+## change process priority
 
 We could start the process with the `nice` command. And `renice` a pid of the running process.
 
@@ -36,8 +38,8 @@ $ nice -n -10 /usr/bin/python3
 $ renice -10 6996
 ```
 
-## 1.3. kill
-### 1.3.1. pid
+## kill
+### pid
 
 > sytax
 
@@ -80,7 +82,7 @@ $ kill -STOP 123
 # 恢复暂停的进程
 $ kill -CONT 123
 ```
-### 1.3.2. name
+### name
 ```bash
 $ killall -9 python3
 ```
@@ -99,7 +101,7 @@ $ fg %1
 # 再放到后台：先ctrl+z暂停，再bg执行
 $ bg
 ```
-## 1.5. schedule a process
+## schedule a process
 
 - `at now+5minutes`: (no seconds), minutes, hours, days, weeks, months, years
 - `at 7:20pm 06/25/2022`, `at 7:20pm`(today), `at 7:20pm tomorrow`(tomorrow)

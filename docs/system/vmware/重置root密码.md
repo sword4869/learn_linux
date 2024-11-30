@@ -1,7 +1,8 @@
 作步骤大概如下：
 
 第一步：
-	启动虚拟机，然后确保光标此时已经在虚拟机内了，出现启动倒计时界面时，按键盘上的任意键，进入如下界面：
+
+​	启动虚拟机，然后确保光标此时已经在虚拟机内了，出现启动倒计时界面时，按键盘上的任意键，进入如下界面：
 
 ![在这里插入图片描述](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202406102040710.png)
 
@@ -9,9 +10,11 @@
 
 第二步：
 	
-	在crashkernel前面，ro=readonly权限，修改ro->`rw`，另外，加入 `init=/sysroot/bin/sh`
+	在`crashkernel`前面，`ro`(即readonly权限），修改`ro`->`rw`，另外，加入 `init=/sysroot/bin/sh`
 
-![在这里插入图片描述](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202406102040070.png)修改完成后，Ctrl+x	保存
+![在这里插入图片描述](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202406102040070.png)
+
+​	修改完成后，Ctrl+x保存
 
 ​	然后会进入安全模式：
 

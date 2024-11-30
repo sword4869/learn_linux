@@ -24,6 +24,15 @@ client$ scp /home/sword/.ssh/id_rsa.pub coco@192.168.112.130:~
 server$ cat /home/coco/id_rsa.pub >> /home/coco/.ssh/authorized_keys
 ```
 
+确保其权限正确
+
+```bash
+server$ chmod 700 .ssh
+server$ chmod 600 .ssh/authorized_keys
+```
+
+
+
 （4）修改服务端的sshd_config
 
 ```bash
