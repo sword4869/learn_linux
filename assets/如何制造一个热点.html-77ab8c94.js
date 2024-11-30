@@ -1,0 +1,1 @@
+const t=JSON.parse('{"key":"v-22de1f3a","path":"/trick/kali/doc/%E5%A6%82%E4%BD%95%E5%88%B6%E9%80%A0%E4%B8%80%E4%B8%AA%E7%83%AD%E7%82%B9.html","title":"","lang":"en-US","frontmatter":{},"headers":[],"git":{},"readingTime":{"minutes":0.07,"words":22},"filePathRelative":"trick/kali/doc/如何制造一个热点.md"}');export{t as data};

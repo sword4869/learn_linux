@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-fa6f82ba","path":"/system/wsl2/wsl-vmware-virtualbox.html","title":"1. WSL2, Docker","lang":"en-US","frontmatter":{},"headers":[],"git":{},"readingTime":{"minutes":0.99,"words":297},"filePathRelative":"system/wsl2/wsl-vmware-virtualbox.md"}');export{e as data};

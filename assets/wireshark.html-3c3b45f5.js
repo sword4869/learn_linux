@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-69438192","path":"/trick/kali/doc/wireshark.html","title":"","lang":"en-US","frontmatter":{},"headers":[],"git":{},"readingTime":{"minutes":0.28,"words":85},"filePathRelative":"trick/kali/doc/wireshark.md"}');export{e as data};

@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-0f7b0799","path":"/trick/kali/Project/wifi-crack/wifite/","title":"","lang":"en-US","frontmatter":{},"headers":[],"git":{},"readingTime":{"minutes":0.06,"words":19},"filePathRelative":"trick/kali/Project/wifi-crack/wifite/readme.md"}');export{e as data};

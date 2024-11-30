@@ -1,0 +1,1 @@
+import{_ as e,W as t,X as c,Z as _}from"./framework-9a5142fa.js";const o={},n=_("p",null,"具体在：docs\\advance\\git\\config.md",-1),s=[n];function a(r,l){return t(),c("div",null,s)}const i=e(o,[["render",a],["__file","代理.html.vue"]]);export{i as default};

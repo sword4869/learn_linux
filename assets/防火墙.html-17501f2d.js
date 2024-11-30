@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-465c85a6","path":"/system/centos/%E9%98%B2%E7%81%AB%E5%A2%99.html","title":"","lang":"en-US","frontmatter":{},"headers":[],"git":{},"readingTime":{"minutes":0.14,"words":42},"filePathRelative":"system/centos/防火墙.md"}');export{e as data};

@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-7b99b218","path":"/advance/git/%E8%AE%B8%E5%8F%AF.html","title":"","lang":"en-US","frontmatter":{},"headers":[],"git":{},"readingTime":{"minutes":0.13,"words":38},"filePathRelative":"advance/git/许可.md"}');export{e as data};

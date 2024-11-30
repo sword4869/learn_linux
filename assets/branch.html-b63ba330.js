@@ -1,0 +1,38 @@
+import{_ as n,W as a,X as e,Y as s}from"./framework-9a5142fa.js";const i={},r=s(`<h1 id="branch" tabindex="-1"><a class="header-anchor" href="#branch" aria-hidden="true">#</a> branch</h1><h2 id="add-a-branch" tabindex="-1"><a class="header-anchor" href="#add-a-branch" aria-hidden="true">#</a> add a branch</h2><div class="language-bash line-numbers-mode" data-ext="sh"><pre class="language-bash"><code><span class="token comment"># git branch &lt;branch&gt;</span>
+$ <span class="token function">git</span> branch orange
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div></div></div><p>创建分支的效果相当于虚拟机的快照。 PS：注意是对当前的 <strong>commit到本地仓库中的</strong> 的文件进行镜像。</p><h2 id="show-branch" tabindex="-1"><a class="header-anchor" href="#show-branch" aria-hidden="true">#</a> show branch</h2><p><code>git branch</code>列出的分支前带 <code>*</code>号的表示当前分支。</p><ul><li>默认显示本地分支</li><li>-v 显示详细信息</li><li>-a 显示本地和远程</li><li>-r 只显示远程。所以去掉了r</li></ul><p>但是并不会显示fetch下来的分支。</p><div class="language-bash line-numbers-mode" data-ext="sh"><pre class="language-bash"><code>PS D:<span class="token punctuation">\\</span>code_my<span class="token punctuation">\\</span>learn_python<span class="token operator">&gt;</span> <span class="token function">git</span> branch
+* main
+PS D:<span class="token punctuation">\\</span>code_my<span class="token punctuation">\\</span>learn_python<span class="token operator">&gt;</span> <span class="token function">git</span> branch <span class="token parameter variable">-v</span>
+* main 35a169c <span class="token punctuation">[</span>behind <span class="token number">1</span><span class="token punctuation">]</span> <span class="token number">1</span>
+PS D:<span class="token punctuation">\\</span>code_my<span class="token punctuation">\\</span>learn_python<span class="token operator">&gt;</span> <span class="token function">git</span> branch <span class="token parameter variable">-a</span>
+* main
+  remotes/origin/HEAD -<span class="token operator">&gt;</span> origin/main
+  remotes/origin/gh-pages
+  remotes/origin/main
+PS D:<span class="token punctuation">\\</span>code_my<span class="token punctuation">\\</span>learn_python<span class="token operator">&gt;</span> <span class="token function">git</span> branch <span class="token parameter variable">-r</span>
+  origin/HEAD -<span class="token operator">&gt;</span> origin/main
+  origin/gh-pages
+  origin/main
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="remove-branch" tabindex="-1"><a class="header-anchor" href="#remove-branch" aria-hidden="true">#</a> remove branch</h2><div class="language-bash line-numbers-mode" data-ext="sh"><pre class="language-bash"><code><span class="token comment"># 同当前分支一样，即merge过的，那么就不会error</span>
+$ <span class="token function">git</span> branch <span class="token parameter variable">-d</span> <span class="token operator">&lt;</span>branch<span class="token operator">&gt;</span>
+
+<span class="token comment"># 同当前分支不一样，所以要强制删除</span>
+$ <span class="token function">git</span> branch <span class="token parameter variable">-D</span> <span class="token operator">&lt;</span>branch<span class="token operator">&gt;</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="switch-branch" tabindex="-1"><a class="header-anchor" href="#switch-branch" aria-hidden="true">#</a> switch branch</h2><div class="language-bash line-numbers-mode" data-ext="sh"><pre class="language-bash"><code>$ <span class="token function">git</span> checkout orange
+Switched to branch <span class="token string">&#39;orange&#39;</span>
+M       branch.md
+M       config.md
+D       renmote.md
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>当你切换到某分支时，工作目录下的文件就是那个分支 <strong>commit到本地仓库中的</strong> 的文件。</p><p>PS: 切换分支要求你工作区和暂存区没有东西。</p><div class="language-bash line-numbers-mode" data-ext="sh"><pre class="language-bash"><code><span class="token comment"># add a branch and switch to it. \`-b\` means branch.</span>
+$ <span class="token function">git</span> checkout <span class="token parameter variable">-b</span> <span class="token operator">&lt;</span>branch<span class="token operator">&gt;</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="rename-a-branch" tabindex="-1"><a class="header-anchor" href="#rename-a-branch" aria-hidden="true">#</a> rename a branch</h2><div class="language-bash line-numbers-mode" data-ext="sh"><pre class="language-bash"><code>$ <span class="token function">git</span> branch <span class="token parameter variable">-M</span> main
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div></div></div><div class="language-text line-numbers-mode" data-ext="text"><pre class="language-text"><code>-M: 
+Shortcut for --move --force.
+
+-m/--move:
+Move/rename a branch, together with its config and reflog.
+
+-f/--force
+Reset &lt;branchname&gt; to &lt;startpoint&gt;, even if &lt;branchname&gt; exists already. Without -f, git branch refuses to change an existing branch. In combination with -d (or --delete), allow deleting the branch irrespective of its merged status, or whether it even points to a valid commit. In combination with -m (or --move), allow renaming the branch even if the new branch name already exists, the same applies for -c (or --copy).
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>i.e. 想要重命名已存在的分支，重命名是 <code>-m</code>，而修改已存在需要 <code>--force</code>，<code>-M = -m -f</code>。</p><h2 id="merge" tabindex="-1"><a class="header-anchor" href="#merge" aria-hidden="true">#</a> merge</h2><div class="language-bash line-numbers-mode" data-ext="sh"><pre class="language-bash"><code>$ <span class="token function">git</span> merge <span class="token operator">&lt;</span>other branch<span class="token operator">&gt;</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div></div></div><p><strong>当前分支吞噬指定分支</strong>：当前分支融合别的分支被后，别的分支消失，只剩下当前分支。</p><p>Rules: 将目标分支上的修改应用到当前分支上</p><ul><li><p>当前分支中有，某分支中没有的：则<strong>删除</strong>当前分支中的。</p></li><li><p>当前分支中没有，某分支中有的：则添加到当前分支。</p></li><li><p>当前分支和某分支中的共同文件：如无不同，则无事。如有不同，则冲突。</p></li></ul><p>使用 <code>git diff</code>查看冲突之处。会用 <code>-</code>、<code>+</code>和红绿颜色标识。</p><p><img src="https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202406231931649.png" alt="Alt text"></p><p>场景：</p><p>​ 大家提交不同的分支dev1、dev2，然后main分支将其融合。</p>`,29),t=[r];function c(l,d){return a(),e("div",null,t)}const p=n(i,[["render",c],["__file","branch.html.vue"]]);export{p as default};

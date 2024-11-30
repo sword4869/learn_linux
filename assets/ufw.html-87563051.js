@@ -1,0 +1,1 @@
+const t=JSON.parse('{"key":"v-c52970d8","path":"/system/ubuntu/%E9%98%B2%E7%81%AB%E5%A2%99/ufw.html","title":"","lang":"en-US","frontmatter":{},"headers":[],"git":{},"readingTime":{"minutes":1.32,"words":396},"filePathRelative":"system/ubuntu/防火墙/ufw.md"}');export{t as data};

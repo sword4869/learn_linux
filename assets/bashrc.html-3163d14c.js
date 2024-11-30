@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-7a5d1458","path":"/scripts/bashrc.html","title":"","lang":"en-US","frontmatter":{},"headers":[{"level":2,"title":"wsl","slug":"wsl","link":"#wsl","children":[]},{"level":2,"title":"server","slug":"server","link":"#server","children":[]}],"git":{},"readingTime":{"minutes":0.74,"words":223},"filePathRelative":"scripts/bashrc.md"}');export{e as data};

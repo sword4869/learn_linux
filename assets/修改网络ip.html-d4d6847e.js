@@ -1,0 +1,1 @@
+const t=JSON.parse('{"key":"v-b765bb42","path":"/system/ubuntu/%E4%BF%AE%E6%94%B9%E7%BD%91%E7%BB%9Cip.html","title":"","lang":"en-US","frontmatter":{},"headers":[],"git":{},"readingTime":{"minutes":0.2,"words":60},"filePathRelative":"system/ubuntu/修改网络ip.md"}');export{t as data};

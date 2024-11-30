@@ -1,0 +1,4 @@
+import{_ as a,W as e,X as s,Y as n}from"./framework-9a5142fa.js";const l={},t=n(`<h2 id="vmware-tools" tabindex="-1"><a class="header-anchor" href="#vmware-tools" aria-hidden="true">#</a> vmware tools</h2><div class="language-bash line-numbers-mode" data-ext="sh"><pre class="language-bash"><code>./vmware-install.pl <span class="token parameter variable">-f</span> <span class="token parameter variable">-d</span>
+<span class="token parameter variable">-f</span> <span class="token builtin class-name">:</span> 强制安装
+<span class="token parameter variable">-d</span> <span class="token builtin class-name">:</span> 自动回答问题与建议的答案。
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>为什么有些别人复制给我们的虚拟机，不能设置vmware tools？</p>`,3),r=[t];function i(o,c){return e(),s("div",null,r)}const m=a(l,[["render",i],["__file","vm tools.html.vue"]]);export{m as default};

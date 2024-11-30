@@ -1,0 +1,6 @@
+import{_ as s,W as n,X as e,Y as a}from"./framework-9a5142fa.js";const t={},l=a(`<p><code>firewalld</code></p><p><code>systemctl enable|disable|status|start|stop|restart firewalld</code></p><div class="language-bash line-numbers-mode" data-ext="sh"><pre class="language-bash"><code>$ <span class="token function">sudo</span> systemctl status firewalld
+● firewalld.service - firewalld - dynamic firewall daemon
+   Loaded: loaded <span class="token punctuation">(</span>/usr/lib/systemd/system/firewalld.service<span class="token punctuation">;</span> disabled<span class="token punctuation">;</span> vendor preset: enabled<span class="token punctuation">)</span>
+   Active: inactive <span class="token punctuation">(</span>dead<span class="token punctuation">)</span>
+     Docs: man:firewalld<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>https://www.cnblogs.com/zhoulujun/p/12099874.html</p>`,4),c=[l];function i(d,o){return n(),e("div",null,c)}const r=s(t,[["render",i],["__file","防火墙.html.vue"]]);export{r as default};

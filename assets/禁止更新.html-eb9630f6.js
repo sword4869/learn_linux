@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-35f1402d","path":"/system/win10/%E7%A6%81%E6%AD%A2%E6%9B%B4%E6%96%B0.html","title":"","lang":"en-US","frontmatter":{},"headers":[],"git":{},"readingTime":{"minutes":0.18,"words":53},"filePathRelative":"system/win10/禁止更新.md"}');export{e as data};

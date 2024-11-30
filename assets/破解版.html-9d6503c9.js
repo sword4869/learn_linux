@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-7293e4fe","path":"/system/reinstall-windows/typora/%E7%A0%B4%E8%A7%A3%E7%89%88.html","title":"激活方法","lang":"en-US","frontmatter":{},"headers":[],"git":{},"readingTime":{"minutes":0.5,"words":150},"filePathRelative":"system/reinstall-windows/typora/破解版.md"}');export{e as data};

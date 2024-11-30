@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-42fe881a","path":"/bash/windows/mklink.html","title":"","lang":"en-US","frontmatter":{},"headers":[{"level":2,"title":"想要像linux一样软链接","slug":"想要像linux一样软链接","link":"#想要像linux一样软链接","children":[]}],"git":{},"readingTime":{"minutes":0.46,"words":137},"filePathRelative":"bash/windows/mklink.md"}');export{e as data};

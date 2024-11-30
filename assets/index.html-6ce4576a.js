@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-71df44fe","path":"/system/ubuntu/","title":"Ubuntu","lang":"en-US","frontmatter":{"title":"Ubuntu","article":false,"feed":false,"sitemap":false},"headers":[],"git":{},"readingTime":{"minutes":0.03,"words":9},"filePathRelative":null}');export{e as data};
