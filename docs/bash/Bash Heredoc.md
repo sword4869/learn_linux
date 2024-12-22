@@ -1,18 +1,6 @@
-- [1. Bash Heredoc](#1-bash-heredoc)
-  - [1.1. Introduction](#11-introduction)
-  - [1.2. Examples](#12-examples)
-    - [1.2.1. bash example](#121-bash-example)
-    - [1.2.2. cat example](#122-cat-example)
-    - [1.2.3. quotes example](#123-quotes-example)
-    - [1.2.4. indent example](#124-indent-example)
-    - [1.2.5. redirect example](#125-redirect-example)
-    - [1.2.6. pipe example](#126-pipe-example)
-    - [1.2.7. SSH example](#127-ssh-example)
-    - [1.2.8. Dockerfile](#128-dockerfile)
+[toc]
 
----
-# 1. Bash Heredoc
-## 1.1. Introduction
+## Introduction
 When writing shell scripts you may be in a situation where you need to pass a multiline block of text or code to an interactive command, such as `tee`, `cat`, or `sftp`.
 
 In Bash and other shells like Zsh, a Here document (Heredoc) is a type of redirection that allows you to pass multiple lines of input to a command.
@@ -32,8 +20,8 @@ DELIMITER
 -   The **here-document block** can contain strings, variables, commands and any other type of input.
 -   The last line ends with the **delimiting identifier**. White space in front of the delimiter is not allowed.
 
-## 1.2. Examples
-### 1.2.1. bash example
+## Examples
+### bash example
 ```bash
 $ sudo apt update && \
 > sudo apt upgrade
@@ -44,7 +32,7 @@ $ bash << EOF
 > sudo apt upgrade
 > EOF
 ```
-### 1.2.2. cat example
+### cat example
 
 In this section, we will look at some basic examples of how to use heredoc.
 
@@ -62,7 +50,7 @@ You are logged in as: linuxize
 ```
 
 As you can see from the output below, both the variable and the command output are substituted:
-### 1.2.3. quotes example
+### quotes example
 
 Let’s see what will happen if we enclose the delimiter in single or double quotes.
 
@@ -76,7 +64,7 @@ You are logged in as: $(whoami)
 ```
 You can notice that when the delimiter is quoted no parameter expansion and command substitution is done by the shell.
 
-### 1.2.4. indent example
+### indent example
 If you are using a heredoc inside a statement or loop, use the `<<-` redirection operation that allows you to indent your code.
 
 ```bash
@@ -85,7 +73,7 @@ $ cat <<- EOF
 > EOF
     Line with a leading tab.
 ```
-### 1.2.5. redirect example
+### redirect example
 Instead of displaying the output on the screen you can redirect it to a file using the `>`, `>>` operators.
 
 ```bash
@@ -100,7 +88,7 @@ You are logged in as: root
 
 If the file.txt doesn’t exist it will be created. When using `>` the file will be overwritten, while the `>>` will append the output to the file.
 
-### 1.2.6. pipe example
+### pipe example
 
 The heredoc input can also be piped. In the following example the `sed` command will replace all instances of the `l` character with `e`:
 
@@ -124,7 +112,7 @@ Heeeo
 Wored
 ```
 
-### 1.2.7. SSH example
+### SSH example
 
 Using Heredoc is one of the most convenient and easiest ways to execute multiple commands on a remote system over SSH.
 
@@ -139,7 +127,7 @@ The current local working directory is: /home/linuxize
 The current remote working directory is: /home/user
 ```
 
-### 1.2.8. Dockerfile
+### Dockerfile
 
 This feature is merged into Dockfile.
 ```dockerfile

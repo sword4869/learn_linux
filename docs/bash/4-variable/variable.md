@@ -1,16 +1,54 @@
-# varible
+[toc]
+
+## varible
+
+### 创建变量
+
+（1）`count=/dev`
 
 ```bash
-count=10
+# 创建
+$ count=/dev
 ```
-`count = 10` is error. Note that there are no spaces.
+`count = /dev` is error. Note that there are no spaces.
+
+（2）declare命令
 
 ```bash
-echo "count = $count"
-```
-PS: if you want print '$', that is `\$`.
+declare count=/dev
 
-# comparision operators
+# declare重要的是可以设置变量属性
+# -i 只能存储整数
+declare -i n1=10
+# -r 只能，
+declare -r n2=11
+```
+
+
+
+### 使用变量
+
+```bash
+# 使用
+$ echo $count
+/dev
+
+# 输出字符$
+$ echo $count\$
+/dev$
+
+# $count3只会被认为是count3的变量
+$ echo ${count}3
+/dev3
+
+# 变量默认值 ``
+$ echo ${count2:-22}
+22
+```
+
+
+
+## comparision operators
 
 ```bash
 # == : equal
@@ -67,7 +105,7 @@ if [ "$variable" == ... ]
 
 
 
-# boolean operators
+## boolean operators
 
 - and : `&&`, `-a`
 - or : `||`, `-o`

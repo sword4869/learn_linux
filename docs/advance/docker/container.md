@@ -117,7 +117,8 @@ $ docker run -d ubuntu
 
 当容器正在后台运行时，来进入处于后台的容器。
 ```bash
-$ docker container exec -it my_ubuntu /bin/bash
+# docker containeexec -it my_ubuntu /bin/bash
+$ docker exec -it my_ubuntu /bin/bash
 ```
 
 ### --name 容器命名
@@ -168,7 +169,7 @@ $ docker port happy_galois
 ### -v 挂载Volume
 > 直接文件、文件夹
 
-`-v/--volume`: `<local_path>:<container_path>`.
+`-v/--volume`: `<本地路径>:<容器内路径>`.
 
 ```bash
 docker run -p 6379:6379 --name redis \
@@ -290,7 +291,7 @@ docker network ls									列出 Docker 网络
 docker network rm [network]							删除
 docker network create [network]						创建一个新的 Docker 网络
 docker network disconnect [network] [container]		将容器从指定的 Docker 网络中断开连接 
-docker network connect [network] [container]		将容器连接到指定的 Docker 网络
+docker network connect [network] [container]		🚀将容器连接到指定的 Docker 网络
 ```
 
 ```bash
@@ -298,8 +299,23 @@ docker network connect [network] [container]		将容器连接到指定的 Docker
 docker run --net [network] [image]
 ```
 
-
 https://blog.csdn.net/succing/article/details/122433770
+
+### --privileged=true
+
+给容器添加了所有的capabilities权限（例如加载内核模块、进行网络配置），允许容器访问主机的所有设备（直接操作硬件设备）。
+
+在可能的情况下，我们应该尽量使用其他更细粒度的权限控制手段，例如通过`--cap-add`或`--device`参数来分别添加必要的capabilities或设备访问权限
+
+```bash
+# 添加单个capability
+docker run --cap-add=NET_ADMIN -it ubuntu
+
+# 添加设备访问权限
+docker run --device=/dev/sda:/dev/xvdc -it ubuntu
+```
+
+
 
 ## List
 > running
@@ -364,12 +380,23 @@ mysql                               mysql         Up 39 minutes
 
 
 tj-user tj-trade tj-search tj-message tj-media tj-pay tj-gateway tj-exam tj-course tj-auth tj-data 
-## Start|Stop|Restart
+## Start|Stop|Restart|Remove
 ```bash
-$ docker [container] start|stop|restart <container name>
+$ docker [container] start|stop|restart|rm <container name>
 ```
 
 Notice: When you restart a container, it starts **with the same flags or commands** that it was originally started with. 
+
+可以一次性操纵多个容器
+
+```bash
+$ docker stop nacos redis mysql
+nacos
+redis
+mysql
+```
+
+
 
 ## Operate a running container
 
@@ -412,6 +439,7 @@ $ docker run --rm -it ubuntu
 
 ```bash
 # 一次能删除多个
+# rm 写 remove也行
 $ docker [container] rm my_ubuntu agitated_moser
 ```
 挂载的volume不会被删.

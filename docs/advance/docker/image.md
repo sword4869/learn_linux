@@ -137,7 +137,7 @@ e983e5d89352   2 months ago   CMD ["python3" "-m" "flask" "run" "--host=0.…   
 <missing>      3 months ago   /bin/sh -c #(nop) ADD file:c51141702f568a28a…   69.3MB
 ```
 
-## load tar
+## load tar 离线加载
 
 
 

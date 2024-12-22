@@ -103,7 +103,9 @@ Are you sure you want to continue connecting (yes/no)?
     |        .   *o. E|
     +----[SHA256]-----+
     ```
-    默认采取rsa，换成别的`[-t dsa | ecdsa | ed25519 | rsa]`, 比如dsa，就是`ssh-keygen -t dsa`.
+    `ssh-keygen -t rsa`：`-r`，默认采取rsa，支持`[dsa | ecdsa | ed25519 | rsa]`,
+    
+    `ssh-keygen -C 'your email'`：`-c`，备注，会在公钥`id_rsa.pub` 的最后写上备注，以便我们识别它。
 
 
 2. client将client公钥上传到server的可信列表文件 authorized_keys 中。

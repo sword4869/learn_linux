@@ -1,10 +1,9 @@
 [toc]
 
-# 1. vim
 vim是vi的加强版(多了个字体颜色)，现在主要使用vim
 这两个的命令功能是一样的。你打vi victor.txt和vim victor.txt是一样，等等都一样。
 
-## 1.1. Mode:
+## Mode:
 - `Normal Mode`: 
 	- `<ESC>`
 - `Insert Mode`: 
@@ -15,13 +14,13 @@ vim是vi的加强版(多了个字体颜色)，现在主要使用vim
 	- `O`(likewise,  above the cursor line)
 	- `R`(replace character by character. you can move the cursor by arrow keys, and use Backspace to return the original character)
 
-## 1.2. move the cursor
+## move the cursor
 - `Any Mode`: 
 	- arrow keys.
 - `Normal Mode`: 
 	- `hl`(left and right), `jk`(down and up).`3j`, `3k`, `3h`, `3l`
 	- `gg`(the start of file)
-	- `G`(the last line of file)
+	- 🚀`G`(the last line of file)
 	- `20G`(the 20th line of file)
 	- `ctrl-g`(show the location of lines)
 	- `50%`(the half of the file)
@@ -35,13 +34,13 @@ Motion:
 - `e`(if the cursor is not at the end the word, then move to the end of this word. else next word).`2e`
 - `0`(the start of the cursor line)
 - `^`(the first non-blank character of the cursor line)
-- `$`(the end of the cursor line). `2$`(the end of next cursor line)
+- 🚀`$`(the end of the cursor line). `2$`(the end of next cursor line)
 
 Insert Mode:  mouse.(if in the Normal Mode, two ways just move up and down)
 
 
-## 1.3. delete
-### 1.3.1. delete the charater
+## delete
+### delete the charater
 - `Any Mode`: 
 	- `Delete`(at the cursor).
 
@@ -61,26 +60,26 @@ Insert Mode:  mouse.(if in the Normal Mode, two ways just move up and down)
 
 - `Insert Mode`: `Backspace`(before the cursor)
 
-## 1.4. undo
+## undo
 - `Normal Mode`: 
 	- `u`(back to last change), `U`(back to original in the whole line, but this is considered a change). a insert mode whatever you type is considered a change.
 	- `ctrl-r`(to the newer change)
 	- `:e!`(restore to last saved file, `:w` is considered.)
 
-## 1.5. select
+## select
 - `v`(select the highlighte text and the character at the cursor), (`o` move to the other end). e.g.1.then `d`(delete the selected text), e.g.2.then `:wFILENAME`(save the selected text as a file).
 - `ctrl-v`(select a rectangular block)
 
-## 1.6. copy
+## copy
 - `v`+`y`(copy the select)
 - `yw`(copy the word), likewise using Motion
 - `yy`(copy the cursor line)
 
-## 1.7. paste
+## paste
 - `p`(paste previously deleted text below the cursor, if `dd` paste that line under this line)(or paste the `y` ), `P`(before the cursor)
 - `:r`(retrieve), `:r FILENAME`(paste the content of FILENAME below the cursor line), `:r !ls`(paste the contend of command ls)
 
-## 1.8. search
+## search
 单个字符：
 - `fa`(find forward the character a in the cursor line.). `3fa`
 - `Fa`(find backward). `3Fa`
@@ -101,28 +100,28 @@ Insert Mode:  mouse.(if in the Normal Mode, two ways just move up and down)
 - `:s/OLD/NEW`(replace OLD to NEW, the first OLD in the line).`g`(globally, means that multi), `c`(choice, means that question), `%`(in the whole file), `1,3`(the line numbers of the range).e.g.`:1,3s/OLD/NEW/g`, `:%s/OLD/NEW/gc`
 
 
-## 1.9. external command
+## external command
 - `:!COMMAND`(execute the bash command, e.g.`ls`)
 
-## 1.10. window
+## window
 - `:split`(split a window)
 - `ctrl-w ctrl-w`(jump from one window to another)
 - `:q`(exit window if no changes)
 - `:q!`(exit window and discard changes)
 - `:qa`(exit all window)
 
-## 1.11. save file
+## save file
 - `:w`(save changes)
 - `:w FILENAME`(save as a another file)
 - `:wq`(save and exit)
 - `ZZ`(save and exit)
 
-## 1.12. configuration file
+## configuration file
 - `:scriptnames`(show file sequence list)
 
 I edit the file `/etc/vim/vimrc.local` in root privilege.
 
-## 1.13. other
+## other
 - match bracket
 `%`(move the cursor to the other matching bracket)
 

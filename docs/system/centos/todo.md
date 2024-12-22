@@ -1,0 +1,1 @@
+[CentOS7初始化环境搭建（包括系统安装、性能优化等）_centos7 初始化配置-CSDN博客](https://blog.csdn.net/xieweikun_7/article/details/105270182)

@@ -26,6 +26,6 @@ network:
 
 ```bash
 sudo netplan apply
-sudo service NetworkManager restart
+sudo systemctl restart NetworkManager
 ```
 

@@ -25,7 +25,7 @@ available: **可用的**
 
 PS：
 
-（1）free = total - used - buff
+（1）total - used = free + buff
 
 （2）available 一般是 free 多，但小于 free + buff
 
@@ -33,9 +33,9 @@ PS：
 
 默认是 kB。
 
-可指定 `-b` 字节, `-k`, `-m`, `-g`, `-h`
+可指定 `-b` 字节, `-k`, `-m`, `-g`，进制1024。
 
-（1）`-g`等是1024，`-h`是1000.
+`-h` 自动添加单位，1000进制。
 
 ```bash
 lab@LAPTOP-KB4DNMO0:~$ free

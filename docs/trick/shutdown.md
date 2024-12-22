@@ -1,7 +1,5 @@
 linux
 ```bash
-# shutdown 需要root
-
 # 立刻关机，halt
 sudo shutdown -h now
 # 10 mins

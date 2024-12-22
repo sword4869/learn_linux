@@ -21,9 +21,11 @@ docker需要wsl，而wsl需要安一个OS，所以其实docker就是在wsl的OS�
 2. Virtualization enabled in the BIOS
 
 
-​    
-​    ![](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202406231933766.jpg)
-3. Hypervisor enabled at Windows startup
+​    <img src="https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202406231933766.jpg" style="zoom:67%;" />
+
+3. ~~Hypervisor enabled at Windows startup~~
+   
+   2024年，WSL 2既可以使用wsl2作为后端，也可以使用Hyper-V 作为后端。也就是说，我们可以不用开启 Hyper-V。
    
    ```bash
    # - Open cmd (not powershell) window as an administrator.
@@ -39,11 +41,9 @@ docker需要wsl，而wsl需要安一个OS，所以其实docker就是在wsl的OS�
 
 
 
-PS：2024，WSL 2既可以使用wsl2作为后端，也可以使用Hyper-V 作为后端。也就是说，我们可以不用开启 Hyper-V。
+# 2. VMware 15 【过期】
 
-# 2. VMware 15
-
-> VMware16不再需要
+> !!!!! VMware16不再需要
 
 1. Windows Feature
 

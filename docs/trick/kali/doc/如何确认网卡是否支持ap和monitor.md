@@ -3,7 +3,10 @@
 ###  [netsh.md](netsh.md) 
 
 ```cmd
-netsh wlan show wirelesscapabilities
+$ netsh wlan show wirelesscapabilities
+    软 AP                                     : 支持				########## ap
+
+    网络监视模式                        : 支持						########## monitor
 ```
 
 ###  [npcap.md](npcap.md) 
@@ -20,7 +23,10 @@ master, managed, monitor
 
 ### iw list未测试
 
-我们使用命令 `iw list` 查看 "Supported interface modes:"支持的列表中是否有AP，如有则说明支持配置为AP热点。
+我们使用命令 `iw list` 查看 "Supported interface modes:"支持的列表中
+
+- AP: 有则说明支持配置为AP热点（网卡可以作为一个AP，提供无线网络服务给其他设备）。
+- monitor: 网卡可以接收所有的无线信号，如使用aircrack-ng等工具。
 
 ```bash
 nvidia@nvidia-desktop:~$ iw list
@@ -50,6 +56,8 @@ Wiphy phy1
                  * P2P-GO
                  * P2P-device
 ```
+
+![img](https://pica.zhimg.com/v2-b74b91c14d2f11c6a0539d53da06f130_1440w.jpg)
 
 ## 网卡的芯片组牌子
 

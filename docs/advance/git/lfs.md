@@ -1,13 +1,4 @@
-
-- [1. install](#1-install)
-- [2. 下载](#2-下载)
-- [3. 添加](#3-添加)
-  - [3.1. 未add](#31-未add)
-  - [3.2. 已经add](#32-已经add)
-- [4. huggingface](#4-huggingface)
-  - [4.1. gitattributes的坑](#41-gitattributes的坑)
-
----
+[toc]
 
 - 对于很大的文件，可以只用很小的空间(lfs 指针)来管理它。
 

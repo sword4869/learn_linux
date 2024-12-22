@@ -27,12 +27,18 @@ IPADDR=192.168.137.3    # >>>>>>>>> ip
 PREFIX=24
 GATEWAY=192.168.137.2   # >>>>>>>>> 网关
 DNS1=8.8.8.8            # >>>>>>>>> DNS也可以同网关，委托给网关获取DNS
+DNS2=114.114.114.144
 ```
 ```bash
 # 应用完后，重启后才变化
 $ systemctl restart network
 $ ifconfig 
 ..... xxx.xxx.xxx.3
+
+# 同时，这个文件也会同步变化
+$ cat /etc/resolv.conf
+nameserver 8.8.8.8
+nameserver 114.114.114.114
 ```
 
 

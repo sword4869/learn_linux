@@ -41,27 +41,22 @@ Disklabel type: gpt
 
 > MBR分区的限制
 
-Under the **MBR** partitioning scheme, there are three different types of partitions – **Primary, Extended, and Logical**. 
+MBR 有三种分区类型 **Primary, Extended, and Logical**. 
 
-主分区 Primary 以外的分区称为扩展分区 Extended，在扩展分区中可以建立若干个逻辑分区 Logical。
+- 硬盘可以没有扩展分区和逻辑分区，但是一定要有主分区，**在主分区中要有一个启动分区用来启动系统**。
+- 主分区 Primary 以外的分区称为扩展分区 Extended，在扩展分区中可以建立若干个逻辑分区 Logical。
 
-Picture 2 shows **four primary** partitions(includes swap). 
+- MBR 分区表限制**最多四个主分区**或**三个主分区加一个扩展分区**
 
-​	The first primary partition is sda1 and the last sda4. Unlike hard drives, partition numbers start from 1, not 0 (zero). 
-
-​	Any disk space that’s not allocated to the primary partitions is listed as Free or free space.
+e.g. 四个主分区时，虽然可用空间仍有5724MB，但再创建另一个分区，安装程序将抛出错误 “可用空间不足”。这并不是真的不足，而是因为**主分区的数量限制**。
 
 ![picture 2](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202406231919291.png)  
 
-So if you attempt to create another partition using the free space, the installer will throw up the type of error message. The error message will always say, “not enough free space,” even when you know that there is space available. This is because **number limit of primary partitions**.
 
-You can see that there are **three primary** partitions – sda1, sda2 and sda3. The fourth partition is **an extended partition**, which makes it possible to create more (logical) partitions – sda5, sda6 and sda7.
+
+e.g. 三个主分区（sda1, sda2 and sda3）加一个扩展分区（sda4），sd4又创建了多个逻辑分区 sda5, sda6 and sda7.
 
 ![picture 3](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202406231919292.png)  
-
-Theoretically, there is no limit to the number of logical partitions that you can create.
-
-硬盘可以没有扩展分区，但是一定要有主分区，在主分区中要有一个启动分区用来启动系统。
 
 ### 制作启动盘
 

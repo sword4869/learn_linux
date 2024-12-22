@@ -1,13 +1,9 @@
-- [1. background job](#1-background-job)
-- [2. sleep](#2-sleep)
-- [3. wait](#3-wait)
-  - [3.1. default](#31-default)
-  - [3.2. PID](#32-pid)
+[toc]
 
 
 ---
 
-## 1. background job
+## background job
 
 1. The ampersand sign (`&`) after a command indicates a background job.
    PS: `&&` 是并且。
@@ -16,7 +12,7 @@
 4. `jobs -l`: show the running job in the background.
 
 
-## 2. sleep
+## sleep
 
 ```bash
 # wait one second:
@@ -32,9 +28,9 @@ sleep 8h
 sleep 7d
 ```
 
-## 3. wait
+## wait
 
-### 3.1. default
+### default
 
 Without any parameters, the wait command waits for **all** background processes to finish before continuing the script.
 
@@ -49,7 +45,7 @@ echo $(date +%T)
 ```
 ![图 2](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202406231918193.png)  
 
-### 3.2. PID
+### PID
 
 ```bash
 wait $PID

@@ -1,4 +1,4 @@
-# remote
+[toc]
 
 ## show names of remote repository
 
@@ -29,59 +29,35 @@ $ git remote add origin https://gitee.com/sandalphon/weather_predict.git
 $ git remote remove origin
 ```
 
-## push
+## push 本地→远程
 
-`git push <远程仓库> <本地分支>:<远程分支>`。本地分支→远程分支
+`git push <远程仓库> <本地分支>:<远程分支>`。
 
-### 推送
+两种情况：
 
-1. 【分支同名】
+​	远程仓库有 <远程分支>，则更新。
 
-```bash
-$ git push origin master
-```
+​	没有 <远程分支>，则创建一个新的同名分支。
 
-将 `本地的分支`推送到 `远程仓库`的 `同本地分支名`。
+（1) 省略
 
-两种情况：远程仓库有，则更新。没有，则创建一个新的同名分支。
+​	`git push origin master`。省略远程分支名，认为远程分支名同本地分支名。
 
-2. 【分支异名】
+​	`git push origin`。默认当前分支。
 
-```bash
-$ git push origin master:main
-```
-### 删除
+​	`git push`。默认远程仓库、默认当前分支。只有当默认指定远程仓库 `git push -u origin` 后，才能使用！
+
+
+
+（2）`git push origin :main`
+
 推送空本地分支，自然效果就是删除
-
-```bash
-$ git push origin :main
-```
 
 ```bash
 # 等同于
 git push origin --delete main
 ```
-###  默认
-- 【默认当前分支】
 
-```bash
-$ git push origin
-```
-
-- 【默认化 remote repository】
-
-```bash
-$ git push -u origin
-```
-
-将 `本地的分支`推送到 `远程仓库`，同时指定 `远程仓库`为 `默认的远程仓库`，后面就可以不加任何参数使用 `git push`了。
-
-```bash
-# 将当前分支推送到默认远程仓库
-$ git push
-```
-
-只有当默认指定 `远程仓库`后，才能使用！
 
 ### 强制更新（合并冲突的问题）
 
@@ -161,13 +137,13 @@ $ git push origin master
 
 ## pull = fetch + merge
 
-基本用法：`git pull git push <远程仓库> <远程分支>:<本地分支>`。远程分支→本地分支
+基本用法：`git pull <远程仓库> <远程分支>:<本地分支>`。远程分支→本地分支
 
 ```bash
 # 将远程主机origin的master分支拉取过来，与本地的brantest分支合并。
 $ git pull origin master:brantest
 
-# 分支都是master可省略
+# 默认本地分支同远程名
 $ git pull origin master
 ```
 

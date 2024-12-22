@@ -3,7 +3,16 @@
 
 ## part 1
 
-[WSL2, Docker](./wsl-vmware-virtualbox.md)
+​	点击“启用或关闭 Windows 功能”，或直接运行 `C:\Windows\System32\OptionalFeatures.exe`. 
+
+​	勾选 `Windows Subsystem for Linux（适用于Linux的Windows子系统）` 和 `Virtual Machine Platform（虚拟机平台）`（如今无须勾选Hyper-V）
+
+
+![](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202406231914789.png)
+
+​	确保BIOS的Virtualization已开启
+
+<img src="https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202406231933766.jpg" style="zoom:67%;" />
 
 ## part 2
 
@@ -50,16 +59,16 @@
    ```bash
        --update
         更新适用于 Linux 的 Windows 子系统程序包。
-
+   
         选项:
             --web-download
                 从 Internet 而不是 Microsoft Store 下载更新。
-
+   
             --pre-release
                 如果可用，则下载预发布版本。表示使用 --web-download.
    $ wsl –-update
    ```
-   或者<https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi>
+   或者 <https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi>
 
 4. 这时候还没弄好，点子系统相关应用进去(windows-terminal 或者 适用于windows的linux子系统)告诉你没安装。其实是ubuntu没有配置用户名和密码。
    点`ubuntu应用`，配置完用户名和密码后，就好了。

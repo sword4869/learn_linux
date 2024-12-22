@@ -75,3 +75,18 @@ $ wsl --list
 Ubuntu (默认)
 $ wsl --unregister Ubuntu
 ```
+
+## 迁移
+
+```bash
+$ wsl --shutdown
+$ wsl -l -v
+  NAME              STATE           VERSION
+* Ubuntu-22.04      Stopped         2
+  docker-desktop    Stopped         2
+$ wsl --export Ubuntu-22.04 "D:\\Ubuntu-22.04.tar"
+$ wsl --unregister Ubuntu-22.04
+$ mkdir -p D:\\MySoftwareData\\wsl
+$ wsl --import Ubuntu-22.04 "D:\\MySoftwareData\\wsl\\ubuntu" "D:\\Ubuntu-22.04.tar" --version 2
+```
+
