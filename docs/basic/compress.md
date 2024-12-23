@@ -1,12 +1,8 @@
 [toc]
 
----
-# 1. compress
-If you want to compress some files, the first thing is to combine them into an archive, and then compress the archive. It is not to directly compress files.
+## Archive
 
-## 1.1. Archive
-
-### 1.1.1. create
+### create
 
 ```bash
 # tar -cvf T.tar a.txt b.jpg: -可以省去
@@ -54,19 +50,18 @@ tar -cvf file.tar.gz point-avatar
 ```
 
 
-
-
-### 1.1.2. extract
+### extract
 
 ```bash
+# `-x`: denotes that **extract** files from the archive
 $ tar -xvf T.tar
+
+# `-C`: 指定解压的输出目录。**要求目录存在**
+$ mkdir -p ~/Desktop/newFolder
 $ tar -xvf T.tar -C ~/Desktop/newFolder
 ```
-- `-x`: denotes that **extract** files from the archive.
-- `-C`: 指定解压的输出目录。**要求目录存在**
+其实直接x就行，不用管
 
-
-!!! note 直接解压
 ```bash
 tar -xzvf file.tar.gz   # z解压 tar.gz
 
@@ -75,15 +70,14 @@ tar -xjvf file.tar.bz2  # j解压 tar.bz2
 tar -xZvf file.tar.Z    # Z解压 tar.Z
 ```
 
-
-
-### 1.1.3. show content
+### show content
 
 ```bash
+# -t
 $ tar -tvf T.tar
 ```
 display files from the archive.
-### 1.1.4. Compress & Decompress
+### Compress & Decompress
 
 ```bash
 # 确实压缩了
@@ -116,7 +110,7 @@ $ compress T.tar
 
 $ uncompress T.tar.Z
 ```
-### 1.1.5. xz
+### xz
 ```bash
 # -v, 显示进度
 
@@ -126,7 +120,7 @@ $ xz -z T.tar
 # -d, --decompress
 $ xz -d T.tar.xz
 ```
-## 1.2. zip
+## zip
 
 ```
 sudo apt install zip
@@ -156,10 +150,23 @@ unzip "*.zip"
 unzip \*.zip
 ```
 
+## 7z
+
+```bash
+$ yum install -y p7zip
+
+# 解压 x
+$ 7za x phpMyAdmin-3.3.8.1-all-languages.7z
+
+# 压缩 a
+$ 7za a dist.7z ~/dist 
+$ 7za a files.7z file1 file2 file3
+```
 
 
 
-## 1.3. dd copy
+
+## dd copy
 
 - A file, a filesystem, or even an entire hard drive.
 - A **bit-­by-­bit / physical** copy

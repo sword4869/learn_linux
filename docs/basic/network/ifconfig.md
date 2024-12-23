@@ -6,6 +6,7 @@ sudo apt install -y net-tools
 ```bash
 # 关闭网络接口
 $ sudo ifconfig eth0 down
+
 # 显示活跃的网络接口
 $ ifconfig 
 lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
@@ -27,7 +28,7 @@ $ sudo ifconfig eth0 up
 
 
 
-修改网络接口的ip、netmask、broadcast
+临时修改网络接口的ip、netmask、broadcast，重启失效。
 
 ```bash
 # default mask is 255.255.255.0 and broadcast.

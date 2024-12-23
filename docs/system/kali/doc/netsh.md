@@ -1,10 +1,6 @@
+[toc]
+
 [Windows 中的 netsh 是一个命令行实用程序，用于配置和监视网络参数，例如网络接口、防火墙、IPsec、无线网络等。netsh 是 Network Shell 的缩写，可以通过命令行或脚本文件来执行各种网络相关操作 - suv789 - 博客园 (cnblogs.com)](https://www.cnblogs.com/suv789/p/18104638)
-
-
-
-
-
-
 
 **管理无线网络**：
 
