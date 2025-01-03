@@ -55,11 +55,11 @@ docker-compose version 1.16.1, build 1719ceb
 
 ### 安装
 
-（1）wsl2 backend：只用开启，无须安装一个Ubuntu上去。
+（1）**wsl2 backend**：只用开启，无须安装一个Ubuntu上去。
 
 ​	点击“启用或关闭 Windows 功能”，或直接运行 `C:\Windows\System32\OptionalFeatures.exe`. 
 
-​	勾选 `Windows Subsystem for Linux（适用于Linux的Windows子系统）` 和 `Virtual Machine Platform（虚拟机平台）`（如今无须勾选Hyper-V）
+​	勾选 `Windows Subsystem for Linux（适用于Linux的Windows子系统）` 和 `Virtual Machine Platform（虚拟机平台）`（如今无须勾选Hyper-V，甚至还需要确保它关闭 [端口被hyper-v占用.md](..\..\..\system\win10\端口被hyper-v占用.md) ）
 
 
 ![](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202406231914789.png)

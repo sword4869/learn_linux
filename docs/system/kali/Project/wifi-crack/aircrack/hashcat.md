@@ -123,7 +123,25 @@ Hashmode: 0 - MD5
 - 要破解目标文件的hash类型: `-m Num`
   WPA 握手包加密: 2500，新版本是22000
   
--  `-o File`: 将破解的密码存储在输出文件中
+- `-o File`: 将破解的密码存储在输出文件中
+
+-  指定哪块显卡 `-d 1`, 多个用逗号分割
+
+```bash
+CUDA API (CUDA 12.6)
+====================
+* Device #1: NVIDIA GeForce RTX 4060 Laptop GPU, 7099/8187 MB, 24MCU
+
+OpenCL API (OpenCL 3.0 CUDA 12.6.65) - Platform #1 [NVIDIA Corporation]
+=======================================================================
+* Device #2: NVIDIA GeForce RTX 4060 Laptop GPU, skipped							【2号被跳过】
+
+OpenCL API (OpenCL 2.1 AMD-APP (3516.0)) - Platform #2 [Advanced Micro Devices, Inc.]
+=====================================================================================
+* Device #3: AMD Radeon 780M Graphics, skipped										【3号被跳过】
+```
+
+
 
 ## 掩码暴力破解 Charsets
 
@@ -194,6 +212,9 @@ hashcat -m 22000 -a 3 1695405_1734879290.hc22000 --increment --increment-min 8 -
 
 # 手机号
 hashcat -m 22000 -a 3 1695405_1734879290.hc22000 -1 3456789 1?1?d?d?d?d?d?d?d?d?d
+
+# 手机号
+hashcat -m 22000 -a 3 ../1695405_1734879290.hc22000 -1 ?l ?1?1?1?1?1?1?1?1
 ```
 
 ### 其他
