@@ -1,22 +1,77 @@
-# 梯子 和 proxy
+[toc]
+
+
+
+## 问题锁定：dns污染
 
 问题：
+
 - `git clone https://github.com/sword4869/mytree.git`一直卡住
 - `pip install "git+https://github.com/facebookresearch/pytorch3d.git"`: 报错`GnuTLS recv error (-110): The TLS connection was non-properly terminated`
 
+锁定问题
 
-## windows
+```bash
+# 找不到 github.com
+$ ssh -vT git@github.com
+OpenSSH_8.9p1 Ubuntu-3ubuntu0.3, OpenSSL 3.0.2 15 Mar 2022
+debug1: Reading configuration data /home/sword/.ssh/config
+debug1: Reading configuration data /etc/ssh/ssh_config
+debug1: /etc/ssh/ssh_config line 19: include /etc/ssh/ssh_config.d/*.conf matched no files
+debug1: /etc/ssh/ssh_config line 21: Applying options for *
+ssh: Could not resolve hostname github.com: Temporary failure in name resolution			#### <<<
+```
+
+## 🚀最常用的方案：替换 github.com 的 HostName 来找到
+
+这三个域名一般就可以解决问题。
+
+```bash
+$ sudo vim /home/sword/.ssh/config
+Host github.com
+    # >>>>>>>>>>>>>>>>>>>
+    HostName ssh.github.com
+   	# HostName 140.82.113.4
+   	# HostName 20.205.243.166
+   	# >>>>>>>>>>>>>>>>>>>
+    PreferredAuthentications publickey
+    IdentityFile /home/sword/.ssh/id_rsa
+```
+
+找一个ping 的通的
+
+```bash
+$ ping ssh.github.com			
+Ping 请求找不到主机 ssh.github.com。请检查该名称，然后重试。		[不行，换一个]
+
+$ ping 20.205.243.166
+
+正在 Ping 20.205.243.166 具有 32 字节的数据:
+来自 20.205.243.166 的回复: 字节=32 时间=140ms TTL=111			[那就选它]
+来自 20.205.243.166 的回复: 字节=32 时间=130ms TTL=111
+来自 20.205.243.166 的回复: 字节=32 时间=132ms TTL=111
+```
+
+### 更多域名ip
+
+[github.com_DNS记录查询_DNS解析查询_A记录_CNAME查询_AAAA查询_MX查询_TXT查询_NS查询_PTR查询_SRV查询](https://www.itdog.cn/dns/github.com)
+
+![image-20250103084534046](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202501030845091.png)
+
+## 方案二：挂梯子
+
+比较麻烦
+
+
+### windows
 
 1、这玩意是要你开梯子才有用。
 
 ​	查看梯子的端口号
-​	
 
 ​	![图 2](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202406110823530.png)  
 
 2、设置git的端口号
-
-​	  
 
 ```bash
 # set proxy
@@ -30,11 +85,11 @@ git config --global --unset https.proxy
 
 ​	不开梯子了
 
-​		`git clone git@github.com:sword4869/learn_java.git`时不用删proxy，git也能正常联网。
+​		`git clone git@github.com:sword4869/learn_java.git`时不用删proxy，git也能正常联网，那是原本的dns又好了。
 
 ​		`git clone https://github.com/sword4869/learn_java.git`时要删proxy，不然下载不了。
 
-## wsl
+### wsl
 
 1. clash打开 "允许局域网链接入Clash"
 
