@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-0e7d6e3a","path":"/advance/%E7%BC%96%E8%BE%91%E5%99%A8/","title":"编辑器","lang":"en-US","frontmatter":{"title":"编辑器","article":false,"feed":false,"sitemap":false},"headers":[],"git":{},"readingTime":{"minutes":0.03,"words":9},"filePathRelative":null}');export{e as data};

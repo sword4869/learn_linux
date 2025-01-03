@@ -1,0 +1,1 @@
+const t=JSON.parse('{"key":"v-a870a3da","path":"/system/win10/python%E6%96%87%E4%BB%B6%E5%BF%AB%E6%8D%B7%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F.html","title":"","lang":"en-US","frontmatter":{},"headers":[],"git":{},"readingTime":{"minutes":0.3,"words":89},"filePathRelative":"system/win10/python文件快捷环境变量.md"}');export{t as data};

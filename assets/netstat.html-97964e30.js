@@ -1,0 +1,2 @@
+import{_ as t,W as n,X as s,Z as e}from"./framework-9a5142fa.js";const a={},c=e("div",{class:"language-cmd line-numbers-mode","data-ext":"cmd"},[e("pre",{class:"language-cmd"},[e("code",null,`netstat -nlpt
+`)]),e("div",{class:"line-numbers","aria-hidden":"true"},[e("div",{class:"line-number"})])],-1),l=e("p",null,"端口、进程id",-1),d=[c,l];function o(r,_){return n(),s("div",null,d)}const m=t(a,[["render",o],["__file","netstat.html.vue"]]);export{m as default};

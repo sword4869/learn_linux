@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-0f62db39","path":"/system/kali/doc/802.11.html","title":"","lang":"en-US","frontmatter":{},"headers":[{"level":2,"title":"802.11协议版本、频段、速率对比","slug":"_802-11协议版本、频段、速率对比","link":"#_802-11协议版本、频段、速率对比","children":[]}],"git":{},"readingTime":{"minutes":0.25,"words":74},"filePathRelative":"system/kali/doc/802.11.md"}');export{e as data};

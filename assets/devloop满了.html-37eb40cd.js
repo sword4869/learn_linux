@@ -1,0 +1,22 @@
+import{_ as o,W as t,X as l,Z as n,$ as e,a0 as a,Y as i,E as p}from"./framework-9a5142fa.js";const r={},c={href:"https://blog.csdn.net/xiang0526/article/details/133862511?spm=1001.2101.3001.6650.1&utm_medium=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~Rate-1-133862511-blog-136989044.235%5Ev43%5Econtrol&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~Rate-1-133862511-blog-136989044.235%5Ev43%5Econtrol&utm_relevant_index=2",target:"_blank",rel:"noopener noreferrer"},u={href:"https://blog.csdn.net/weixin_47872288/article/details/136989044",target:"_blank",rel:"noopener noreferrer"},d=i(`<p>dev/loop是由于snap而满了，如何删除snap</p><div class="language-bash line-numbers-mode" data-ext="sh"><pre class="language-bash"><code><span class="token comment"># 无法删除</span>
+$ <span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> snap snapd
+$ <span class="token function">sudo</span> snap remove <span class="token parameter variable">--purge</span> firefox
+error: cannot perform the following tasks:
+- Remove data <span class="token keyword">for</span> snap <span class="token string">&quot;firefox&quot;</span> <span class="token punctuation">(</span><span class="token number">1943</span><span class="token punctuation">)</span> <span class="token punctuation">(</span>unlinkat /var/snap/firefox/common/host-hunspell/en_ZA.dic: read-only <span class="token function">file</span> system<span class="token punctuation">)</span>
+
+<span class="token comment"># 解决方法</span>
+<span class="token comment"># （1）Verify that indeed /var/snap/firefox/common/host-hunspell is mounted as an ext4 file system using </span>
+$ lsblk <span class="token parameter variable">-fe7</span> -o+ro
+<span class="token comment"># (2) stop the Firefox service</span>
+$ <span class="token function">sudo</span> systemctl stop var-snap-firefox-common-host<span class="token punctuation">\\</span><span class="token punctuation">\\</span>x2dhunspell.mount
+$ <span class="token function">sudo</span> systemctl disable var-snap-firefox-common-host<span class="token punctuation">\\</span><span class="token punctuation">\\</span>x2dhunspell.mount 
+Removed /etc/systemd/system/default.target.wants/var-snap-firefox-common-host<span class="token punctuation">\\</span>x2dhunspell.mount.
+Removed /etc/systemd/system/multi-user.target.wants/var-snap-firefox-common-host<span class="token punctuation">\\</span>x2dhunspell.mount.
+
+<span class="token comment"># （3）Then the uninstall command should work:</span>
+$ <span class="token function">sudo</span> snap remove <span class="token parameter variable">--purge</span> firefox
+
+<span class="token comment"># （4）重复删除剩下的</span>
+$ <span class="token function">sudo</span> snap list
+$ <span class="token function">sudo</span> snap remove <span class="token parameter variable">--purge</span> colmap
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>[Completely remove firefox snap package - Ask Ubuntu](https://askubuntu.com/questions/1414173/completely-remove-firefox-snap-package#:~:text=The following commands can be used to remove,snap%3A sudo umount %2Fvar%2Fsnap%2Ffirefox%2Fcommon%2Fhost-hunspell sudo snap remove firefox)</p>`,3),m={href:"https://forum.snapcraft.io/t/cant-remove-snap-read-only-file-system/23494/8",target:"_blank",rel:"noopener noreferrer"};function v(f,k){const s=p("ExternalLinkIcon");return t(),l("div",null,[n("p",null,[n("a",c,[e("/dev/loop0 空间满了处理方法_dev下loop都满了-CSDN博客"),a(s)])]),n("p",null,[n("a",u,[e("【Linux】详细分析/dev/loop的基本知识 | 空间满了的解决方法_devloop1满了会怎么样-CSDN博客"),a(s)])]),d,n("p",null,[n("a",m,[e("Can't remove snap: read-only file system - snap - snapcraft.io"),a(s)])])])}const h=o(r,[["render",v],["__file","devloop满了.html.vue"]]);export{h as default};

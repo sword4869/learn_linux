@@ -1,0 +1,7 @@
+import{_ as n,W as s,X as e,Y as a}from"./framework-9a5142fa.js";const i={},t=a(`<ol><li>新建系统环境变量 <code>MYTREE</code>， 值是<code>D:\\git\\localToolkit\\linux_scripts\\mytree.py</code></li><li>使用cmd验证环境变量有效有否（第一，不要用powershell，显示不出来环境变量，第二，必须重新打开cmd窗口，windows terminal 打开新标签页不行）<div class="language-bash line-numbers-mode" data-ext="sh"><pre class="language-bash"><code><span class="token builtin class-name">echo</span> %MYTREE%
+D:<span class="token punctuation">\\</span>git<span class="token punctuation">\\</span>localToolkit<span class="token punctuation">\\</span>linux_scripts<span class="token punctuation">\\</span>mytree.py
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div></div></div></li><li>测试脚本<div class="language-bash line-numbers-mode" data-ext="sh"><pre class="language-bash"><code><span class="token punctuation">(</span>nerf<span class="token punctuation">)</span> D:<span class="token punctuation">\\</span>git<span class="token operator">&gt;</span>python %MYTREE%
+├── check_git.py
+├── random_notes
+└── <span class="token builtin class-name">test</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div></li></ol>`,1),l=[t];function c(o,d){return s(),e("div",null,l)}const r=n(i,[["render",c],["__file","python文件快捷环境变量.html.vue"]]);export{r as default};

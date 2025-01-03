@@ -1,0 +1,1 @@
+import{_,W as o,X as s,Z as e,$ as t}from"./framework-9a5142fa.js";const a={},c=e("p",null,[t("把快捷方式扔到 "),e("code",null,"C:\\Users\\xxx\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs"),t("中")],-1),n=[c];function r(l,d){return o(),s("div",null,n)}const f=_(a,[["render",r],["__file","固定到开始菜单.html.vue"]]);export{f as default};

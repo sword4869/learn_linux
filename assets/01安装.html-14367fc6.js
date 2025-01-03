@@ -1,0 +1,1 @@
+import{_,W as t,X as o,Z as e}from"./framework-9a5142fa.js";const n={},s=e("p",null,"可直接安装到C盘。",-1),c=e("p",null,"conf配置 一键上传本地图片的快捷方式，是Roming下。",-1),l=e("p",null,"但是找不到设置中配置图床那些选项的配置文件在哪里。",-1),r=[s,c,l];function a(i,d){return t(),o("div",null,r)}const u=_(n,[["render",a],["__file","01安装.html.vue"]]);export{u as default};

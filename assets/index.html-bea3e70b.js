@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-0bdbb78d","path":"/system/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8/","title":"","lang":"en-US","frontmatter":{},"headers":[],"git":{},"readingTime":{"minutes":0.61,"words":183},"filePathRelative":"system/云服务器/README.md"}');export{e as data};

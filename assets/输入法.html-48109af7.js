@@ -1,0 +1,1 @@
+import{_ as e,W as _,X as s,Z as t}from"./framework-9a5142fa.js";const n={},o=t("p",null,"https://blog.csdn.net/windson_f/article/details/124932523",-1),c=t("p",null,"先设置语言",-1),l=t("p",null,"再重启",-1),a=t("p",null,"添加键盘。",-1),d=[o,c,l,a];function i(r,h){return _(),s("div",null,d)}const u=e(n,[["render",i],["__file","输入法.html.vue"]]);export{u as default};

@@ -1,0 +1,1 @@
+const a=JSON.parse('{"key":"v-49b1196b","path":"/system/kali/Project/wifi-crack/aircrack/installQA.html","title":"kmod","lang":"en-US","frontmatter":{},"headers":[],"git":{},"readingTime":{"minutes":1.77,"words":530},"filePathRelative":"system/kali/Project/wifi-crack/aircrack/installQA.md"}');export{a as data};

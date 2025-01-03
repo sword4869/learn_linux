@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-e8cd8a0a","path":"/system/wsl2/%E4%BB%A3%E7%90%86.html","title":"","lang":"en-US","frontmatter":{},"headers":[],"git":{},"readingTime":{"minutes":0.02,"words":7},"filePathRelative":"system/wsl2/代理.md"}');export{e as data};

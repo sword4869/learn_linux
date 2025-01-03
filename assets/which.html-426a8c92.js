@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-f21e58a8","path":"/%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/which.html","title":"","lang":"en-US","frontmatter":{},"headers":[],"git":{},"readingTime":{"minutes":0.06,"words":17},"filePathRelative":"常用命令/which.md"}');export{e as data};

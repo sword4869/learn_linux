@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-2bebc6f0","path":"/system/win10/scretkey.html","title":"","lang":"en-US","frontmatter":{},"headers":[],"git":{},"readingTime":{"minutes":0.61,"words":183},"filePathRelative":"system/win10/scretkey.md"}');export{e as data};

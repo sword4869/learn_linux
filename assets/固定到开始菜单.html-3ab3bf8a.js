@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-40210771","path":"/system/win10/%E5%9B%BA%E5%AE%9A%E5%88%B0%E5%BC%80%E5%A7%8B%E8%8F%9C%E5%8D%95.html","title":"","lang":"en-US","frontmatter":{},"headers":[],"git":{},"readingTime":{"minutes":0.06,"words":18},"filePathRelative":"system/win10/固定到开始菜单.md"}');export{e as data};

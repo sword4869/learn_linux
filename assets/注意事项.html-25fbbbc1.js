@@ -1,0 +1,1 @@
+const t=JSON.parse('{"key":"v-3fdfa7e8","path":"/system/reinstall-windows/typora/%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9.html","title":"","lang":"en-US","frontmatter":{},"headers":[],"git":{},"readingTime":{"minutes":0.67,"words":202},"filePathRelative":"system/reinstall-windows/typora/注意事项.md"}');export{t as data};

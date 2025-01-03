@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-508c3751","path":"/trick/make_file_size.html","title":"","lang":"en-US","frontmatter":{},"headers":[],"git":{},"readingTime":{"minutes":0.26,"words":77},"filePathRelative":"trick/make_file_size.md"}');export{e as data};

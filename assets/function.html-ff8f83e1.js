@@ -1,0 +1,1 @@
+const t=JSON.parse('{"key":"v-331382bf","path":"/bash/function.html","title":"","lang":"en-US","frontmatter":{},"headers":[],"git":{},"readingTime":{"minutes":0.15,"words":46},"filePathRelative":"bash/function.md"}');export{t as data};

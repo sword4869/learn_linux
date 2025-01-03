@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-753c3df8","path":"/%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/whereis.html","title":"","lang":"en-US","frontmatter":{},"headers":[],"git":{},"readingTime":{"minutes":0.07,"words":21},"filePathRelative":"常用命令/whereis.md"}');export{e as data};

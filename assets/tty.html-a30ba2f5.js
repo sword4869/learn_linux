@@ -1,0 +1,1 @@
+const t=JSON.parse('{"key":"v-9dfa0862","path":"/system/%E5%8F%8C%E7%B3%BB%E7%BB%9F/%E4%BF%AE%E5%A4%8D/tty.html","title":"","lang":"en-US","frontmatter":{},"headers":[],"git":{},"readingTime":{"minutes":0.09,"words":27},"filePathRelative":"system/双系统/修复/tty.md"}');export{t as data};

@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-4c2d3952","path":"/trick/machine_temperature.html","title":"","lang":"en-US","frontmatter":{},"headers":[],"git":{},"readingTime":{"minutes":0.82,"words":246},"filePathRelative":"trick/machine_temperature.md"}');export{e as data};

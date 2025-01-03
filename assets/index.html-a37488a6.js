@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-56c103ff","path":"/advance/shell%E7%BE%8E%E5%8C%96/zsh/","title":"Zsh","lang":"en-US","frontmatter":{"title":"Zsh","article":false,"feed":false,"sitemap":false},"headers":[],"git":{},"readingTime":{"minutes":0.03,"words":9},"filePathRelative":null}');export{e as data};

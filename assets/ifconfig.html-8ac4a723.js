@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-2aca95bf","path":"/basic/network/ifconfig.html","title":"","lang":"en-US","frontmatter":{},"headers":[],"git":{},"readingTime":{"minutes":0.54,"words":161},"filePathRelative":"basic/network/ifconfig.md"}');export{e as data};

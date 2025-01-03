@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-dd04c49a","path":"/system/centos/selinux.html","title":"","lang":"en-US","frontmatter":{},"headers":[],"git":{},"readingTime":{"minutes":0.06,"words":17},"filePathRelative":"system/centos/selinux.md"}');export{e as data};

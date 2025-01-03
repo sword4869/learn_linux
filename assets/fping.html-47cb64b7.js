@@ -1,0 +1,9 @@
+import{_ as s,W as l,X as i,Z as e,$ as n,a0 as c,Y as o,E as r}from"./framework-9a5142fa.js";const t={},d=e("hr",null,null,-1),p={href:"https://blog.csdn.net/sandalphon4869/article/details/119768272",target:"_blank",rel:"noopener noreferrer"},u=o(`<div class="language-bash line-numbers-mode" data-ext="sh"><pre class="language-bash"><code>$ <span class="token function">apt</span> <span class="token function">install</span> fping
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div></div></div><div class="language-bash line-numbers-mode" data-ext="sh"><pre class="language-bash"><code>$ fping <span class="token parameter variable">-a</span> <span class="token parameter variable">-g</span> <span class="token parameter variable">-q</span> <span class="token number">192.168</span>.0.1/24
+<span class="token number">192.168</span>.0.1
+<span class="token number">192.168</span>.0.105
+<span class="token number">192.168</span>.0.102
+<span class="token number">192.168</span>.0.100
+<span class="token number">192.168</span>.0.251
+<span class="token number">192.168</span>.0.250
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p><code>-a</code>：显示成功的结果 <code>-g</code>：fping 一群 ip，<code>192.168.0.1/24</code><code>-q</code>：不显示失败的结果，<code>ICMP Host Unreachable from 192.168.0.105 for ICMP Echo sent to 192.168.0.253</code>。</p><p>但是结果还是只能显示 wifi 正在跑流量的主机，那种连上 wifi 待机的就抓不到。</p>`,4);function m(v,b){const a=r("ExternalLinkIcon");return l(),i("div",null,[d,e("p",null,[n("先做到这个："),e("a",p,[n("虚拟机 ping 不通主机，但是主机可以 ping 通虚拟机"),c(a)])]),u])}const f=s(t,[["render",m],["__file","fping.html.vue"]]);export{f as default};

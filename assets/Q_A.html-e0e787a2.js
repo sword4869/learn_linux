@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-70074a42","path":"/Q_A.html","title":"ls 的10 个字符","lang":"en-US","frontmatter":{},"headers":[],"git":{},"readingTime":{"minutes":1.27,"words":382},"filePathRelative":"Q&A.md"}');export{e as data};

@@ -1,0 +1,1 @@
+import{_ as o,W as c,X as n,Z as e,$ as t}from"./framework-9a5142fa.js";const s={},_=e("p",null,[e("code",null,"top"),t(" 按大写 H 切换是否显示线程")],-1),l=e("p",null,[e("code",null,"top -p <PID> -H"),t(" 查看某个进程（PID）的所有线程")],-1),a=[_,l];function r(d,p){return c(),n("div",null,a)}const i=o(s,[["render",r],["__file","top.html.vue"]]);export{i as default};
