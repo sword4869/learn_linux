@@ -472,7 +472,7 @@ $ docker [container] logs -f -t my_ubuntu
 需要容器正在运行
 
 ```bash
-$ docker [container] cp <A> <B>
+$ docker [container] cp <源> <目的地>
 ```
 容器的文件写法是`容器名:路径`
 
