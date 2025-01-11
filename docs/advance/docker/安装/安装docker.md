@@ -61,6 +61,8 @@ docker-compose version 1.16.1, build 1719ceb
 
 ​	勾选 `Windows Subsystem for Linux（适用于Linux的Windows子系统）` 和 `Virtual Machine Platform（虚拟机平台）`（如今无须勾选Hyper-V，甚至还需要确保它关闭 [端口被hyper-v占用.md](..\..\..\system\win10\端口被hyper-v占用.md) ）
 
+PS：win10怎么还需要？ [setup.md](..\..\..\system\wsl2\setup.md)  2025年1月遇到的情况，那么问题是win11的wsl2不需要hyper-V了吗？多会再安装一台win11
+
 
 ![](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202406231914789.png)
 

@@ -1,18 +1,45 @@
-
----
+[toc]
 
 ## part 1
 
-​	点击“启用或关闭 Windows 功能”，或直接运行 `C:\Windows\System32\OptionalFeatures.exe`. 
+1、点击“启用或关闭 Windows 功能”，或直接运行 `C:\Windows\System32\OptionalFeatures.exe`，勾选
 
-​	勾选 `Windows Subsystem for Linux（适用于Linux的Windows子系统）` 和 `Virtual Machine Platform（虚拟机平台）`（如今无须勾选Hyper-V）
+- `Windows Subsystem for Linux（适用于Linux的Windows子系统）``
+- ``Virtual Machine Platform（虚拟机平台）`
+
+- win10 22H 19045 还需要 Hyper-V，win11如今无须勾选Hyper-V
 
 
 ![](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202406231914789.png)
 
-​	确保BIOS的Virtualization已开启
+2、确保BIOS的Virtualization已开启
 
 <img src="https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202406231933766.jpg" style="zoom:67%;" />
+
+3、Hypervisor enabled at Windows startup
+
+win10 22H 19045 必须要。否则报错
+```
+请启用“虚拟机平台”可选组件，并确保在 BIOS 中启用虚拟化。
+通过运行以下命令启用“虚拟机平台”: wsl.exe --install --no-distribution
+有关信息，请访问 https://aka.ms/enablevirtualization
+错误代码: Wsl/Service/CreateInstance/CreateVm/HCS/HCS_E_HYPERV_NOT_INSTALLED		【就是Hyper-V没安装】
+```
+
+
+
+win11的WSL 2既可以使用wsl2作为后端，也可以使用Hyper-V 作为后端。也就是说，我们可以不用开启 Hyper-V。
+
+```bash
+# - Open cmd (not powershell) window as an administrator.
+
+# - watch the value of `hypervisorlaunchtype`. We need enable it.
+bcdedit /enum {current}
+
+# - enable hypervisor.
+bcdedit /set hypervisorlaunchtype auto
+# - Close the cmd and restart the system.
+```
 
 ## part 2
 
