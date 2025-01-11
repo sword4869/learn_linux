@@ -135,6 +135,24 @@ $ git push origin master
     + 13c1a52...2eee0e2 main -> main (forced update)
     ```
 
+## clone
+
+`git clone 和 git clone -b 分支` 都会下载所有分支，只是下载后的检出不同。
+
+```bash
+# 下载所有分支 + 检出为默认分支
+git clone origin
+
+# 下载所有分支 + 指定了要检出的分支
+git clone -b 分支名 origin
+```
+
+如果有分支不想下载，想要加快下载速度，那么可以只下载指定分支并检出
+
+```bash
+git clone -b 分支名 --single-branch origin
+```
+
 ## pull = fetch + merge
 
 基本用法：`git pull <远程仓库> <远程分支>:<本地分支>`。远程分支→本地分支
