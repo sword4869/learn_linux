@@ -1,6 +1,8 @@
 [toc]
 
-## show names of remote repository
+## 远程仓库管理
+
+### 显示有哪些
 
 ```bash
 $ git remote
@@ -14,8 +16,6 @@ origin  https://gitee.com/sandalphon/weather_predict.git (push)
 $ git remote
 fatal: not a git repository (or any of the parent directories): .git
 ```
-## add and remove
-
 ### add a remote repository
 
 ```bash
@@ -155,6 +155,8 @@ git clone -b 分支名 --single-branch origin
 
 ## pull = fetch + merge
 
+### pull
+
 基本用法：`git pull <远程仓库> <远程分支>:<本地分支>`。远程分支→本地分支
 
 ```bash
@@ -164,6 +166,14 @@ $ git pull origin master:brantest
 # 默认本地分支同远程名
 $ git pull origin master
 ```
+
+### pull --rebase
+
+```bash
+git pull --rebase
+```
+
+
 
 ## fetch + merge
 

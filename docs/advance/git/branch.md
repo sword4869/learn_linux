@@ -4,7 +4,8 @@
 
 `git branch`列出的分支前带 `*`号的表示当前分支。
 
-- 默认显示本地分支
+默认显示本地分支
+
 - -v 显示详细信息
 - -a 显示本地和远程
 - -r 只显示远程。所以去掉了r
@@ -29,8 +30,6 @@ $ git branch -r
   origin/gh-pages
   origin/main
 ```
-
-
 
 ## remove branch
 
