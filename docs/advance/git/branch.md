@@ -35,10 +35,10 @@ $ git branch -r
 
 ```bash
 # 同当前分支一样，即merge过的，那么就不会error
-$ git branch -d <branch>
+git branch -d <branch>
 
 # 同当前分支不一样，所以要强制删除
-$ git branch -D <branch>
+git branch -D <branch>
 ```
 
 ## 切换和添加分支
@@ -50,28 +50,39 @@ $ git branch -D <branch>
 ### 切换分支
 
 ```bash
-$ git checkout orange
-# 由于checkout也是对文件的命令，git为了避免歧义而新建了switch命令。
-$ git switch orange
+# 方式一：
+git checkout orange
+
+# 方式二：由于checkout也是对文件的命令，git为了避免歧义而新建了switch命令。
+git switch orange
 ```
+
+你快速切换回前一个分支，无需记住分支名称:
+
+```bash
+git switch -
+```
+
+
 
 ### add a branch
 
 ```bash
 # git branch <branch>
-$ git branch orange
+git branch orange
 ```
 
+### add a branch and switch to it
+
 ```bash
-# add a branch and switch to it. `-b` means branch.
-$ git checkout -b <branch name>
-$ git switch -c <branch name>
+git checkout -b <branch name>
+git switch -c <branch name>
 ```
 
 ## rename a branch
 
 ```bash
-$ git branch -M main
+git branch -M main
 ```
 
 ```
@@ -87,7 +98,77 @@ Reset <branchname> to <startpoint>, even if <branchname> exists already. Without
 
 i.e. 想要重命名已存在的分支，重命名是 `-m`，而修改已存在需要 `--force`，`-M = -m -f`。
 
-## merge
+## 孤儿分支
+
+
+checkout会保持当前分支的所有内容到暂存区。
+
+switch则真是全新的分支，没有任何内容。
+
+### checkout
+
+> 1、用于 Github清除历史记录，瘦身大型仓库
+>
+> 2、清除历史
+
+1. 孤儿分支
+
+```bash
+# 先在老分支上修改，修改完了再去孤儿分支
+git add . && git commit -m '修改'
+
+git checkout --orphan new
+# 孤儿分支中什么也没有
+git add .
+git commit -m 'init'
+```
+
+2. push 孤儿分支
+
+```bash
+git push origin new
+```
+
+3. 将当前分支重命名为`hold240706`，将新分支`new`重命名`main`.
+
+   ![image-20240706230655462](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202407062306513.png)
+
+   ![image-20240706230650108](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202407062306160.png)
+
+   此时主分支会保持不变，还是`hold240706`
+
+   ![image-20240706230755111](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202407062307161.png)
+
+
+4. 管理默认分支，将默认分支设置为孤儿分支`main`
+
+   ![Alt text](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202406231908689.png)
+
+5. （可选）删除hold分支，不删就留着当做备份
+
+```bash
+git push origin :hold240128
+```
+
+6. 孤儿分支，但还是很大。因为其他分支中还存在，也就是说`.git`文件夹中还记录着其他分支的东西。
+
+   要么下面删除大文件，要么直接删除远程分支。
+
+![image-20240706233251972](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202407062332044.png)
+
+### switch
+
+```bash
+git switch --orphan new
+git status
+# 什么都
+```
+
+
+
+## 融合分支
+
+### merge
 
 `git merge <other branch>`: **当前分支吸收指定分支的内容**
 
@@ -142,7 +223,7 @@ $ git log --all --oneline --graph
 * | 3f0d8eb merge
 ```
 
-### merge冲突
+#### merge冲突
 
 ```bash
 $ git merge new
@@ -213,7 +294,7 @@ $ git log --all --oneline --graph
 * 857afae 1
 ```
 
-## rebase
+### rebase
 
 ![image-20241205190240424](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202412051902473.png)
 
@@ -236,3 +317,15 @@ Rebase
 ​	对于公共的分支，为了避免大家对于历史记录的困扰，不要用rebase，用merge。
 
 ​	自己的本地分支，可以用rebase来简洁。
+
+
+
+## 开发分支管理
+
+![alt text](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202406231906094.png)
+
+hotfix: master出现灾难，紧急修复。解决完bug后，提交给master，也提交给develop让开发也纠错。
+
+develop：从master拉取，开发后要经过测试后发布到release后，才合并给master。
+
+feature: 从develop中，突然想开发和主线**松耦合**的某个功能，开发完毕后合并给develop，不想做了也不合并给develop，因为本来就联系不紧密。

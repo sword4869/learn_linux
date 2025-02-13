@@ -22,7 +22,7 @@
 
 Protocol tcp Dynamic Port Range
 ---------------------------------
-Start Port      : 1024
+Start Port      : 1024		【问题！】
 Number of Ports : 13977
 
 # 查看当前所有已经被征用了的端口
@@ -83,7 +83,7 @@ net stop winnat
 net start winnat
 ```
 
-（2）为了以防这种windows更新而导致「TCP 动态端口范围」异常的问题，直接关闭hyper-V。
+（2）~~为了以防这种windows更新而导致「TCP 动态端口范围」异常的问题，直接关闭hyper-V~~。不行，因为wsl2需要Hyper-V！
 
 ```bash
 dism.exe /Online /Disable-Feature:Microsoft-Hyper-V

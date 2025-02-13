@@ -55,20 +55,11 @@ docker-compose version 1.16.1, build 1719ceb
 
 ### 安装
 
-（1）**wsl2 backend**：只用开启，无须安装一个Ubuntu上去。
-
-​	点击“启用或关闭 Windows 功能”，或直接运行 `C:\Windows\System32\OptionalFeatures.exe`. 
-
-​	勾选 `Windows Subsystem for Linux（适用于Linux的Windows子系统）` 和 `Virtual Machine Platform（虚拟机平台）`（如今无须勾选Hyper-V，甚至还需要确保它关闭 [端口被hyper-v占用.md](..\..\..\system\win10\端口被hyper-v占用.md) ）
-
-PS：win10怎么还需要？ [setup.md](..\..\..\system\wsl2\setup.md)  2025年1月遇到的情况，那么问题是win11的wsl2不需要hyper-V了吗？多会再安装一台win11
+“docker 现在既可以使用wsl2作为后端，也可以使用Hyper-V 作为后端”。但并不是说，我们可以不用开启 Hyper-V。因为wsl2后端本身就需要开启 Hyper-V。无语！
 
 
-![](https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202406231914789.png)
 
-​	确保BIOS的Virtualization已开启
-
-<img src="https://cdn.jsdelivr.net/gh/sword4869/pic1@main/images/202406231933766.jpg" style="zoom:67%;" />
+wsl2安装过程： [setup.md](..\..\..\system\wsl2\setup.md) 
 
 （2）Docker Desktop 
 
