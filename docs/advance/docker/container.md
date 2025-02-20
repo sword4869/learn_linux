@@ -19,42 +19,28 @@ When you run this command, the following happens:
 
 3. Docker allocates a read-write filesystem to the container, as its final layer. This allows a running container to create or modify files and directories in its local filesystem.
 
-4. Docker creates a network interface to connect the container to the default network, since you did not specify any networking options. This includes assigning an IP address to the container. By default, containers can connect to external networks using the host machine’s network connection.
+4. Docker creates a network interface to connect the container to the **default network**, since you did not specify any networking options. This includes assigning an IP address to the container. By default, containers can connect to external networks using the host machine’s network connection.
+
+
+
+> 重复运行 run 命令
+
+1、不指定名字，那么每次都创建一个新的随机名字的容器
+
+2、指定名字，报错容器已存在。
+
+```bash
+$ docker run -it --name u1 ubuntu
+root@6e6f54dd4df0:/# exit
+exit
+$ docker run -it --name u1 ubuntu
+docker: Error response from daemon: Conflict. The container name "/u1" is already in use by container "6e6f54dd4df0c3630cd52ddce94fb0b284bcd9c404f69f4595bafa7191e25f0d". You have to remove (or rename) that container to be able to reuse that name.
+```
 
 
 
 ### -itd 交互和后台
 
-> 都可以start
-
-```bash
-# 进入bash, 但是bash里exit后容器状态是Exited
-$ docker run -it ubuntu bash
-
-# 创建完的状态是up, bash里exit后容器状态还是up
-$ docker run -itd ubuntu bash
-```
-这两种方式都能进入bash.
-
-想直接进入bash, 就用前者.
-
-想开一个容器挂着, 用后者.
-
-> 不可start
-
-```bash
-# 即死状态
-# $ docker run ubuntu
-# $ docker run -d ubuntu
-# $ docker run ubuntu ls
-# $ docker run -d ubuntu ls
-```
-
-创建完后都一样是 Exited, 而且你start不了, 一直是Exited状态. 所以我称之为即死状态.
-
-前两种完全就是废物. 后面两种还有点作用, 用来执行一次性的命令. 区别就是前者, 直接打印到host控制台, 后者还得用`docker [container] logs xxx`来查看.
-
-PS: 其实还是有能用的地方, 就是执行有前台任务的镜像, 比如 nginx.
 #### -it交互
 
 用于可以交互终端的镜像，对不能交互的镜像来说该参数被忽略：
@@ -103,7 +89,7 @@ If you have many commant to run, you can write a script in your local device, `d
 
 
 
-#### -d 后台
+### -d 后台
 
 ```bash
 $ docker run -d ubuntu
@@ -383,22 +369,16 @@ tj-user tj-trade tj-search tj-message tj-media tj-pay tj-gateway tj-exam tj-cour
 ## Start|Stop|Restart|Remove
 ```bash
 $ docker [container] start|stop|restart|rm <container name>
-```
-
-Notice: When you restart a container, it starts **with the same flags or commands** that it was originally started with. 
-
-可以一次性操纵多个容器
-
-```bash
+# 可以一次性操纵多个容器
 $ docker stop nacos redis mysql
 nacos
 redis
 mysql
 ```
 
+docker stop / stop /restart 只是虚拟机一样暂停、启动，里面的进程是不会动的。
 
-
-## Operate a running container
+## 启动后运行命令 exec
 
 要在启动后才能执行命令
 
@@ -411,6 +391,8 @@ $ docker [container] exec <container name or id>
 ```bash
 $ docker exec my_ubuntu cat /proc/version
 Linux version 5.10.16.3-microsoft-standard-WSL2 (oe-user@oe-host) (x86_64-msft-linux-gcc (GCC) 9.3.0, GNU ld (GNU Binutils) 2.34.0.20200220) #1 SMP Fri Apr 2 22:23:49 UTC 2021
+
+$ docker exec my_ubuntu bash -c 'echo "abc" > 1.txt'
 ```
 ```bash
 # 让后台的调出终端
@@ -419,34 +401,65 @@ $ docker exec -it my_ubuntu bash
 root@011e5ebaf23e:/#
 ```
 
+## 容器的生命进程
+
+> "容器的生命周期依赖于其前台进程。如果前台进程退出，容器也会退出"。
+>
+> （1）run执行前台进程
+>
+> （2）docker stop / stop /restart 只是虚拟机一样暂停、启动，里面的进程是不会动的。
+
+都可以start
+
+```bash
+# 进入bash, 但是bash里exit后容器状态是Exited
+$ docker run -it ubuntu bash
+
+# 创建完的状态是up, bash里exit后容器状态还是up
+$ docker run -itd ubuntu bash
+```
+
+这两种方式都能进入bash.
+
+想直接进入bash, 就用前者.
+
+想开一个容器挂着, 用后者.
+
+> 不可start
+
+```bash
+docker run ubuntu
+docker run ubuntu ls
+```
+
+创建完后都一样是 Exited, 而且你start不了, 一直是Exited状态.
+
+因为前台已经结。
 
 
+## 删除
 
-
-
-## Remove
-
-### Automaically remove
+### run 自动删除
 
 `--rm`
 ```bash
 $ docker run --rm -it ubuntu
 ```
 
-### Manually remove exited
+### 删除
 
-正在运行的容器要停止后才能删除。
+正在运行的容器要停止后才能删除，挂载的volume不会被删。
 
 ```bash
 # 一次能删除多个
 # rm 写 remove也行
 $ docker [container] rm my_ubuntu agitated_moser
 ```
-挂载的volume不会被删.
+- 强制删除，即使正在运行: `-f`
 
-### Remove all exited
+### 批量删除
 
-如果数量太多要一个个删除可能会很麻烦，用下面的命令可以清理掉所有处于终止状态的容器。
+清理掉所有处于终止状态的容器。
 ```bash
 # 不可省略的container
 $ docker container prune
