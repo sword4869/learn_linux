@@ -270,20 +270,135 @@ docker run --name nacos1 \
 
 网络的作用：同一个网路中的容器可以通过名称互相访问，而不需要知道对方的 IP 地址（无需担心容器重启后 IP 地址发生变化）。
 
-默认桥接`bridge`, 主机`host`, `container`, `none`
+网络类型：
 
-```bash
-docker network ls									列出 Docker 网络
-docker network rm [network]							删除
-docker network create [network]						创建一个新的 Docker 网络
-docker network disconnect [network] [container]		将容器从指定的 Docker 网络中断开连接 
-docker network connect [network] [container]		🚀将容器连接到指定的 Docker 网络
-```
+- 桥接`bridge`：
+  - 每个容器都有各自的网络命名空间，容器之间可以通过 IP 地址进行通信，但需要通过端口映射来访问宿主机或其他网络中的服务
+- 主机`host`（全局唯一，只能有一个）：容器与宿主机共享同一个网络命名空间，容器直接使用宿主机的网络接口。
+- `null`（全局唯一，只能有一个）：容器没有网络接口，无法进行网络通信。
+- `overlay`（swarm才行）：在不同 Docker 主机上的容器进行通信
 
-```bash
-# 运行容器时使用新的网络：
-docker run --net [network] [image]
-```
+
+
+默认容器加入一个名为`bridge`的桥接网络。
+
+
+
+命令
+
+- 列出 Docker 网络
+
+  ```bash
+  # 列出 Docker 网络
+  docker network ls
+  NETWORK ID     NAME       DRIVER    SCOPE
+  311ffaea137e   bridge     bridge    local
+  9e437342a40c   host       host      local
+  3093d9d2bbc9   none       null      local
+  95510aa93f6d   rocketmq   bridge    local
+  
+  # 查看指定网络的详细信息
+  docker network inspect rocketmq
+  [
+      {
+          "Name": "rocketmq",
+          "Id": "95510aa93f6d12669f76348f9a160b34f11bb3a78db2aaaf40b4d121b28df30d",
+          "Created": "2024-11-27T13:40:32.572252971Z",
+          "Scope": "local",
+          "Driver": "bridge",
+          "EnableIPv6": false,
+          "IPAM": {
+              "Driver": "default",
+              "Options": {},
+              "Config": [
+                  {
+                      "Subnet": "172.18.0.0/16",
+                      "Gateway": "172.18.0.1"
+                  }
+              ]
+          },
+          "Internal": false,
+          "Attachable": false,
+          "Ingress": false,
+          "ConfigFrom": {
+              "Network": ""
+          },
+          "ConfigOnly": false,
+          "Containers": {},					【这里一个容器没有，并不是真没有，而是只展示当前活跃的容器。把容器起来就有了】
+          "Options": {},
+          "Labels": {}
+      }
+  ]
+  
+  比如
+  
+          "Containers": {
+              "1d0d027ae999e3f2af5b8e3f865e12ee0bffc861b1c27e616c6c5dbd9d806450": {
+                  "Name": "rmqdashboard",
+                  "EndpointID": "743881d3f38018e9a632e1969780bdbac6f5848d385fac33da96839a80ffb20a",
+                  "MacAddress": "02:42:ac:12:00:03",
+                  "IPv4Address": "172.18.0.3/16",						【网络地址】
+                  "IPv6Address": ""
+              },
+              "474f1f428690a89998af405646e5b134c5e1411e1a6a98d0a4b22116f3531b28": {
+                  "Name": "rmqnamesrv",
+                  "EndpointID": "966582876fc5dd2d907227067963ebcff95581d3c2d3f4c3ab3700e4dac4f3a7",
+                  "MacAddress": "02:42:ac:12:00:04",
+                  "IPv4Address": "172.18.0.4/16",
+                  "IPv6Address": ""
+              },
+              "94b6407571c9eb9e1a2bb1d3b374f01f238f2d1f039c0544666c7a842f045b30": {
+                  "Name": "rmqbroker",
+                  "EndpointID": "65c2438f85e926775a426fc7293bdb790407f04fe9860a7a3c4dee3547ccdbd5",
+                  "MacAddress": "02:42:ac:12:00:02",
+                  "IPv4Address": "172.18.0.2/16",
+                  "IPv6Address": ""
+              }
+          },
+  ```
+
+  比如，查看容器ip
+
+  ```bash
+  docker inspect --format '{{range .Containers}}{{.Name}} {{.IPv4Address}}{{println}}{{else}}With No Containers{{end}}' rocketmq
+  rmqdashboard 172.18.0.3/16
+  rmqnamesrv 172.18.0.4/16
+  rmqbroker 172.18.0.2/16
+  ```
+
+- 管理
+
+  ```bash
+  # 创建一个新的 Docker 网络
+  docker network create rocketmq
+  --driver: 指定网络驱动程序（如 bridge、host、overlay）。默认 bridge
+  --subnet: 指定子网。
+  --gateway: 指定网关。
+  --ip-range: 指定可用 IP 地址范围。
+  --ipv6: 启用 IPv6。
+  --label: 为网络添加标签。
+  
+  # 删除
+  docker network rm rocketmq						
+  ```
+
+- 容器和网络
+
+  ```bash
+  # 🚀将容器连接到指定的 Docker 网络
+  docker network disconnect [network] [container]
+  # 将容器从指定的 Docker 网络中断开连接 
+  docker network connect [network] [container]
+  ```
+
+  run时可直接配置
+
+  ```bash
+  # 运行容器时使用新的网络：
+  docker run --net [network] [image]
+  ```
+
+  
 
 https://blog.csdn.net/succing/article/details/122433770
 
@@ -479,6 +594,36 @@ $ docker [container] logs -f -t my_ubuntu
 - `-f` : 跟踪日志输出
 
 - `-t` : 显示时间戳
+
+## 配置详情
+
+查看完整配置，信息太多了，可以借助格式化输出`-f, --format`（go语法）来查看关键信息。
+
+```bash
+docker container inspect rmqbroker
+```
+
+[Docker格式化输出命令:"docker inspect --format" 学习笔记 - 散尽浮华 - 博客园](https://www.cnblogs.com/kevingrace/p/6424476.html)
+
+- 注释`{{/*注释内容*/}}`
+- 换行`{{println}}`
+- 遍历 
+  - `{{range pipeline}}{{.}}{{end}}`
+  - `{{range pipeline}}{{.}}{{else}}{{.}}{{end}}` 当pipleline什么也没有时，输出else部分
+- 索引：`{{index pipeline 0}}` 输出第一个元素。
+- json：`{{json pipeline}}`
+
+```bash
+docker inspect -f '{{range .NetworkSettings.Networks}}{{.NetworkID}} {{.DNSNames}}{{end}}' rmqbroker
+95510aa93f6d12669f76348f9a160b34f11bb3a78db2aaaf40b4d121b28df30d [rmqbroker 94b6407571c9]
+```
+
+```bash
+docker inspect -f '{{json .Args}}' rmqbroker
+["bash","-c","echo brokerIP1=192.168.60.95 > /home/rocketmq/rocketmq-5.3.1/conf/broker.conf & sh mqbroker --enable-proxy -c /home/rocketmq/rocketmq-5.3.1/conf/broker.conf"]
+```
+
+
 
 ## cp
 
