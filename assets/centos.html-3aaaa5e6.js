@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-6db03d24","path":"/advance/shell%E7%BE%8E%E5%8C%96/zsh/centos.html","title":"","lang":"en-US","frontmatter":{},"headers":[],"git":{},"readingTime":{"minutes":0.71,"words":212},"filePathRelative":"advance/shell美化/zsh/centos.md"}');export{e as data};

@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-931672c4","path":"/advance/git/writing%20pull%20request.html","title":"Writing pull requests","lang":"en-US","frontmatter":{},"headers":[],"git":{},"readingTime":{"minutes":0.16,"words":47},"filePathRelative":"advance/git/writing pull request.md"}');export{e as data};

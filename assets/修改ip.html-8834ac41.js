@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-64429e3f","path":"/system/kali/%E4%BF%AE%E6%94%B9ip.html","title":"","lang":"en-US","frontmatter":{},"headers":[],"git":{},"readingTime":{"minutes":0.3,"words":89},"filePathRelative":"system/kali/修改ip.md"}');export{e as data};

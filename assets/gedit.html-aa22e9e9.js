@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-27a554aa","path":"/advance/%E7%BC%96%E8%BE%91%E5%99%A8/gedit.html","title":"","lang":"en-US","frontmatter":{},"headers":[],"git":{},"readingTime":{"minutes":0,"words":0},"filePathRelative":"advance/编辑器/gedit.md"}');export{e as data};

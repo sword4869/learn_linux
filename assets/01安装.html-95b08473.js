@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-02db034e","path":"/advance/%E7%BC%96%E8%BE%91%E5%99%A8/typora/01%E5%AE%89%E8%A3%85.html","title":"","lang":"en-US","frontmatter":{},"headers":[],"git":{},"readingTime":{"minutes":0.17,"words":51},"filePathRelative":"advance/编辑器/typora/01安装.md"}');export{e as data};

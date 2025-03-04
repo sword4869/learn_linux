@@ -1,0 +1,1 @@
+const a=JSON.parse('{"key":"v-53c37f76","path":"/advance/%E7%BC%96%E8%BE%91%E5%99%A8/typora/%E7%A0%B4%E8%A7%A3%E7%89%88.html","title":"激活方法","lang":"en-US","frontmatter":{},"headers":[],"git":{},"readingTime":{"minutes":0.67,"words":201},"filePathRelative":"advance/编辑器/typora/破解版.md"}');export{a as data};

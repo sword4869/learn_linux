@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-29b48e9f","path":"/advance/vscode/","title":"1. Workspace settings & User settings","lang":"en-US","frontmatter":{},"headers":[],"git":{},"readingTime":{"minutes":0.11,"words":32},"filePathRelative":"advance/vscode/README.md"}');export{e as data};

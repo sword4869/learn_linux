@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-b4006ffe","path":"/system/ubuntu/%E9%98%B2%E7%81%AB%E5%A2%99/","title":"防火墙","lang":"en-US","frontmatter":{"title":"防火墙","article":false,"feed":false,"sitemap":false},"headers":[],"git":{},"readingTime":{"minutes":0.03,"words":9},"filePathRelative":null}');export{e as data};

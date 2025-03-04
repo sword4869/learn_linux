@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-5ce26ec6","path":"/system/%E4%B9%B0%E7%94%B5%E8%84%91/","title":"买电脑","lang":"en-US","frontmatter":{"title":"买电脑","article":false,"feed":false,"sitemap":false},"headers":[],"git":{},"readingTime":{"minutes":0.03,"words":9},"filePathRelative":null}');export{e as data};

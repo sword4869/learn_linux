@@ -1,0 +1,1 @@
+const t=JSON.parse('{"key":"v-3649e3d5","path":"/system/kali/doc/Microsoft%20Network%20Monitor.html","title":"","lang":"en-US","frontmatter":{},"headers":[],"git":{},"readingTime":{"minutes":0.21,"words":63},"filePathRelative":"system/kali/doc/Microsoft Network Monitor.md"}');export{t as data};

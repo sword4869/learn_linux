@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-74685733","path":"/system/kali/doc/showLiveHost/fping.html","title":"","lang":"en-US","frontmatter":{},"headers":[],"git":{},"readingTime":{"minutes":0.38,"words":113},"filePathRelative":"system/kali/doc/showLiveHost/fping.md"}');export{e as data};

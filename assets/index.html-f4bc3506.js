@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-6aaf3569","path":"/advance/docker/","title":"glossary","lang":"en-US","frontmatter":{},"headers":[],"git":{},"readingTime":{"minutes":0.79,"words":236},"filePathRelative":"advance/docker/readme.md"}');export{e as data};

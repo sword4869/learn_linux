@@ -1,0 +1,1 @@
+const t=JSON.parse('{"key":"v-d3be7f22","path":"/system/wsl2/usb%20support.html","title":"1. OS","lang":"en-US","frontmatter":{},"headers":[],"git":{},"readingTime":{"minutes":1.25,"words":376},"filePathRelative":"system/wsl2/usb support.md"}');export{t as data};

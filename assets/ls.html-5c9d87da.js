@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-58e26ee2","path":"/%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/ls.html","title":"","lang":"en-US","frontmatter":{},"headers":[{"level":2,"title":"ls 的10 个字符","slug":"ls-的10-个字符","link":"#ls-的10-个字符","children":[]}],"git":{},"readingTime":{"minutes":0.47,"words":141},"filePathRelative":"常用命令/ls.md"}');export{e as data};

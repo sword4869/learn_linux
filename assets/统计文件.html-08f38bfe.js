@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-241c7e2f","path":"/basic/%E7%BB%9F%E8%AE%A1%E6%96%87%E4%BB%B6.html","title":"","lang":"en-US","frontmatter":{},"headers":[],"git":{},"readingTime":{"minutes":0.23,"words":68},"filePathRelative":"basic/统计文件.md"}');export{e as data};

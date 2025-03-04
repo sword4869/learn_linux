@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-46b39d0f","path":"/advance/shell%E7%BE%8E%E5%8C%96/oh-my-posh/","title":"","lang":"en-US","frontmatter":{},"headers":[],"git":{},"readingTime":{"minutes":0.75,"words":226},"filePathRelative":"advance/shell美化/oh-my-posh/readme.md"}');export{e as data};

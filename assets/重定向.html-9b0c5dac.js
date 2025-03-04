@@ -1,0 +1,1 @@
+const a=JSON.parse('{"key":"v-9bc8a0a0","path":"/basic/%E9%87%8D%E5%AE%9A%E5%90%91.html","title":"","lang":"en-US","frontmatter":{},"headers":[],"git":{},"readingTime":{"minutes":0.78,"words":233},"filePathRelative":"basic/重定向.md"}');export{a as data};

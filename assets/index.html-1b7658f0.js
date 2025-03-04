@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-75c4092c","path":"/system/win10/%E8%84%9A%E6%9C%AC/","title":"脚本","lang":"en-US","frontmatter":{"title":"脚本","article":false,"feed":false,"sitemap":false},"headers":[],"git":{},"readingTime":{"minutes":0.03,"words":9},"filePathRelative":null}');export{e as data};

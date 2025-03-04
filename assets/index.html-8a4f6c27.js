@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-866b2a56","path":"/system/kali/","title":"Kali","lang":"en-US","frontmatter":{"title":"Kali","article":false,"feed":false,"sitemap":false},"headers":[],"git":{},"readingTime":{"minutes":0.03,"words":9},"filePathRelative":null}');export{e as data};
