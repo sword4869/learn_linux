@@ -125,7 +125,7 @@ $ docker run --name my_ubuntu ubuntu
 ```
 如果指定了名字，那么再次运行相同的命令，也不会覆盖老的容器，而是**报错**，想要重用就得**删除原来的容器**。
 
-### -p 端口映射
+### -p 端口 [本地]:[容器]
 
 ```bash
 $ docker run -d -p 8000:80 docker/getting-started
