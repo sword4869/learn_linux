@@ -88,22 +88,77 @@ These letters represent the two ways that devices transfer data in and out.
   These devices require higher-­speed data throughput, like hard drives and DVD drives
 
 
-### Mount
+### Mount 挂载
+
+OS已物理挂载，但我们还需要手动逻辑挂载——挂载到哪个文件夹上（挂载点）。
+
+虽然任意文件夹都行，但常规一般是
+- `/mnt`：内部硬盘
+- `/media` ：外部USB设备
 
 
-Most modern operating systems automount storage devices when they’re attached.
 
-Even if the device is **physically attached** to the system, it is still necessarily **logically attached** to the operating system.
+确定新设备`/dev/sdb1`
 
-Mount point: 
-- the point in the directory tree where devices are attached. 
-- The two main mount points in Linux are `/mnt` and `/media`.
-- internal hard drives are mounted at `/mnt`, and external USB devicesare mounted at `/media`. Though technically any directory can be used
+```bash
+# 插入usb前
+lab@labU:~$ lsblk
+NAME        MAJ:MIN RM   SIZE RO TYPE MOUNTPOINTS
+loop0         7:0    0  73.9M  1 loop /snap/core22/1748
+loop1         7:1    0     4K  1 loop /snap/bare/5
+loop2         7:2    0  44.4M  1 loop /snap/snapd/23771
+loop3         7:3    0  91.7M  1 loop /snap/gtk-common-themes/1535
+loop4         7:4    0 258.3M  1 loop /snap/firefox/5917
+sda           8:0    0 931.5G  0 disk
+├─sda1        8:1    0 818.2G  0 part
+└─sda2        8:2    0 113.3G  0 part
+nvme0n1     259:0    0 238.5G  0 disk
+├─nvme0n1p1 259:1    0   100M  0 part /boot/efi
+├─nvme0n1p2 259:2    0    16M  0 part
+├─nvme0n1p3 259:3    0 237.7G  0 part
+└─nvme0n1p4 259:4    0   598M  0 part
+nvme1n1     259:5    0 931.5G  0 disk
+├─nvme1n1p1 259:6    0    16M  0 part [SWAP]
+├─nvme1n1p2 259:7    0 638.5G  0 part
+├─nvme1n1p3 259:8    0   7.6G  0 part [SWAP]
+├─nvme1n1p4 259:9    0  93.1G  0 part /
+└─nvme1n1p5 259:10   0 192.2G  0 part /home
 
-临时挂载：The mount point (`/mnt/data`) for the device should be an empty directory and be created before `mount`.
+# 插入usb后
+lab@labU:~$ lsblk
+NAME        MAJ:MIN RM   SIZE RO TYPE MOUNTPOINTS
+loop0         7:0    0  73.9M  1 loop /snap/core22/1748
+loop1         7:1    0     4K  1 loop /snap/bare/5
+loop2         7:2    0  44.4M  1 loop /snap/snapd/23771
+loop3         7:3    0  91.7M  1 loop /snap/gtk-common-themes/1535
+loop4         7:4    0 258.3M  1 loop /snap/firefox/5917
+sda           8:0    0 931.5G  0 disk
+├─sda1        8:1    0 818.2G  0 part
+└─sda2        8:2    0 113.3G  0 part
+sdb           8:16   1  58.6G  0 disk
+└─sdb1        8:17   1  58.6G  0 part						# <<<<<<<<<<<<<<<<<<<<<<<<<<<
+nvme0n1     259:0    0 238.5G  0 disk
+├─nvme0n1p1 259:1    0   100M  0 part /boot/efi
+├─nvme0n1p2 259:2    0    16M  0 part
+├─nvme0n1p3 259:3    0 237.7G  0 part
+└─nvme0n1p4 259:4    0   598M  0 part
+nvme1n1     259:5    0 931.5G  0 disk
+├─nvme1n1p1 259:6    0    16M  0 part [SWAP]
+├─nvme1n1p2 259:7    0 638.5G  0 part
+├─nvme1n1p3 259:8    0   7.6G  0 part [SWAP]
+├─nvme1n1p4 259:9    0  93.1G  0 part /
+└─nvme1n1p5 259:10   0 192.2G  0 part /home
+```
+
+
+
+
+
+临时挂载：
 
 ```bash
 # mount <device> <mount point>
+# 1，先创建空文件夹来挂载
 $ mkdir /mnt/data
 $ sudo mount /dev/sdb1 /mnt/data
 ```
