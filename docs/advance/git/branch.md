@@ -161,10 +161,8 @@ git push origin :hold240128
 ```bash
 git switch --orphan new
 git status
-# 什么都
+# 什么都没有
 ```
-
-
 
 ## 融合分支
 

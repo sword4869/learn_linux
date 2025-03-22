@@ -147,11 +147,19 @@ git clone origin
 git clone -b 分支名 origin
 ```
 
-如果有分支不想下载，想要加快下载速度，那么可以只下载指定分支并检出
+
+
+只下载指定分支并检出，可加快下载速度。
 
 ```bash
 git clone -b 分支名 --single-branch origin
 ```
+
+
+
+> Q：git 可不可以直接克隆指定提交
+>
+> A：不可。只能手动clone再checkout commit2
 
 ## pull = fetch + merge
 
