@@ -60,6 +60,20 @@ $ id2=$(id -u -n)
 $ echo $id2
 ```
 
+
+
+```bash
+% dir=$(basename "$PWD")
+% echo $dir
+kafka-go-getting-started
+% basename "$PWD" 
+kafka-go-getting-started
+% echo "$PWD"    
+~/Project/kafka-go-getting-started
+```
+
+
+
 ## alias
 
 ```bash
