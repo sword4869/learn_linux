@@ -5,7 +5,7 @@
 1、点击“启用或关闭 Windows 功能”，或直接运行 `C:\Windows\System32\OptionalFeatures.exe`，勾选
 
 - `Windows Subsystem for Linux（适用于Linux的Windows子系统）`
-- ``Virtual Machine Platform（虚拟机平台）`
+- `Virtual Machine Platform（虚拟机平台）`
 - `Hyper-V`
 
 
@@ -75,7 +75,7 @@ bcdedit /set hypervisorlaunchtype auto
     SUSE-Linux-Enterprise-15-SP5           SUSE Linux Enterprise 15 SP5
     openSUSE-Tumbleweed                    openSUSE Tumbleweed 
 
-    $ wsl --install Ubuntu
+    $ wsl --install -d Ubuntu
     ```
 
 3. WslRegisterDistribution failed with error: 0x800701bc

@@ -1,4 +1,3 @@
-```json
 {
     "audioFx": {
         "delay": 0,
@@ -570,4 +569,3 @@
     "speedPresetRows": 4,
     "version": 12
 }
-```
